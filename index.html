@@ -98,13 +98,13 @@
 <h3 id="配置虚拟域名"><a href="#配置虚拟域名" class="headerlink" title="配置虚拟域名"></a>配置虚拟域名</h3><p>至此，项目预览基本没有问题。测试中发现部分链接引用的相对路径出错。因此可以配置xmapp文件，为当前项目开启虚拟路径。<br>具体方式如下<br>修改apace/conf/extra/httpd-vhosts.conf<br>添加如下代码</p>
 <blockquote>
 <pre><code>&lt;VirtualHost laravel.dev:80&gt;
-    DocumentRoot &quot;D:\xampp\htdocs\laravel\public&quot;
-  ServerAdmin laravel.dev
-  &lt;Directory &quot;D:\xampp\htdocs\laravel&quot;&gt;
-      Options Indexes FollowSymLinks
-      AllowOverride All
-      Require all granted
-  &lt;/Directory&gt;
+    DocumentRoot &quot;D:\xampp\htdocs\laravel\public&quot; 
+    ServerAdmin laravel.dev
+      &lt;Directory &quot;D:\xampp\htdocs\laravel&quot;&gt;
+        Options Indexes FollowSymLinks
+        AllowOverride All
+         Require all granted
+      &lt;/Directory&gt;
 &lt;/VirtualHost&gt;
 </code></pre></blockquote>
 <p>注意开启nameVirtualHost*:80 这一行。<br>至此，环境搭建完全完成。</p>
@@ -112,7 +112,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/27/laravel-startup/" data-id="cje5t3e0p0000r2u2xnha9juu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/02/27/laravel-startup/" data-id="cje5td14e0001sbu28bfideo2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -171,7 +171,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/20/learn-program-datastructure/" data-id="cje5t3e1d0002r2u2ncpbuv6s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/20/learn-program-datastructure/" data-id="cje5td14i0002sbu2uz92n5jk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -238,7 +238,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/16/learning-program-c/" data-id="cje5t3e1g0003r2u2o5xhvree" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/16/learning-program-c/" data-id="cje5td14k0003sbu216cfia13" class="article-share-link">Share</a>
       
       
     </footer>
@@ -283,7 +283,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/09/17/hello-world/" data-id="cje5t3e1a0001r2u2gfbc1l9a" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/09/17/hello-world/" data-id="cje5td1470000sbu2rygvzi4o" class="article-share-link">Share</a>
       
       
     </footer>

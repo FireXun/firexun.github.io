@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/02/27/laravel-startup/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="最近接触了一个使用larval框架的php项目，虽然有过一些tp5开发的经验，对于环境的认识也还是很不专业，见招拆招了。 服务器环境是linux系统，项目是从别人的手上半途接过来，因此首要的任务就是熟悉环境，并在本地搭建。 登陆服务器开启vpn，使用个人域名账号登陆跳板机，然后通过跳板机跳转到测试服务器。 下载相关源代码在文件路径下直接使用将项目打包，根据之前的文档了解到可使用sz，rz指令来实现">
-<meta property="og:updated_time" content="2018-02-27T15:31:32.000Z">
+<meta property="og:updated_time" content="2018-02-27T15:35:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="laravel项目迁移">
 <meta name="twitter:description" content="最近接触了一个使用larval框架的php项目，虽然有过一些tp5开发的经验，对于环境的认识也还是很不专业，见招拆招了。 服务器环境是linux系统，项目是从别人的手上半途接过来，因此首要的任务就是熟悉环境，并在本地搭建。 登陆服务器开启vpn，使用个人域名账号登陆跳板机，然后通过跳板机跳转到测试服务器。 下载相关源代码在文件路径下直接使用将项目打包，根据之前的文档了解到可使用sz，rz指令来实现">
@@ -100,13 +100,13 @@
 <h3 id="配置虚拟域名"><a href="#配置虚拟域名" class="headerlink" title="配置虚拟域名"></a>配置虚拟域名</h3><p>至此，项目预览基本没有问题。测试中发现部分链接引用的相对路径出错。因此可以配置xmapp文件，为当前项目开启虚拟路径。<br>具体方式如下<br>修改apace/conf/extra/httpd-vhosts.conf<br>添加如下代码</p>
 <blockquote>
 <pre><code>&lt;VirtualHost laravel.dev:80&gt;
-    DocumentRoot &quot;D:\xampp\htdocs\laravel\public&quot;
-  ServerAdmin laravel.dev
-  &lt;Directory &quot;D:\xampp\htdocs\laravel&quot;&gt;
-      Options Indexes FollowSymLinks
-      AllowOverride All
-      Require all granted
-  &lt;/Directory&gt;
+    DocumentRoot &quot;D:\xampp\htdocs\laravel\public&quot; 
+    ServerAdmin laravel.dev
+      &lt;Directory &quot;D:\xampp\htdocs\laravel&quot;&gt;
+        Options Indexes FollowSymLinks
+        AllowOverride All
+         Require all granted
+      &lt;/Directory&gt;
 &lt;/VirtualHost&gt;
 </code></pre></blockquote>
 <p>注意开启nameVirtualHost*:80 这一行。<br>至此，环境搭建完全完成。</p>
@@ -114,7 +114,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/27/laravel-startup/" data-id="cje5t3e0p0000r2u2xnha9juu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/02/27/laravel-startup/" data-id="cje5td14e0001sbu28bfideo2" class="article-share-link">Share</a>
       
       
     </footer>
