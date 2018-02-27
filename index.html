@@ -61,6 +61,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ip-address-config" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/27/ip-address-config/" class="article-date">
+  <time datetime="2018-02-27T15:59:25.000Z" itemprop="datePublished">2018-02-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/27/ip-address-config/">ip-address-config</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>带着笔记本有时候在固定的地方工作，需要用到同一个的Ip地址。换个地方换个Ip，又要重新输一遍。</p>
+<p>感觉这个过程很繁琐，因为是window工作环境，一开始想到了vbs脚本。</p>
+<p>无意中发现了强大的netsh命令。。。。</p>
+<p>下面分两个部分，先介绍netsh的基本用法，然后贴段vbs脚本实现自动配置IP地址功能。</p>
+<h4 id="netsh常见用法"><a href="#netsh常见用法" class="headerlink" title="netsh常见用法"></a>netsh常见用法</h4><p>查看网络配置 netsh interface ip show {选项}<br>配置接口IP/网关IP netsh interface ip set address “本地连接” static ip地址 子网掩码 网关<br>配置自动换取IP地址 DNS地址及 wins地址<br>　　　　netsh interface ip set address “本地连接” dhcp</p>
+<p>　　　　netsh interface ip set dns “本地连接” dhcp</p>
+<p>　　　　netsh interface ip set wins “本地连接” dhcp</p>
+<p>配置静态IP地址 DNS地址 及 wins地址<br>　　　　netsh interface ip set address “本地连接” static ip地址</p>
+<p>　　　　netsh interface ip set dns “本地连接” static 子网掩码</p>
+<p>　　　　netsh interface ip set wins “本地连接” static 网关</p>
+<p>查看网络配置文件 netsh -c interface dump 使用管道 &gt; 可导出为网络配置文件<br>导入网络配置文件 netsh -f 文件位置 或者 netsh exec 文件位置</p>
+<h4 id="vbs实现配置脚本"><a href="#vbs实现配置脚本" class="headerlink" title="vbs实现配置脚本"></a>vbs实现配置脚本</h4><p>strIP = “10.37.7.228”<br>strMask = “255.255.255.0”<br>strGW = “10.37.7.254”</p>
+<p>strComputer = “.”<br>Set objWMIService = GetObject(“winmgmts://“ &amp; strComputer &amp; “/root/cimv2”)<br>Set colNetAdapters = objWMIService.ExecQuery _<br>(“Select * from Win32_NetworkAdapterConfiguration where IPEnabled=TRUE”)</p>
+<p>strIPAddress = Array(strIP)<br>strSubnetMask = Array(strMask)<br>strGateway = Array(strGW)<br>strGatewayMetric = Array(1)</p>
+<p>For Each objNetAdapter in colNetAdapters<br>    errEnable = objNetAdapter.EnableStatic(strIPAddress, strSubnetMask)<br>    errGateways = objNetAdapter.SetGateways(strGateway, strGatewaymetric)<br>    If errEnable = 0 Then<br>        WScript.Echo “IP地址已更改。”<br>    Else<br>        WScript.Echo “更改IP地址失败。”<br>    End If<br>Next</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/27/ip-address-config/" data-id="cje5uasup0001upu2b4wuhtmh" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-laravel-startup" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/02/27/laravel-startup/" class="article-date">
@@ -112,7 +163,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/27/laravel-startup/" data-id="cje5tlwst0001t6u2b8t9nr9p" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/02/27/laravel-startup/" data-id="cje5uasuu0002upu211y429ad" class="article-share-link">Share</a>
       
       
     </footer>
@@ -171,7 +222,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/20/learn-program-datastructure/" data-id="cje5tlwsx0002t6u2f91m0gtz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/20/learn-program-datastructure/" data-id="cje5uasuw0003upu2pg6mtomg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -238,7 +289,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/16/learning-program-c/" data-id="cje5tlwsz0003t6u2236fkexm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/16/learning-program-c/" data-id="cje5uasux0004upu2a2c4sc2i" class="article-share-link">Share</a>
       
       
     </footer>
@@ -283,7 +334,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/09/17/hello-world/" data-id="cje5tlwsl0000t6u2620wtvc2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/09/17/hello-world/" data-id="cje5uasui0000upu2fzffw3lk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -321,6 +372,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/02/27/ip-address-config/">ip-address-config</a>
+          </li>
         
           <li>
             <a href="/2018/02/27/laravel-startup/">laravel项目迁移</a>
