@@ -181,13 +181,15 @@
 <p>感觉这个过程很繁琐，因为是window工作环境，一开始想到了vbs脚本。</p>
 <p>无意中发现了强大的netsh命令。。。。</p>
 <p>下面分两个部分，先介绍netsh的基本用法，然后贴段vbs脚本实现自动配置IP地址功能。</p>
-<h4 id="netsh常见用法"><a href="#netsh常见用法" class="headerlink" title="netsh常见用法"></a>netsh常见用法</h4><p>查看网络配置 netsh interface ip show {选项}<br>配置接口IP/网关IP netsh interface ip set address “本地连接” static ip地址 子网掩码 网关<br>配置自动换取IP地址 DNS地址及 wins地址<br>　　　　netsh interface ip set address “本地连接” dhcp</p>
-<p>　　　　netsh interface ip set dns “本地连接” dhcp</p>
-<p>　　　　netsh interface ip set wins “本地连接” dhcp</p>
-<p>配置静态IP地址 DNS地址 及 wins地址<br>　　　　netsh interface ip set address “本地连接” static ip地址</p>
-<p>　　　　netsh interface ip set dns “本地连接” static 子网掩码</p>
-<p>　　　　netsh interface ip set wins “本地连接” static 网关</p>
-<p>查看网络配置文件 netsh -c interface dump 使用管道 &gt; 可导出为网络配置文件<br>导入网络配置文件 netsh -f 文件位置 或者 netsh exec 文件位置</p>
+<h4 id="netsh常见用法"><a href="#netsh常见用法" class="headerlink" title="netsh常见用法"></a>netsh常见用法</h4><p>查看网络配置 netsh interface ip show {选项}<br>配置接口IP/网关IP netsh interface ip set address “本地连接” static ip地址 子网掩码 网关<br>配置自动换取IP地址 DNS地址及 wins地址</p>
+<pre><code>netsh interface ip set address &quot;本地连接&quot; dhcp
+netsh interface ip set dns &quot;本地连接&quot; dhcp
+netsh interface ip set wins &quot;本地连接&quot; dhcp
+</code></pre><p>配置静态IP地址 DNS地址 及 wins地址</p>
+<pre><code>netsh interface ip set address &quot;本地连接&quot; static ip地址
+netsh interface ip set dns &quot;本地连接&quot; static 子网掩码
+netsh interface ip set wins &quot;本地连接&quot; static 网关
+</code></pre><p>查看网络配置文件 netsh -c interface dump 使用管道 &gt; 可导出为网络配置文件<br>导入网络配置文件 netsh -f 文件位置 或者 netsh exec 文件位置</p>
 <h4 id="vbs实现配置脚本"><a href="#vbs实现配置脚本" class="headerlink" title="vbs实现配置脚本"></a>vbs实现配置脚本</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">strIP = &quot;10.37.7.228&quot;</div><div class="line">strMask = &quot;255.255.255.0&quot;</div><div class="line">strGW = &quot;10.37.7.254&quot;</div><div class="line"></div><div class="line">strComputer = &quot;.&quot;</div><div class="line">Set objWMIService = GetObject(&quot;winmgmts://&quot; &amp; strComputer &amp; &quot;/root/cimv2&quot;)</div><div class="line">Set colNetAdapters = objWMIService.ExecQuery _</div><div class="line">(&quot;Select * from Win32_NetworkAdapterConfiguration where IPEnabled=TRUE&quot;)</div><div class="line"></div><div class="line">strIPAddress = Array(strIP)</div><div class="line">strSubnetMask = Array(strMask)</div><div class="line">strGateway = Array(strGW)</div><div class="line">strGatewayMetric = Array(1)</div><div class="line"></div><div class="line">For Each objNetAdapter in colNetAdapters</div><div class="line">    errEnable = objNetAdapter.EnableStatic(strIPAddress, strSubnetMask)</div><div class="line">    errGateways = objNetAdapter.SetGateways(strGateway, strGatewaymetric)</div><div class="line">    If errEnable = 0 Then</div><div class="line">        WScript.Echo &quot;IP地址已更改。&quot;</div><div class="line">    Else</div><div class="line">        WScript.Echo &quot;更改IP地址失败。&quot;</div><div class="line">    End If</div><div class="line">Next</div></pre></td></tr></table></figure>
 
       
@@ -275,7 +277,6 @@
 <li>直接打包所有目录</li>
 </ul>
 <h3 id="配置虚拟域名"><a href="#配置虚拟域名" class="headerlink" title="配置虚拟域名"></a>配置虚拟域名</h3><p>至此，项目预览基本没有问题。测试中发现部分链接引用的相对路径出错。因此可以配置xmapp文件，为当前项目开启虚拟路径。<br>具体方式如下<br>修改apace/conf/extra/httpd-vhosts.conf<br>添加如下代码</p>
-<blockquote>
 <pre><code>&lt;VirtualHost laravel.dev:80&gt;
     DocumentRoot &quot;D:\xampp\htdocs\laravel\public&quot; 
     ServerAdmin laravel.dev
@@ -285,8 +286,7 @@
          Require all granted
       &lt;/Directory&gt;
 &lt;/VirtualHost&gt;
-</code></pre></blockquote>
-<p>注意开启nameVirtualHost*:80 这一行。<br>至此，环境搭建完全完成。</p>
+</code></pre><p>注意开启nameVirtualHost*:80 这一行。<br>至此，环境搭建完全完成。</p>
 
       
 
