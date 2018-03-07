@@ -137,6 +137,284 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-getcoin" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/07/getcoin/">getcoin</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/07/getcoin/" class="archive-article-date">
+  	<time datetime="2018-03-07T07:00:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近看到个特别全面源码分享网站，刚好有个项目是一直想做但是没有头绪的，就想下载学习一下。注册账号后，发现还需要若干金币。后来发现可以通过每隔一定时间发心情状态来获得金币，就打算写一个自动发心情状态的python脚本来收割金币。</p>
+<h3 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h3><p>使用burp抓取一下提交的包，如下图所示：<br><img src="http://upload-images.jianshu.io/upload_images/2303859-1d56ed3fa41ffe3a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="心情状态包.png"></p>
+<p>因此我们的目的是写一个自动提交心情的python脚本，提交包中需要包含必要的cookie信息，隐藏的radom字符串，心情文本内容，和文件，经测试发现文件可为空。表单中只包含前两项就可以成功增加金币，这就更加省事了。<br>文末附有完整python代码，接下来我们看一下是怎么一步步写出来的。</p>
+<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h4><p>首先先写读取页面的功能！这个之前也写过很多，都是搜索出一段代码来直接使用。然而这次找了几段代码代码应为python及库的版本问题都不太好调试。<br>就直接看requests库官方文档，官方文档才是最好的资料。<br>版本1代码</p>
+<pre><code>#coding:utf-8  
+import requests
+url_home = &quot;http://www.home.com/&quot;
+r = requests.get(url_home)
+print(r.text)
+</code></pre><p>执行结果如下图所示，我们能够获得网站<br><img src="http://upload-images.jianshu.io/upload_images/2303859-4cc7b556b2104a15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></p>
+<p>此时获得的页面是未曾登陆的无法发表心情状态。</p>
+<h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><p>接下来我们先将cookie信息硬编码到代码中，来测试一下。<br>cookie信息可如下图所示从浏览器中获取.<br><img src="http://upload-images.jianshu.io/upload_images/2303859-3cc24818e9428260.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="cookie.png"></p>
+<p>版本2代码：</p>
+<pre><code>#coding:utf-8  
+import requests
+cookies = dict(zdmid=&quot;93EB84AE485E7B7E365C4F87691F8A9D&quot;)
+url_home = &quot;http://www.home.com/&quot;
+r = requests.get(url_home，cookies=cookies)
+print(r.text)
+</code></pre><p>此时返回页面正常登陆<img src="http://upload-images.jianshu.io/upload_images/2303859-b9001301d8372fc1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="home.png"></p>
+<h3 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h3><p>接下来我们提取需要提交表单的隐藏input随机字符串，同时选择当前首页的其他人的心情状态作为我们的文本内容。<br>解析html，当然是神库beautifulSoup4了，别无他想。分析需要提取的值在html页面的具体位置，查看官方文档选择合适的api方法，然后编写代码实现。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-be8fb274e3590a41.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="random.png"><br>同样方法获得心情内容所在位置，进一步完善代码。<br>版本3代码</p>
+<pre><code>#coding:utf-8  
+import requests
+from bs4 import BeautifulSoup
+
+cookies = dict(zdmid=&quot;451178ECCF2145D24F94DE0A1DF7D658&quot;)
+url_home = &quot;http://www.home.com/&quot;
+r = requests.get(url_home, cookies=cookies)
+soup = BeautifulSoup(r.text, &apos;html.parser&apos;)
+random = soup.form.input.attrs[&quot;value&quot;] 
+content = soup.select_one(&quot;.content&quot;).contents[0]
+
+print(random)
+print(content)
+</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/2303859-e9edf16b638cae94.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="提取内容.png"></p>
+<h3 id="第四步骤"><a href="#第四步骤" class="headerlink" title="第四步骤"></a>第四步骤</h3><p>接下来我们来实现提交心情状态功能。<br>只需要将上一步骤提取的内容构造post提交就可以了。</p>
+<p>版本4代码</p>
+<pre><code>#coding:utf-8  
+import requests
+from bs4 import BeautifulSoup
+
+cookies = dict(zdmid=&quot;451178ECCF2145D24F94DE0A1DF7D658&quot;)
+url_home = &quot;http://www.home.com/&quot;
+r = requests.get(url_home, cookies=cookies)
+soup = BeautifulSoup(r.text, &apos;html.parser&apos;)
+random = soup.form.input.attrs[&quot;value&quot;] 
+content = soup.select_one(&quot;.content&quot;).contents[0]
+
+mood_create = &apos;http://www.mood/create.htm&apos;
+payload = {&apos;radom&apos;: radom, &apos;content&apos;: content}
+requests.post(mood_create, cookies=cookies, data=payload)
+</code></pre><h3 id="第五步"><a href="#第五步" class="headerlink" title="第五步"></a>第五步</h3><p>上面的代码因为cookie的值是硬编码在脚本中，这样一旦session过期，后面将会跳转到未登录装填。这就需要我们重新去更新cookie对应的值，那么有没有方法可以解决这个问题呢？<br>当然是有的。看一下requests提供的session解决方案，如下图<br><img src="http://upload-images.jianshu.io/upload_images/2303859-ce0febe5ac7cd30d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="session.png"></p>
+<p>因此可以使用session来改造代码，requests中的session将会自动保存相关的cookie信息，如此每次运行就可以自动使用账号及密码登陆。<br>版本5代码</p>
+<pre><code>#coding:utf-8  
+import requests
+from bs4 import BeautifulSoup
+
+s = requests.Session()
+url_home = &quot;http://www.home.com/&quot;
+s.get(url_home)
+
+url_login = &quot;http://www.login.htm&quot;
+data_login = {&apos;account&apos;:&apos;username&apos;,&apos;password&apos;:&apos;passwd&apos;,&apos;rememberme&apos;:&apos;on&apos;}
+text = s.post(url_login,data=data_login)
+
+r = s.get(url_home)
+soup = BeautifulSoup(r.text, &apos;html.parser&apos;)
+random = soup.form.input.attrs[&quot;value&quot;] 
+content = soup.select_one(&quot;.content&quot;).contents[0]
+
+mood_create = &apos;http://www.moodcreate.htm&apos;
+payload = {&apos;radom&apos;: radom, &apos;content&apos;: content}
+s.post(mood_create, cookies=cookies, data=payload)
+</code></pre><h3 id="第六步"><a href="#第六步" class="headerlink" title="第六步"></a>第六步</h3><p>上面的步骤完成后，我们可以执行一次自动提交心情状态的代码。我们想要做的每隔一定的时间间隔提交一条状态。因此还要添加上一个定时器，来自动执行这个过程。<br>最终完整代码如下，justForFun。</p>
+<pre><code>#coding:utf-8
+import threading
+import requests
+import random
+from bs4 import BeautifulSoup
+url_login = &quot;http://www.user/login.htm&quot;
+url_home = &quot;http://www.home.com/&quot;
+mood_create = &quot;http://www.mood/create.htm&quot;
+
+s = requests.Session()
+
+def create():
+    global timer
+    global s
+    s.get(url_home)
+    data_login = {&apos;account&apos;:&apos;username&apos;,&apos;password&apos;:‘passwd&apos;,&apos;rememberme&apos;:&apos;on&apos;}
+    text = s.post(url_login,data=data_login)
+    res = s.get(url_home)
+    soup = BeautifulSoup(r.text, &apos;html.parser&apos;)
+    random = soup.form.input.attrs[&quot;value&quot;] 
+    content = soup.select_one(&quot;.content&quot;).contents[0]
+    payload = {&apos;radom&apos;: random, &apos;content&apos;: content}
+    s.post(mood_create, cookies=cookies, data=payload)
+
+    timer = threading.Timer(5*60*60, create) 
+    timer.start()
+
+timer = threading.Timer(1, create)    
+timer.start()
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">python 技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/07/getcoin/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-IPC-EXP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/07/IPC-EXP/">小白入门之IPC实验</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/07/IPC-EXP/" class="archive-article-date">
+  	<time datetime="2018-03-07T06:57:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="0x00-漏洞说明"><a href="#0x00-漏洞说明" class="headerlink" title="0x00 漏洞说明"></a>0x00 漏洞说明</h1><p>IPC$ (Internet Process Connection) 是共享“命名管道”的资源，它是为了让进程间通信而开放的命名管道，通过提供可信任的用户名和口令，连接双方可以建立安全的通道并以此通道进行数据交换，从而实现对远程计算机的访问。IPC$是NT/2000及之后OS的一项新功能。一些别有用心者可以利用黑客工具软件对主机进行IPC$漏洞探测。如果用户设置的口令较弱而被破解，那么通过建立IPC＄连接的以下命令，攻击者就可以轻易地进入到系统中进行任意操作。</p>
+<h1 id="0x01-工具准备"><a href="#0x01-工具准备" class="headerlink" title="0x01 工具准备"></a>0x01 工具准备</h1><p>操作系统：</p>
+<p>攻击机器 任意windows系统 本次实验中我所使用的是win10 专业版</p>
+<p>目标靶机 windows xp 或者 windows server 2003 可以虚拟机，因为最近在玩webug，就直接使用windows server 2003了</p>
+<p>实验工具 链接：<a href="http://pan.baidu.com/s/1nuFbekh" target="_blank" rel="external">http://pan.baidu.com/s/1nuFbekh</a> 密码：lw0n</p>
+<h1 id="0x02-实验过程"><a href="#0x02-实验过程" class="headerlink" title="0x02 实验过程"></a>0x02 实验过程</h1><h2 id="步骤1"><a href="#步骤1" class="headerlink" title="步骤1"></a>步骤1</h2><p>使用net share命令观察目标靶机IPC$漏洞是否存在</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-2cb00ff3bba63bf2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></p>
+<h2 id="步骤2"><a href="#步骤2" class="headerlink" title="步骤2"></a>步骤2</h2><p>首先ping一下目标靶机，观察网络连通性。</p>
+<p>然后执行 net use <a href="\ip">\ip</a> “密码” /user:”登陆账户”命令建立IPC$连接</p>
+<p>使用 net use z: <a href="\ip\c$">\ip\c$</a> 命令，将目标靶机的C盘映射到本地z盘</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-559986c4c9b9c446.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></p>
+<p>完成上述命令后将会在计算机看到网络位置出现了一个新的盘符，实际上目前就可以通过可视化桌面像在本地操作一样拷贝文件。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-cd765e3151f30b13.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.png"></p>
+<h3 id="步骤2-5"><a href="#步骤2-5" class="headerlink" title="步骤2.5"></a>步骤2.5</h3><p>如果你想酷一点的话，我们来试试copy指令。将要使用的远程控制软件拷贝到目标靶机的C盘中。执行过程如下：<br><img src="http://upload-images.jianshu.io/upload_images/2303859-449260e298db82de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"></p>
+<h2 id="步骤3"><a href="#步骤3" class="headerlink" title="步骤3"></a>步骤3</h2><p>上述命令执行完毕后，我们使用psexec启动目标靶机上的一个shell。</p>
+<p>将路径切换到psexec程序所在路径下 ，执行如下命令：</p>
+<p>psexec.exe <a href="\ip">\ip</a> –u 用户名 –p 密码 cmd.exe</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-979a5aa04d492827.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5.png"></p>
+<h2 id="步骤4"><a href="#步骤4" class="headerlink" title="步骤4"></a>步骤4</h2><p>接下来我们来安装控制后门并启动运行。</p>
+<p>使用如下指令实现r_server的静默安装：r_server /install /silence</p>
+<p>执行两次net start  r_server来启动后门服务，出现如下所示，即启动成功。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-724e1622dc8a558d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6.png"></p>
+<h2 id="步骤5"><a href="#步骤5" class="headerlink" title="步骤5"></a>步骤5</h2><p>接下来，我们使用radmin来连接目标靶机上运行的r_server</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-2b828dab7f42f2df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="7.png"></p>
+<p>添加完成后，我们将可以像在本地一样操作目标靶机</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-df0d43dad232b610.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8.png"><br><img src="http://upload-images.jianshu.io/upload_images/2303859-eefd851f834b6cda.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="9.png"></p>
+<h1 id="0x03-防御"><a href="#0x03-防御" class="headerlink" title="0x03 防御"></a>0x03 防御</h1><h2 id="1-关闭IPC-默认共享"><a href="#1-关闭IPC-默认共享" class="headerlink" title="1 关闭IPC$默认共享"></a>1 关闭IPC$默认共享</h2><p><img src="http://upload-images.jianshu.io/upload_images/2303859-2e827045ba913855.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="10.png"></p>
+<h2 id="2-关闭IPC-默认共享的依赖服务server"><a href="#2-关闭IPC-默认共享的依赖服务server" class="headerlink" title="2 关闭IPC$默认共享的依赖服务server"></a>2 关闭IPC$默认共享的依赖服务server</h2><p>控制面板/管理工具/服务 找到server 关闭</p>
+<h2 id="3-屏蔽139，445端口"><a href="#3-屏蔽139，445端口" class="headerlink" title="3 屏蔽139，445端口"></a>3 屏蔽139，445端口</h2>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">安全</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/07/IPC-EXP/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-ip-address-config" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -645,6 +923,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">安全</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">python 技术</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">工具</a>
