@@ -137,6 +137,120 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-beginners‘python" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/21/beginners‘python/">python之解放生产力</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/21/beginners‘python/" class="archive-article-date">
+  	<time datetime="2018-05-21T15:36:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="照例是开篇废话"><a href="#照例是开篇废话" class="headerlink" title="照例是开篇废话"></a>照例是开篇废话</h3><p>廖雪峰的教程，有一个很好的地方，顺着教程能够看清Python的全部面貌。</p>
+<p>然而程序呢，并不是一个等所有知识点全学完了才可以动手写的事情。尤其是之前有过其他语言编程经验的人，往往在看过一遍语法的基础上就开始编程，当然只是简单的用法就能体现出”人生苦短，我用Python“的简洁高效，即使代码上依旧带有其他语言使用经验的编程风格。</p>
+<p>虽如此，进一步的学习，还是有必要的。</p>
+<blockquote>
+<p>人生苦短 我用Python</p>
+</blockquote>
+<p>那么看看廖雪峰的教程提到了那些具有科技革命的高级特性。</p>
+<h3 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h3><p>什么是切片呢，就是我们可以通过正负值的下标已经跳跃长度来截取变量。</p>
+<p>逆置一个数组，曾经的写法可能是for循环中依此赋值，这个时候我们还要小心的处理下标，但是有了切片：</p>
+<blockquote>
+<p>b = a[::-1]</p>
+</blockquote>
+<p>注意一个要点，就是切片并不在原来数据上操作，</p>
+<h3 id="列表生成式"><a href="#列表生成式" class="headerlink" title="列表生成式"></a>列表生成式</h3><p>主要用于for循环等批量生成列表的地方。<br>我们最熟悉的写法可能是<br>&gt;<br>    for i in range(100):<br>        a.append(i)<br>使用列表生成式<br>&gt;<br>    a = [i for i in range(100)]</p>
+<h3 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h3><p>什么是迭代器：就是边循环便计算的机制。<br>生成器解决了一个问题，可以大批量生成的对象，随用随取，省了空间。<br>注意与列表生成式子的区别，<br>&gt;</p>
+<pre><code># 列表生成式
+a = [i for i in range(10)]
+# 生成器
+b = (i for i in range(10))
+</code></pre><p>上面的写法不需要初始化，可以直接使用next(g)来获取首位及下一位元素，更优雅的方式是使用for循环。</p>
+<p>另一种更优雅的用法 yield </p>
+<h3 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h3><p>迭代强调了一个抽象度更高的for-in循环模式。list，tuple等都可以使用，然后如果像同步使用下标数字来引用元素的话，我们可以使用enumerate函数</p>
+<blockquote>
+<pre><code>for i, value in enumerate([&apos;A&apos;, &apos;B&apos;, &apos;C&apos;]):
+    print(i, value)
+</code></pre></blockquote>
+<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p>写程序的时候经常遇到的一个错误：<br>object is not iterable。可以使用for-in情况的对象必须是可迭代的。</p>
+<p>主要有两类：</p>
+<ul>
+<li><p>集合数据类型，如list、tuple、dict、set、str等；</p>
+</li>
+<li><p>generator，包括生成器和带yield的generator function。</p>
+</li>
+</ul>
+<p>那么，问题来了:如何判断是否对象可迭代？</p>
+<blockquote>
+<pre><code>from collections import Iterable
+isinstance([], Iterable)
+</code></pre></blockquote>
+<p>然而还有一个问题，可迭代与迭代器并不是一回事情。</p>
+<p>&gt;<br>    Python的Iterator对象表示的是一个数据流，Iterator对象可以被next()函数调用并不断返回下一个数据，直到没有数据时抛出StopIteration错误。可以把这个数据流看做是一个有序序列，但我们却不能提前知道序列的长度，只能不断通过next()函数实现按需计算下一个数据，所以Iterator的计算是惰性的，只有在需要返回下一个数据时它才会计算。</p>
+<p> 现在我们来看一下Pyhton的高级函数编程。</p>
+<p>记得最早写Javascript的时候，接触到函数式编程，每种语言都有自己的一等公民，熟练使用一类公民才算得上是接触到语言的核心风格。</p>
+<p>高阶函数</p>
+<p>map/reduce<br>惰性处理<br>filter 结合迭代器的无限数据流惰性运算，求素数使用的filter简直不能更完美。<br>sorted<br>可以指定比较的键函数<br>上面的函数从更加抽象，更加深层次的程度上优化了习惯的编程思维。总体来说，在需要的场合，通过对上面这些函数的使用能够替换原来臃肿的处理流程，并且逻辑上更加清晰，</p>
+<p>返回函数</p>
+<p>既然是函数式编程，也就是说函数能够作为参数来使用，这边有一个很重要的概念式闭包。</p>
+<p>匿名函数 lambda</p>
+<p>装饰器</p>
+<p>在函数之前或者之后执行某个操作，可以用来控制权限，写日志，绑定url和函数</p>
+<p>偏函数</p>
+<p>优化函数的参数</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/21/beginners‘python/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-CodeAudit" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1047,93 +1161,6 @@ timer.start()
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/03/07/IPC-EXP/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ip-address-config" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/27/ip-address-config/">windows下脚本配置IP地址</a>
-    </h1>
-  
-
-        
-        <a href="/2018/02/27/ip-address-config/" class="archive-article-date">
-  	<time datetime="2018-02-27T15:59:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>带着笔记本有时候在固定的地方工作，需要用到同一个的Ip地址。换个地方换个Ip，又要重新输一遍。</p>
-<p>感觉这个过程很繁琐，因为是window工作环境，一开始想到了vbs脚本。</p>
-<p>无意中发现了强大的netsh命令。。。。</p>
-<p>下面分两个部分，先介绍netsh的基本用法，然后贴段vbs脚本实现自动配置IP地址功能。</p>
-<h4 id="netsh常见用法"><a href="#netsh常见用法" class="headerlink" title="netsh常见用法"></a>netsh常见用法</h4><p>查看网络配置 netsh interface ip show {选项}<br>配置接口IP/网关IP netsh interface ip set address “本地连接” static ip地址 子网掩码 网关<br>配置自动换取IP地址 DNS地址及 wins地址</p>
-<pre><code>netsh interface ip set address &quot;本地连接&quot; dhcp
-netsh interface ip set dns &quot;本地连接&quot; dhcp
-netsh interface ip set wins &quot;本地连接&quot; dhcp
-</code></pre><p>配置静态IP地址 DNS地址 及 wins地址</p>
-<pre><code>netsh interface ip set address &quot;本地连接&quot; static ip地址
-netsh interface ip set dns &quot;本地连接&quot; static 子网掩码
-netsh interface ip set wins &quot;本地连接&quot; static 网关
-</code></pre><p>查看网络配置文件 netsh -c interface dump 使用管道 &gt; 可导出为网络配置文件<br>导入网络配置文件 netsh -f 文件位置 或者 netsh exec 文件位置</p>
-<h4 id="vbs实现配置脚本"><a href="#vbs实现配置脚本" class="headerlink" title="vbs实现配置脚本"></a>vbs实现配置脚本</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">strIP = &quot;10.37.7.228&quot;</div><div class="line">strMask = &quot;255.255.255.0&quot;</div><div class="line">strGW = &quot;10.37.7.254&quot;</div><div class="line"></div><div class="line">strComputer = &quot;.&quot;</div><div class="line">Set objWMIService = GetObject(&quot;winmgmts://&quot; &amp; strComputer &amp; &quot;/root/cimv2&quot;)</div><div class="line">Set colNetAdapters = objWMIService.ExecQuery _</div><div class="line">(&quot;Select * from Win32_NetworkAdapterConfiguration where IPEnabled=TRUE&quot;)</div><div class="line"></div><div class="line">strIPAddress = Array(strIP)</div><div class="line">strSubnetMask = Array(strMask)</div><div class="line">strGateway = Array(strGW)</div><div class="line">strGatewayMetric = Array(1)</div><div class="line"></div><div class="line">For Each objNetAdapter in colNetAdapters</div><div class="line">    errEnable = objNetAdapter.EnableStatic(strIPAddress, strSubnetMask)</div><div class="line">    errGateways = objNetAdapter.SetGateways(strGateway, strGatewaymetric)</div><div class="line">    If errEnable = 0 Then</div><div class="line">        WScript.Echo &quot;IP地址已更改。&quot;</div><div class="line">    Else</div><div class="line">        WScript.Echo &quot;更改IP地址失败。&quot;</div><div class="line">    End If</div><div class="line">Next</div></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">工具</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/27/ip-address-config/">展开全文 >></a>
         </p>
       
 

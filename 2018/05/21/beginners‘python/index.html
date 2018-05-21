@@ -6,17 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>CodeAudit | Hexo</title>
+  <title>python之解放生产力 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="CodeAudit">
-<meta property="og:url" content="http://yoursite.com/2018/05/12/CodeAudit/index.html">
+  <meta name="description" content="照例是开篇废话廖雪峰的教程，有一个很好的地方，顺着教程能够看清Python的全部面貌。 然而程序呢，并不是一个等所有知识点全学完了才可以动手写的事情。尤其是之前有过其他语言编程经验的人，往往在看过一遍语法的基础上就开始编程，当然只是简单的用法就能体现出”人生苦短，我用Python“的简洁高效，即使代码上依旧带有其他语言使用经验的编程风格。 虽如此，进一步的学习，还是有必要的。  人生苦短 我用Py">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python之解放生产力">
+<meta property="og:url" content="http://yoursite.com/2018/05/21/beginners‘python/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2303859-2c0c209d7d76a685.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-05-12T12:51:34.088Z">
+<meta property="og:description" content="照例是开篇废话廖雪峰的教程，有一个很好的地方，顺着教程能够看清Python的全部面貌。 然而程序呢，并不是一个等所有知识点全学完了才可以动手写的事情。尤其是之前有过其他语言编程经验的人，往往在看过一遍语法的基础上就开始编程，当然只是简单的用法就能体现出”人生苦短，我用Python“的简洁高效，即使代码上依旧带有其他语言使用经验的编程风格。 虽如此，进一步的学习，还是有必要的。  人生苦短 我用Py">
+<meta property="og:updated_time" content="2018-05-21T15:37:13.957Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CodeAudit">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/2303859-2c0c209d7d76a685.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="python之解放生产力">
+<meta name="twitter:description" content="照例是开篇废话廖雪峰的教程，有一个很好的地方，顺着教程能够看清Python的全部面貌。 然而程序呢，并不是一个等所有知识点全学完了才可以动手写的事情。尤其是之前有过其他语言编程经验的人，往往在看过一遍语法的基础上就开始编程，当然只是简单的用法就能体现出”人生苦短，我用Python“的简洁高效，即使代码上依旧带有其他语言使用经验的编程风格。 虽如此，进一步的学习，还是有必要的。  人生苦短 我用Py">
   
   
     <link rel="icon" href="/favicon.png">
@@ -138,27 +139,78 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-CodeAudit" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-beginners‘python" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      CodeAudit
+      python之解放生产力
     </h1>
   
 
         
-        <a href="/2018/05/12/CodeAudit/" class="archive-article-date">
-  	<time datetime="2018-05-12T12:50:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-12</time>
+        <a href="/2018/05/21/beginners‘python/" class="archive-article-date">
+  	<time datetime="2018-05-21T15:36:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="https://upload-images.jianshu.io/upload_images/2303859-2c0c209d7d76a685.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="PHP代码审计学习笔记"></p>
+        <h3 id="照例是开篇废话"><a href="#照例是开篇废话" class="headerlink" title="照例是开篇废话"></a>照例是开篇废话</h3><p>廖雪峰的教程，有一个很好的地方，顺着教程能够看清Python的全部面貌。</p>
+<p>然而程序呢，并不是一个等所有知识点全学完了才可以动手写的事情。尤其是之前有过其他语言编程经验的人，往往在看过一遍语法的基础上就开始编程，当然只是简单的用法就能体现出”人生苦短，我用Python“的简洁高效，即使代码上依旧带有其他语言使用经验的编程风格。</p>
+<p>虽如此，进一步的学习，还是有必要的。</p>
+<blockquote>
+<p>人生苦短 我用Python</p>
+</blockquote>
+<p>那么看看廖雪峰的教程提到了那些具有科技革命的高级特性。</p>
+<h3 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h3><p>什么是切片呢，就是我们可以通过正负值的下标已经跳跃长度来截取变量。</p>
+<p>逆置一个数组，曾经的写法可能是for循环中依此赋值，这个时候我们还要小心的处理下标，但是有了切片：</p>
+<blockquote>
+<p>b = a[::-1]</p>
+</blockquote>
+<p>注意一个要点，就是切片并不在原来数据上操作，</p>
+<h3 id="列表生成式"><a href="#列表生成式" class="headerlink" title="列表生成式"></a>列表生成式</h3><p>主要用于for循环等批量生成列表的地方。<br>我们最熟悉的写法可能是<br>&gt;<br>    for i in range(100):<br>        a.append(i)<br>使用列表生成式<br>&gt;<br>    a = [i for i in range(100)]</p>
+<h3 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h3><p>什么是迭代器：就是边循环便计算的机制。<br>生成器解决了一个问题，可以大批量生成的对象，随用随取，省了空间。<br>注意与列表生成式子的区别，<br>&gt;</p>
+<pre><code># 列表生成式
+a = [i for i in range(10)]
+# 生成器
+b = (i for i in range(10))
+</code></pre><p>上面的写法不需要初始化，可以直接使用next(g)来获取首位及下一位元素，更优雅的方式是使用for循环。</p>
+<p>另一种更优雅的用法 yield </p>
+<h3 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h3><p>迭代强调了一个抽象度更高的for-in循环模式。list，tuple等都可以使用，然后如果像同步使用下标数字来引用元素的话，我们可以使用enumerate函数</p>
+<blockquote>
+<pre><code>for i, value in enumerate([&apos;A&apos;, &apos;B&apos;, &apos;C&apos;]):
+    print(i, value)
+</code></pre></blockquote>
+<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p>写程序的时候经常遇到的一个错误：<br>object is not iterable。可以使用for-in情况的对象必须是可迭代的。</p>
+<p>主要有两类：</p>
+<ul>
+<li><p>集合数据类型，如list、tuple、dict、set、str等；</p>
+</li>
+<li><p>generator，包括生成器和带yield的generator function。</p>
+</li>
+</ul>
+<p>那么，问题来了:如何判断是否对象可迭代？</p>
+<blockquote>
+<pre><code>from collections import Iterable
+isinstance([], Iterable)
+</code></pre></blockquote>
+<p>然而还有一个问题，可迭代与迭代器并不是一回事情。</p>
+<p>&gt;<br>    Python的Iterator对象表示的是一个数据流，Iterator对象可以被next()函数调用并不断返回下一个数据，直到没有数据时抛出StopIteration错误。可以把这个数据流看做是一个有序序列，但我们却不能提前知道序列的长度，只能不断通过next()函数实现按需计算下一个数据，所以Iterator的计算是惰性的，只有在需要返回下一个数据时它才会计算。</p>
+<p> 现在我们来看一下Pyhton的高级函数编程。</p>
+<p>记得最早写Javascript的时候，接触到函数式编程，每种语言都有自己的一等公民，熟练使用一类公民才算得上是接触到语言的核心风格。</p>
+<p>高阶函数</p>
+<p>map/reduce<br>惰性处理<br>filter 结合迭代器的无限数据流惰性运算，求素数使用的filter简直不能更完美。<br>sorted<br>可以指定比较的键函数<br>上面的函数从更加抽象，更加深层次的程度上优化了习惯的编程思维。总体来说，在需要的场合，通过对上面这些函数的使用能够替换原来臃肿的处理流程，并且逻辑上更加清晰，</p>
+<p>返回函数</p>
+<p>既然是函数式编程，也就是说函数能够作为参数来使用，这边有一个很重要的概念式闭包。</p>
+<p>匿名函数 lambda</p>
+<p>装饰器</p>
+<p>在函数之前或者之后执行某个操作，可以用来控制权限，写日志，绑定url和函数</p>
+<p>偏函数</p>
+<p>优化函数的参数</p>
 
       
 
@@ -243,7 +295,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/05/12/CodeAudit/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/05/21/beginners‘python/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -257,18 +309,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/05/21/beginners‘python/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          python之解放生产力
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/05/12/Web-Scanner/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Web扫描器</div>
+    <a href="/2018/05/12/CodeAudit/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">CodeAudit</div>
       <i class="icon-circle-right"></i>
     </a>
   

@@ -137,6 +137,93 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-ip-address-config" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/27/ip-address-config/">windows下脚本配置IP地址</a>
+    </h1>
+  
+
+        
+        <a href="/2018/02/27/ip-address-config/" class="archive-article-date">
+  	<time datetime="2018-02-27T15:59:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>带着笔记本有时候在固定的地方工作，需要用到同一个的Ip地址。换个地方换个Ip，又要重新输一遍。</p>
+<p>感觉这个过程很繁琐，因为是window工作环境，一开始想到了vbs脚本。</p>
+<p>无意中发现了强大的netsh命令。。。。</p>
+<p>下面分两个部分，先介绍netsh的基本用法，然后贴段vbs脚本实现自动配置IP地址功能。</p>
+<h4 id="netsh常见用法"><a href="#netsh常见用法" class="headerlink" title="netsh常见用法"></a>netsh常见用法</h4><p>查看网络配置 netsh interface ip show {选项}<br>配置接口IP/网关IP netsh interface ip set address “本地连接” static ip地址 子网掩码 网关<br>配置自动换取IP地址 DNS地址及 wins地址</p>
+<pre><code>netsh interface ip set address &quot;本地连接&quot; dhcp
+netsh interface ip set dns &quot;本地连接&quot; dhcp
+netsh interface ip set wins &quot;本地连接&quot; dhcp
+</code></pre><p>配置静态IP地址 DNS地址 及 wins地址</p>
+<pre><code>netsh interface ip set address &quot;本地连接&quot; static ip地址
+netsh interface ip set dns &quot;本地连接&quot; static 子网掩码
+netsh interface ip set wins &quot;本地连接&quot; static 网关
+</code></pre><p>查看网络配置文件 netsh -c interface dump 使用管道 &gt; 可导出为网络配置文件<br>导入网络配置文件 netsh -f 文件位置 或者 netsh exec 文件位置</p>
+<h4 id="vbs实现配置脚本"><a href="#vbs实现配置脚本" class="headerlink" title="vbs实现配置脚本"></a>vbs实现配置脚本</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">strIP = &quot;10.37.7.228&quot;</div><div class="line">strMask = &quot;255.255.255.0&quot;</div><div class="line">strGW = &quot;10.37.7.254&quot;</div><div class="line"></div><div class="line">strComputer = &quot;.&quot;</div><div class="line">Set objWMIService = GetObject(&quot;winmgmts://&quot; &amp; strComputer &amp; &quot;/root/cimv2&quot;)</div><div class="line">Set colNetAdapters = objWMIService.ExecQuery _</div><div class="line">(&quot;Select * from Win32_NetworkAdapterConfiguration where IPEnabled=TRUE&quot;)</div><div class="line"></div><div class="line">strIPAddress = Array(strIP)</div><div class="line">strSubnetMask = Array(strMask)</div><div class="line">strGateway = Array(strGW)</div><div class="line">strGatewayMetric = Array(1)</div><div class="line"></div><div class="line">For Each objNetAdapter in colNetAdapters</div><div class="line">    errEnable = objNetAdapter.EnableStatic(strIPAddress, strSubnetMask)</div><div class="line">    errGateways = objNetAdapter.SetGateways(strGateway, strGatewaymetric)</div><div class="line">    If errEnable = 0 Then</div><div class="line">        WScript.Echo &quot;IP地址已更改。&quot;</div><div class="line">    Else</div><div class="line">        WScript.Echo &quot;更改IP地址失败。&quot;</div><div class="line">    End If</div><div class="line">Next</div></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">工具</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/02/27/ip-address-config/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-laravel-startup" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
