@@ -18,7 +18,7 @@
     <link rel="icon" href="/favicon.png">
   
   
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -31,6 +31,29 @@
       <header id="header">
   <div id="banner"></div>
   <div id="header-outer" class="outer">
+    
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
+    </div>
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
         <a href="/" id="logo">重楼</a>
@@ -40,25 +63,6 @@
           <a href="/" id="subtitle">学习成长ing</a>
         </h2>
       
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
     </div>
   </div>
 </header>
@@ -87,13 +91,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
+        <!-- Table of Contents -->
+        
         <h3 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h3><p>廖雪峰的教程，有一个很好的地方，顺着教程能够看清Python的全部面貌。</p>
 <p>然而程序呢，并不是一个等所有知识点全学完了才可以动手写的事情。之前有过其他语言编程经验的人，往往在看过一遍语法的基础上就开始编程，只是简单的用法就能体现出”人生苦短，我用Python“的简洁高效，即使代码上依旧带有其他语言使用经验的编程风格。</p>
 <p>虽如此，进一步的学习，还是有必要的。</p>
-<blockquote>
-<p>人生苦短 我用Python</p>
-</blockquote>
-<p>那么看看廖雪峰的教程提到了那些具有科技革命的高级特性。</p>
+<pre><code>人生苦短 我用Python
+</code></pre><p>那么看看廖雪峰的教程提到了那些具有科技革命的高级特性。</p>
 <h3 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h3><p>什么是切片呢，就是我们可以通过正负值的下标已经跳跃长度来截取变量。</p>
 <p>逆置一个数组，曾经的写法可能是for循环中依此赋值，这个时候我们还要小心的处理下标，但是有了切片：<br>b = a[::-1]</p>
 <p>注意一个要点，就是切片并不在原来数据上操作，</p>
@@ -111,8 +115,8 @@ b = (i for i in range(10))
 <p>另一种更优雅的用法 yield </p>
 <h3 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h3><p>迭代强调了一个抽象度更高的for-in循环模式。list，tuple等都可以使用，然后如果像同步使用下标数字来引用元素的话，我们可以使用enumerate函数</p>
 <pre><code>for i, value in enumerate([&apos;A&apos;, &apos;B&apos;, &apos;C&apos;]):
-</code></pre><p>  ​      print(i, value)</p>
-<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p>写程序的时候经常遇到的一个错误：<br>object is not iterable。可以使用for-in情况的对象必须是可迭代的。</p>
+    print(i, value)
+</code></pre><h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p>写程序的时候经常遇到的一个错误：<br>object is not iterable。可以使用for-in情况的对象必须是可迭代的。</p>
 <p>主要有两类：</p>
 <ul>
 <li><p>集合数据类型，如list、tuple、dict、set、str等；</p>
@@ -139,13 +143,15 @@ isinstance([], Iterable)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/21/beginners‘python/" data-id="cjnjsrvdq0004pax7z2vwtb7e" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2018/05/21/beginners‘python/" data-id="cjnjtk9nb0003v9x7g0d7581c" class="article-share-link">Share</a>
+      
       
       
     </footer>
   </div>
   
 </article>
+ 
 
 
   
@@ -171,18 +177,22 @@ isinstance([], Iterable)
     
     <div class="article-entry" itemprop="articleBody">
       
+        <!-- Table of Contents -->
+        
         <p><img src="https://upload-images.jianshu.io/upload_images/2303859-2c0c209d7d76a685.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="PHP代码审计学习笔记"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/12/CodeAudit/" data-id="cjnjsrvdo0003pax7n2uloe8i" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2018/05/12/CodeAudit/" data-id="cjnjtk9nj0005v9x719zxmw6y" class="article-share-link">Share</a>
+      
       
       
     </footer>
   </div>
   
 </article>
+ 
 
 
   
@@ -208,18 +218,22 @@ isinstance([], Iterable)
     
     <div class="article-entry" itemprop="articleBody">
       
+        <!-- Table of Contents -->
+        
         <p><img src="https://upload-images.jianshu.io/upload_images/2303859-ecb8a2ee444a5764.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WebScanner.jpg"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/12/Web-Scanner/" data-id="cjnjsrvdg0001pax71uyl6rlw" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2018/05/12/Web-Scanner/" data-id="cjnjtk9n30001v9x78pfz4juj" class="article-share-link">Share</a>
+      
       
       
     </footer>
   </div>
   
 </article>
+ 
 
 
   
@@ -245,6 +259,8 @@ isinstance([], Iterable)
     
     <div class="article-entry" itemprop="articleBody">
       
+        <!-- Table of Contents -->
+        
         <p>最开始写python，还是14年的时候开始。</p>
 <p>很长一段时间里，都是写十几句的脚本。写一行代码，要百度三五次。一来是写的少，另一来是基础也就那样。不懂还不知道学习。<br>那个时候还在python challenge装逼。</p>
 <p>最近在还是在写脚本，也没有写很多的东西，三五个文件，几百行代码。想把代码组织的清晰，就要有原则。</p>
@@ -267,13 +283,15 @@ isinstance([], Iterable)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/16/python-in-practice/" data-id="cjnjsrved000dpax7s1f35z0x" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2018/04/16/python-in-practice/" data-id="cjnjtk9o0000cv9x7vv689kiv" class="article-share-link">Share</a>
+      
       
       
     </footer>
   </div>
   
 </article>
+ 
 
 
   
@@ -299,18 +317,22 @@ isinstance([], Iterable)
     
     <div class="article-entry" itemprop="articleBody">
       
+        <!-- Table of Contents -->
+        
         <p><img src="https://upload-images.jianshu.io/upload_images/2303859-a28a6aacf20ca477.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="机器学习之聚类入门.jpg"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/10/ml-cluster-algorithm/" data-id="cjnjsrve9000cpax7s43ddj57" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2018/04/10/ml-cluster-algorithm/" data-id="cjnjtk9ny000bv9x7w80s87hr" class="article-share-link">Share</a>
+      
       
       
     </footer>
   </div>
   
 </article>
+ 
 
 
   
@@ -336,6 +358,8 @@ isinstance([], Iterable)
     
     <div class="article-entry" itemprop="articleBody">
       
+        <!-- Table of Contents -->
+        
         <h2 id="个人理解之-linux没有黑魔法"><a href="#个人理解之-linux没有黑魔法" class="headerlink" title="个人理解之 linux没有黑魔法"></a>个人理解之 linux没有黑魔法</h2><h3 id="关于机器学习-amp-大数据"><a href="#关于机器学习-amp-大数据" class="headerlink" title="关于机器学习&amp;大数据"></a>关于机器学习&amp;大数据</h3><p>大数据及机器学习，都是当前最火热的领域。周围很多同学都投入极大的激情，但是这个热情来的快，似乎去的也快。去年就又有一点感觉，似乎很多同学的基础并不够扎实。但是老师们往往默认基础已经足够好了。所以这里面更需要投入更多的时间，还是工作量问题吧。同时再一个要自己学习。</p>
 <h3 id="接下来还是说本次的环境搭建吧"><a href="#接下来还是说本次的环境搭建吧" class="headerlink" title="接下来还是说本次的环境搭建吧"></a>接下来还是说本次的环境搭建吧</h3><h4 id="模块作用"><a href="#模块作用" class="headerlink" title="模块作用"></a>模块作用</h4><table>
 <thead>
@@ -454,13 +478,15 @@ isinstance([], Iterable)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/25/hadoop-install-intro/" data-id="cjnjsrvem000hpax731ruzcxx" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2018/03/25/hadoop-install-intro/" data-id="cjnjtk9o4000fv9x7hmwb4tnw" class="article-share-link">Share</a>
+      
       
       
     </footer>
   </div>
   
 </article>
+ 
 
 
   
@@ -486,18 +512,22 @@ isinstance([], Iterable)
     
     <div class="article-entry" itemprop="articleBody">
       
+        <!-- Table of Contents -->
+        
         <p><img src="https://upload-images.jianshu.io/upload_images/2303859-9746458cfd530fee.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="爬虫课堂.jpg"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/22/spider-intro/" data-id="cjnjsrveg000fpax7zb4sck10" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2018/03/22/spider-intro/" data-id="cjnjtk9o2000dv9x7gauaze1m" class="article-share-link">Share</a>
+      
       
       
     </footer>
   </div>
   
 </article>
+ 
 
 
   
@@ -523,6 +553,8 @@ isinstance([], Iterable)
     
     <div class="article-entry" itemprop="articleBody">
       
+        <!-- Table of Contents -->
+        
         <p>看故事得来的经验是启发式的，远比灌输强得多，<br>所以这本书一点都不囧。</p>
 <p>先用一个表格整理一下书中用到的工具</p>
 <table>
@@ -618,13 +650,15 @@ isinstance([], Iterable)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/13/Web-Test/" data-id="cjnjsrvdu0005pax7b2sx02ph" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2018/03/13/Web-Test/" data-id="cjnjtk9ng0004v9x7ey7feu1s" class="article-share-link">Share</a>
+      
       
       
     </footer>
   </div>
   
 </article>
+ 
 
 
   
@@ -650,6 +684,8 @@ isinstance([], Iterable)
     
     <div class="article-entry" itemprop="articleBody">
       
+        <!-- Table of Contents -->
+        
         <p>最近看到个特别全面源码分享网站，刚好有个项目是一直想做但是没有头绪的，就想下载学习一下。注册账号后，发现还需要若干金币。后来发现可以通过每隔一定时间发心情状态来获得金币，就打算写一个自动发心情状态的python脚本来收割金币。</p>
 <h3 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h3><p>使用burp抓取一下提交的包，如下图所示：<br><img src="http://upload-images.jianshu.io/upload_images/2303859-1d56ed3fa41ffe3a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="心情状态包.png"></p>
 <p>因此我们的目的是写一个自动提交心情的python脚本，提交包中需要包含必要的cookie信息，隐藏的radom字符串，心情文本内容，和文件，经测试发现文件可为空。表单中只包含前两项就可以成功增加金币，这就更加省事了。<br>文末附有完整python代码，接下来我们看一下是怎么一步步写出来的。</p>
@@ -758,7 +794,8 @@ timer.start()
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/07/getcoin/" data-id="cjnjsrvej000gpax73ke3x926" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2018/03/07/getcoin/" data-id="cjnjtk9o7000gv9x71if2yr4o" class="article-share-link">Share</a>
+      
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python-技术/">python 技术</a></li></ul>
@@ -767,6 +804,7 @@ timer.start()
   </div>
   
 </article>
+ 
 
 
   
@@ -792,6 +830,8 @@ timer.start()
     
     <div class="article-entry" itemprop="articleBody">
       
+        <!-- Table of Contents -->
+        
         <h1 id="0x00-漏洞说明"><a href="#0x00-漏洞说明" class="headerlink" title="0x00 漏洞说明"></a>0x00 漏洞说明</h1><p>IPC$ (Internet Process Connection) 是共享“命名管道”的资源，它是为了让进程间通信而开放的命名管道，通过提供可信任的用户名和口令，连接双方可以建立安全的通道并以此通道进行数据交换，从而实现对远程计算机的访问。IPC$是NT/2000及之后OS的一项新功能。一些别有用心者可以利用黑客工具软件对主机进行IPC$漏洞探测。如果用户设置的口令较弱而被破解，那么通过建立IPC＄连接的以下命令，攻击者就可以轻易地进入到系统中进行任意操作。</p>
 <h1 id="0x01-工具准备"><a href="#0x01-工具准备" class="headerlink" title="0x01 工具准备"></a>0x01 工具准备</h1><p>操作系统：</p>
 <p>攻击机器 任意windows系统 本次实验中我所使用的是win10 专业版</p>
@@ -824,7 +864,8 @@ timer.start()
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/07/IPC-EXP/" data-id="cjnjsrvd80000pax7dnf7uxqg" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2018/03/07/IPC-EXP/" data-id="cjnjtk9mv0000v9x75h8odhyk" class="article-share-link">Share</a>
+      
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/安全/">安全</a></li></ul>
@@ -833,53 +874,59 @@ timer.start()
   </div>
   
 </article>
+ 
 
 
   
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next&raquo;</a>
   </nav>
 </section>
-        
-          <aside id="sidebar">
-  
-    
-
+           
+    <aside id="sidebar">
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Mot-clés</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/python-技术/">python 技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/安全/">安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li></ul>
+     
+        <h3 class="follow-title ">Follow me</h3>
+     
+    <div class="widget follow">
+      
+              <a class="github" aria-hidden="true" href="https://github.com/giscafer" target="_blank" title="Github"></a>
+      
+      
+            <a class="weibo" aria-hidden="true"  href="http://weibo.com/laohoubin" target="_blank" title="微博"></a>
+      
+      
+              <a class="zhihu" aria-hidden="true"  href="http://www.zhihu.com/people/giscafer" target="_blank" title="知乎"></a>
+      
+      
+            <a class="email" aria-hidden="true"  href="mailto:youemail@outlook.com" target="_blank" title="邮箱"></a>
+      
     </div>
   </div>
 
 
   
     
+  
+    
+
+  
+    
   <div class="widget-wrap">
-    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <h3 class="widget-title tagcloud">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/python-技术/" style="font-size: 10px;">python 技术</a> <a href="/tags/安全/" style="font-size: 10px;">安全</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a>
+      <a href="/tags/python-技术/" style="font-size: 14px;">python 技术</a> <a href="/tags/安全/" style="font-size: 14px;">安全</a> <a href="/tags/工具/" style="font-size: 14px;">工具</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title recent-posts">Recent Posts</h3>
     <div class="widget">
       <ul>
         
@@ -908,29 +955,137 @@ timer.start()
   </div>
 
   
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title archive">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+<div class="widget-wrap">
+    <h3 class="widget-title">Links</h3>
+    <div class="widget">
+        <ul>
+            
+            <li>
+                <a href="http://blog.giscafer.com">giscafer&#39;s blog</a>
+            </li>
+            
+            <li>
+                <a href="http://www.gis520.com">GIS520社区</a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+  
+    <!--微信公众号二维码-->
+
+  <div class="widget-wrap">
+    <h3 class="follow-title ">WeChat</h3>
+    <div class="widget wechat-widget">
+        <img src="http://blog.giscafer.com/static/images/qrcode_giscafer.jpg" alt="扫码关注" width="250"/>
+    </div>
+  </div>
+
+
+  
 </aside>
-        
+
       </div>
       <footer id="footer">
   
   <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2018 Fire Xun<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    <div id="footer-left">
+      &copy; 2014 - 2018 Fire Xun&nbsp;|&nbsp;
+      Theme by <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      Contact&nbsp;|&nbsp;youemail@outlook.com
     </div>
   </div>
 </footer>
+ <script src="/jquery/jquery.min.js"></script>
     </div>
     <nav id="mobile-nav">
   
-    <a href="/" class="mobile-nav-link">Home</a>
+    <a href="/" class="mobile-nav-link">首页</a>
   
-    <a href="/archives" class="mobile-nav-link">Archives</a>
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
   
 </nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png"/>
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+  
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "e2fb4051c49842688ce669e634bc983f",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  
+
+
+
+
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+ <script src="/js/is.js"></script>
 
 
   <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
@@ -938,7 +1093,7 @@ timer.start()
 
 
 <script src="/js/script.js"></script>
-
+<script src="/js/elevator.js"></script>
   </div>
 </body>
 </html>

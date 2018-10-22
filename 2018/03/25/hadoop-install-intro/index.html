@@ -22,7 +22,7 @@
     <link rel="icon" href="/favicon.png">
   
   
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
   
   <link rel="stylesheet" href="/css/style.css">
   
@@ -35,6 +35,29 @@
       <header id="header">
   <div id="banner"></div>
   <div id="header-outer" class="outer">
+    
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
+    </div>
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
         <a href="/" id="logo">重楼</a>
@@ -44,25 +67,6 @@
           <a href="/" id="subtitle">学习成长ing</a>
         </h2>
       
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
     </div>
   </div>
 </header>
@@ -89,6 +93,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
+        <!-- Table of Contents -->
+        
         <h2 id="个人理解之-linux没有黑魔法"><a href="#个人理解之-linux没有黑魔法" class="headerlink" title="个人理解之 linux没有黑魔法"></a>个人理解之 linux没有黑魔法</h2><h3 id="关于机器学习-amp-大数据"><a href="#关于机器学习-amp-大数据" class="headerlink" title="关于机器学习&amp;大数据"></a>关于机器学习&amp;大数据</h3><p>大数据及机器学习，都是当前最火热的领域。周围很多同学都投入极大的激情，但是这个热情来的快，似乎去的也快。去年就又有一点感觉，似乎很多同学的基础并不够扎实。但是老师们往往默认基础已经足够好了。所以这里面更需要投入更多的时间，还是工作量问题吧。同时再一个要自己学习。</p>
 <h3 id="接下来还是说本次的环境搭建吧"><a href="#接下来还是说本次的环境搭建吧" class="headerlink" title="接下来还是说本次的环境搭建吧"></a>接下来还是说本次的环境搭建吧</h3><h4 id="模块作用"><a href="#模块作用" class="headerlink" title="模块作用"></a>模块作用</h4><table>
 <thead>
@@ -207,17 +213,60 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/25/hadoop-install-intro/" data-id="cjnjsrvem000hpax731ruzcxx" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2018/03/25/hadoop-install-intro/" data-id="cjnjtk9o4000fv9x7hmwb4tnw" class="article-share-link">Share</a>
+      
       
       
     </footer>
   </div>
   
     
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>Recommended Posts</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
+
+    
 <nav id="article-nav">
   
     <a href="/2018/04/10/ml-cluster-algorithm/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Récent</strong>
+      <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
           机器学习之聚类入门
@@ -227,7 +276,7 @@
   
   
     <a href="/2018/03/22/spider-intro/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Ancien</strong>
+      <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">Python小爬虫介绍</div>
     </a>
   
@@ -235,97 +284,148 @@
 
   
 </article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+      
+  </div>
+ 
+  
 
 </section>
-        
-          <aside id="sidebar">
+           
+    <aside id="sidebar">
   
     
 
   
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Mot-clés</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/python-技术/">python 技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/安全/">安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li></ul>
+    <div class="widget-wrap">
+    
+      <div class="widget" id="toc-widget-fixed">
+      
+        <strong class="toc-title">Content</strong>
+        <div class="toc-widget-list">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#个人理解之-linux没有黑魔法"><span class="toc-number">1.</span> <span class="toc-text">个人理解之 linux没有黑魔法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于机器学习-amp-大数据"><span class="toc-number">1.1.</span> <span class="toc-text">关于机器学习&大数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接下来还是说本次的环境搭建吧"><span class="toc-number">1.2.</span> <span class="toc-text">接下来还是说本次的环境搭建吧</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#模块作用"><span class="toc-number">1.2.1.</span> <span class="toc-text">模块作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤说明"><span class="toc-number">1.2.2.</span> <span class="toc-text">步骤说明</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他还有必要要解释的"><span class="toc-number">1.3.</span> <span class="toc-text">其他还有必要要解释的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#节省时间的方式"><span class="toc-number">1.4.</span> <span class="toc-text">节省时间的方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#还不熟悉的地方"><span class="toc-number">1.5.</span> <span class="toc-text">还不熟悉的地方</span></a></li></ol></li></ol>
+          </div>
+      </div>
     </div>
-  </div>
-
 
   
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Nuage de mot-clés</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/python-技术/" style="font-size: 10px;">python 技术</a> <a href="/tags/安全/" style="font-size: 10px;">安全</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a>
-    </div>
-  </div>
 
   
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
-    </div>
-  </div>
-
+  
+    
+  
+    
 
   
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/05/21/beginners‘python/">python之解放生产力</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/12/CodeAudit/">CodeAudit</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/12/Web-Scanner/">Web扫描器</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/16/python-in-practice/">关于python的一点实践</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/10/ml-cluster-algorithm/">机器学习之聚类入门</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
+  
+    <!--微信公众号二维码-->
+
 
   
 </aside>
-        
+
       </div>
       <footer id="footer">
   
   <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2018 Fire Xun<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    <div id="footer-left">
+      &copy; 2014 - 2018 Fire Xun&nbsp;|&nbsp;
+      Theme by <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      Contact&nbsp;|&nbsp;youemail@outlook.com
     </div>
   </div>
 </footer>
+ <script src="/jquery/jquery.min.js"></script>
     </div>
     <nav id="mobile-nav">
   
-    <a href="/" class="mobile-nav-link">Home</a>
+    <a href="/" class="mobile-nav-link">首页</a>
   
-    <a href="/archives" class="mobile-nav-link">Archives</a>
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
   
 </nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png"/>
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+  
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "e2fb4051c49842688ce669e634bc983f",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  
+
+
+
+
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+ <script src="/js/is.js"></script>
 
 
   <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
@@ -333,7 +433,7 @@
 
 
 <script src="/js/script.js"></script>
-
+<script src="/js/elevator.js"></script>
   </div>
 </body>
 </html>
