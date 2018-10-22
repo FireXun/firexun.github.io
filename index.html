@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>重楼</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="重楼">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="重楼">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="重楼">
+  
+    <link rel="alternate" href="/atom.xml" title="重楼" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">重楼</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">学习成长ing</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-beginners‘python" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/21/beginners‘python/" class="article-date">
+  <time datetime="2018-05-21T15:36:24.000Z" itemprop="datePublished">2018-05-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/21/beginners‘python/">python之解放生产力</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="照例是开篇废话"><a href="#照例是开篇废话" class="headerlink" title="照例是开篇废话"></a>照例是开篇废话</h3><p>廖雪峰的教程，有一个很好的地方，顺着教程能够看清Python的全部面貌。</p>
+<p>然而程序呢，并不是一个等所有知识点全学完了才可以动手写的事情。尤其是之前有过其他语言编程经验的人，往往在看过一遍语法的基础上就开始编程，当然只是简单的用法就能体现出”人生苦短，我用Python“的简洁高效，即使代码上依旧带有其他语言使用经验的编程风格。</p>
+<p>虽如此，进一步的学习，还是有必要的。</p>
+<blockquote>
+<p>人生苦短 我用Python</p>
+</blockquote>
+<p>那么看看廖雪峰的教程提到了那些具有科技革命的高级特性。</p>
+<h3 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h3><p>什么是切片呢，就是我们可以通过正负值的下标已经跳跃长度来截取变量。</p>
+<p>逆置一个数组，曾经的写法可能是for循环中依此赋值，这个时候我们还要小心的处理下标，但是有了切片：<br>b = a[::-1]</p>
+<p>注意一个要点，就是切片并不在原来数据上操作，</p>
+<h3 id="列表生成式"><a href="#列表生成式" class="headerlink" title="列表生成式"></a>列表生成式</h3><p>主要用于for循环等批量生成列表的地方。<br>我们最熟悉的写法可能是</p>
+<pre><code>for i in range(100):
+</code></pre><p> ​       a.append(i)<br>使用列表生成式</p>
+<pre><code>a = [i for i in range(100)]
+</code></pre><h3 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h3><p>什么是迭代器：就是边循环便计算的机制。<br>生成器解决了一个问题，可以大批量生成的对象，随用随取，省了空间。<br>注意与列表生成式子的区别，</p>
+<pre><code># 列表生成式
+a = [i for i in range(10)]
+# 生成器
+b = (i for i in range(10))
+</code></pre><p>上面的写法不需要初始化，可以直接使用next(g)来获取首位及下一位元素，更优雅的方式是使用for循环。</p>
+<p>另一种更优雅的用法 yield </p>
+<h3 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h3><p>迭代强调了一个抽象度更高的for-in循环模式。list，tuple等都可以使用，然后如果像同步使用下标数字来引用元素的话，我们可以使用enumerate函数</p>
+<pre><code>for i, value in enumerate([&apos;A&apos;, &apos;B&apos;, &apos;C&apos;]):
+</code></pre><p>  ​      print(i, value)</p>
+<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p>写程序的时候经常遇到的一个错误：<br>object is not iterable。可以使用for-in情况的对象必须是可迭代的。</p>
+<p>主要有两类：</p>
+<ul>
+<li><p>集合数据类型，如list、tuple、dict、set、str等；</p>
+</li>
+<li><p>generator，包括生成器和带yield的generator function。</p>
+</li>
+</ul>
+<p>那么，问题来了:如何判断是否对象可迭代？</p>
+<pre><code>from collections import Iterable
+isinstance([], Iterable)
+</code></pre><p>然而还有一个问题，可迭代与迭代器并不是一回事情。</p>
+<pre><code>Python的Iterator对象表示的是一个数据流，Iterator对象可以被next()函数调用并不断返回下一个数据，直到没有数据时抛出StopIteration错误。可以把这个数据流看做是一个有序序列，但我们却不能提前知道序列的长度，只能不断通过next()函数实现按需计算下一个数据，所以Iterator的计算是惰性的，只有在需要返回下一个数据时它才会计算。
+</code></pre><p> 现在我们来看一下Pyhton的高级函数编程。</p>
+<p>记得最早写Javascript的时候，接触到函数式编程，每种语言都有自己的一等公民，熟练使用一类公民才算得上是接触到语言的核心风格。</p>
+<p>高阶函数</p>
+<p>map/reduce<br>惰性处理<br>filter 结合迭代器的无限数据流惰性运算，求素数使用的filter简直不能更完美。<br>sorted<br>可以指定比较的键函数<br>上面的函数从更加抽象，更加深层次的程度上优化了习惯的编程思维。总体来说，在需要的场合，通过对上面这些函数的使用能够替换原来臃肿的处理流程，并且逻辑上更加清晰，</p>
+<p>返回函数</p>
+<p>既然是函数式编程，也就是说函数能够作为参数来使用，这边有一个很重要的概念式闭包。</p>
+<p>匿名函数 lambda</p>
+<p>装饰器</p>
+<p>在函数之前或者之后执行某个操作，可以用来控制权限，写日志，绑定url和函数</p>
+<p>偏函数</p>
+<p>优化函数的参数</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/21/beginners‘python/" data-id="cjnjqvyeg0006m9x7iz4504ss" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CodeAudit" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/12/CodeAudit/" class="article-date">
+  <time datetime="2018-05-12T12:50:02.000Z" itemprop="datePublished">2018-05-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/12/CodeAudit/">CodeAudit</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="https://upload-images.jianshu.io/upload_images/2303859-2c0c209d7d76a685.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="PHP代码审计学习笔记"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/12/CodeAudit/" data-id="cjnjqvydu0000m9x7ufo53n9a" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Web-Scanner" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/12/Web-Scanner/" class="article-date">
+  <time datetime="2018-05-12T12:40:39.000Z" itemprop="datePublished">2018-05-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/12/Web-Scanner/">Web扫描器</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="https://upload-images.jianshu.io/upload_images/2303859-ecb8a2ee444a5764.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WebScanner.jpg"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/12/Web-Scanner/" data-id="cjnjqvye50002m9x7tc21ucd4" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-python-in-practice" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/16/python-in-practice/" class="article-date">
+  <time datetime="2018-04-16T15:40:23.000Z" itemprop="datePublished">2018-04-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/16/python-in-practice/">关于python的一点实践</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最开始写python，还是14年的时候开始。</p>
+<p>很长一段时间里，都是写十几句的脚本。写一行代码，要百度三五次。一来是写的少，另一来是基础也就那样。不懂还不知道学习。<br>那个时候还在python challenge装逼。</p>
+<p>最近在还是在写脚本，也没有写很多的东西，三五个文件，几百行代码。想把代码组织的清晰，就要有原则。</p>
+<p>总结几条实践：</p>
+<ul>
+<li>命名是一个大问题，自己写的时候已经很注意了，然而还是有很多脸红的地方。<ul>
+<li>函数使用小写 下划线分割</li>
+<li>类名使用首字母大写的驼峰方式</li>
+<li>文件名也要使用描述性的词汇，不要与使用的类库同名</li>
+<li>注意使用空行 类后两行分割 </li>
+<li>默认参数中间的空格</li>
+</ul>
+</li>
+<li>关于编程风格这一点，还是要多多琢磨pycharm的提示。消除提示的过程就是一个学习的过程。</li>
+<li>import的机制还需要进一步加强理解</li>
+<li>马上把廖雪峰的python3教程看一遍，熟悉一些用法，来改进不优雅的地方。</li>
+</ul>
+<p>既然在做着这个事情，就奋力打铁啊。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/04/16/python-in-practice/" data-id="cjnjqvyfa000hm9x7g19nuf0o" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ml-cluster-algorithm" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/10/ml-cluster-algorithm/" class="article-date">
+  <time datetime="2018-04-10T15:40:19.000Z" itemprop="datePublished">2018-04-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/10/ml-cluster-algorithm/">机器学习之聚类入门</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="https://upload-images.jianshu.io/upload_images/2303859-a28a6aacf20ca477.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="机器学习之聚类入门.jpg"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/04/10/ml-cluster-algorithm/" data-id="cjnjqvyf4000dm9x7m3dzrfkv" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hadoop-install-intro" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/25/hadoop-install-intro/" class="article-date">
+  <time datetime="2018-03-25T02:57:59.000Z" itemprop="datePublished">2018-03-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/25/hadoop-install-intro/">Hadoop集群环境安装的一点感悟</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="个人理解之-linux没有黑魔法"><a href="#个人理解之-linux没有黑魔法" class="headerlink" title="个人理解之 linux没有黑魔法"></a>个人理解之 linux没有黑魔法</h2><h3 id="关于机器学习-amp-大数据"><a href="#关于机器学习-amp-大数据" class="headerlink" title="关于机器学习&amp;大数据"></a>关于机器学习&amp;大数据</h3><p>大数据及机器学习，都是当前最火热的领域。周围很多同学都投入极大的激情，但是这个热情来的快，似乎去的也快。去年就又有一点感觉，似乎很多同学的基础并不够扎实。但是老师们往往默认基础已经足够好了。所以这里面更需要投入更多的时间，还是工作量问题吧。同时再一个要自己学习。</p>
+<h3 id="接下来还是说本次的环境搭建吧"><a href="#接下来还是说本次的环境搭建吧" class="headerlink" title="接下来还是说本次的环境搭建吧"></a>接下来还是说本次的环境搭建吧</h3><h4 id="模块作用"><a href="#模块作用" class="headerlink" title="模块作用"></a>模块作用</h4><table>
+<thead>
+<tr>
+<th>模块</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kafka</td>
+<td>是一种高吞吐量的分布式发布订阅消息系统</td>
+</tr>
+<tr>
+<td>zookeeper</td>
+<td>一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</td>
+</tr>
+<tr>
+<td>HDFS</td>
+<td>一种分布式文件系统，能在低价通用硬件的大型集群上提供很高的可扩展性和可靠性，可提供对应用程序数据的高吞吐量访问。</td>
+</tr>
+<tr>
+<td>YARN</td>
+<td>作业调度和集群资源管理的框架，高效的管理集群中的资源</td>
+</tr>
+<tr>
+<td>Hbase</td>
+<td>是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统。基于列而非行</td>
+</tr>
+<tr>
+<td>hive</td>
+<td>数据仓库工具</td>
+</tr>
+<tr>
+<td>spark</td>
+<td>专为大规模数据处理而设计的快速通用的计算引擎</td>
+</tr>
+<tr>
+<td>Scala</td>
+<td>是一门多范式的编程语言，一种类似java的编程语言。</td>
+</tr>
+<tr>
+<td>Storm</td>
+<td>是一个分布式的、容错的实时计算系统。Storm可以方便地在一个计算机集群中编写与扩展复杂的实时计算，Storm用于实时处理，就好比 Hadoop 用于批处理。Storm保证每个消息都会得到处理，而且它很快，在一个小集群中，每秒可以处理数以百万计的消息，而且用户可以使用任意编程语言来做开发。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="步骤说明"><a href="#步骤说明" class="headerlink" title="步骤说明"></a>步骤说明</h4><ul>
+<li>CentOS-7-x86_64-Minimal-1511.iso</li>
+</ul>
+<p>安装所使用的系统镜像，注意到有mimimal，只包含必要的软件，很多软件被精简掉了，能够减轻占用资源，提高性能。</p>
+<ul>
+<li>关于防火墙和selinux</li>
+</ul>
+<p>如果开启了防火墙，外部其他机器ping本机，在某些情况下，将会得不到响应，为了避免这种情况，我们有必要关闭防火墙。</p>
+<p>selinux是一款为了提高系统安全性的软件：对系统服务，文件权限，网络端口访问有极其严格的限制。基本上安装完linux，惯例是关闭改功能。所以后面有一些端口或者即使在root权限下都不能将服务开启问题，可以考虑selinux是否正常关闭。可以在root账户下使用getenforce命令来确认。</p>
+<ul>
+<li>为什么我们需要两张网卡</li>
+</ul>
+<p>实际意义上搭建集群，每个主机我们需要一张网卡就够了，用主机的这一张网卡，配置上合适的网关、子网掩码、IP。如此就能实现集群了。<br>我们的enp0s3网卡就是起到这个作用。同时使用nat方式，nat就可以连接外网了。局域网内集群的相互通信都是使用的该Ip地址。</p>
+<p>另一张网卡我们是使用的host-only方式，该网卡的配置同时需要关闭dhcp功能，实际上该网卡唯一的作用<br>就是方便我们来使用真实的物理主机来连接虚拟机，或者说该网卡的作用就是方便我们来往虚拟机拷贝文件，然后使用终端工具来连接两个作用。</p>
+<ul>
+<li>host文件</li>
+</ul>
+<p>为每一个主机ip起了一个别名，大家可以注意到三个主机ip都是nat网卡地址，后面连接cluster1跟直接输入cluster1的ip效果是一样的。</p>
+<ul>
+<li>关于root用户、hadoop账户</li>
+</ul>
+<p>咱们所用的软件基本上都是运行在非root账户、而是hadoop账户下。<br>在创建完文件之后，总有一个步骤是chown 来改变新建立文件的属主。这样使用hadoop账户运行所需要程序时候，才能对使用文件有读取权限。<br>注意：账户切换有时候挺麻烦的，一不小心就会在root账户下执行了，这个时候可能会在hadoop_files下面产生为root账户的一些日志文件。所以切换到hadoop后可能没有权限读取在root账户下产生的那些文件，这个时候不妨运行一下chown命令。</p>
+<ul>
+<li>/etc/profile下的各种环境变量</li>
+</ul>
+<p>我们在终端敲入的指令并不是黑魔法，都是有一个对应的文件。环境变量的作用就是告诉我们去那一个路径下面找输入指令所对应的文件。一般来说我们执行一个指令，会先在当前路径、个人path路径，系统path路径寻找。因此我们所添加的各种环境变量没有什么稀奇的，就是要执行软件所在的绝对路径。如果类似%%，表示引用了这个环境变量，这种可以看作是相对路径。</p>
+<ul>
+<li>screen</li>
+</ul>
+<p>一般我们敲完指令，会在终端启动起来任务占用当前的终端窗口，一旦我们关闭窗口。这个任务也被终止了，screen就是起到这个作用。退出窗口时候，不会结束任务。<br>screen -ls 列出当前窗口 -d 释放  -r 回复 -S 起一个名字</p>
+<ul>
+<li>ntp时钟同步 </li>
+</ul>
+<ul>
+<li><p>各种配置文件</p>
+</li>
+<li><p>还有一个ssh-keygen 拷贝的事情 </p>
+</li>
+</ul>
+<p>这个就是允许cluster1，2，3直接访问cluster1.中间也要注意使用hadoop来执行。</p>
+<h3 id="其他还有必要要解释的"><a href="#其他还有必要要解释的" class="headerlink" title="其他还有必要要解释的"></a>其他还有必要要解释的</h3><ul>
+<li>vi编辑器的使用</li>
+<li>整体的架构结构 </li>
+<li>常用的指令<ul>
+<li>有同学分享了一份linux指令操作</li>
+<li>tar 打包 解压</li>
+<li>mkdir -p 创建文件夹</li>
+<li>chown 改变文件属主</li>
+<li>su 切换账户 </li>
+<li>chmod  改变文件权限</li>
+<li>scp 拷贝</li>
+<li>groupadd 加组 加用户 修改密码 不说了</li>
+<li>source 执行文件</li>
+</ul>
+</li>
+<li>关于mysql的启动</li>
+</ul>
+<h3 id="节省时间的方式"><a href="#节省时间的方式" class="headerlink" title="节省时间的方式"></a>节省时间的方式</h3><ul>
+<li>密码统一</li>
+<li>使用scp命令拷贝文件</li>
+<li>注意当前执行命令的账户</li>
+<li>使用其他人成功安装的组建包 不要自己找</li>
+</ul>
+<h3 id="还不熟悉的地方"><a href="#还不熟悉的地方" class="headerlink" title="还不熟悉的地方"></a>还不熟悉的地方</h3><ul>
+<li>各组件启动顺序</li>
+<li>看日志定位错误</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/25/hadoop-install-intro/" data-id="cjnjqvyf7000fm9x7xjrx4kvq" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-spider-intro" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/22/spider-intro/" class="article-date">
+  <time datetime="2018-03-22T14:35:09.000Z" itemprop="datePublished">2018-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/22/spider-intro/">Python小爬虫介绍</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="https://upload-images.jianshu.io/upload_images/2303859-9746458cfd530fee.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="爬虫课堂.jpg"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/22/spider-intro/" data-id="cjnjqvyfc000im9x70mvggc4b" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Web-Test" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/13/Web-Test/" class="article-date">
+  <time datetime="2018-03-13T12:27:50.000Z" itemprop="datePublished">2018-03-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/13/Web-Test/">读Web测试囧事</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>看故事得来的经验是启发式的，远比灌输强得多，<br>所以这本书一点都不囧。</p>
+<p>先用一个表格整理一下书中用到的工具</p>
+<table>
+<thead>
+<tr>
+<th>章节</th>
+<th>工具</th>
+<th>作用</th>
+<th>其他</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>安全性测试</td>
+<td>Zap</td>
+</tr>
+<tr>
+<td>性能测试</td>
+<td>JMeter</td>
+<td>缺点不会执行js 渲染html</td>
+</tr>
+<tr>
+<td>chrome</td>
+<td>inspector</td>
+<td>查看下载时间</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>WebPageTest</td>
+<td>前端网页性能测试工具</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>pageSpeedInsights</td>
+<td></td>
+</tr>
+<tr>
+<td>自动化测试</td>
+<td>capybara</td>
+<td>自动化测试</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>cucumber</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>concordion</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>gauge</td>
+</tr>
+<tr>
+<td>移动测试</td>
+<td>omniture</td>
+<td>获取访问量 行为习惯 获取使用设备信息</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>google analytics</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>selenium</td>
+<td>Web应用程序验收测试工具</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>optimizely</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="个人感悟"><a href="#个人感悟" class="headerlink" title="个人感悟"></a>个人感悟</h3><p>我的主业是安全，但也从这本书中得到了很多有用的东西。</p>
+<p>在Web领域，安全测试就是测试大方向下一条小碎路。<br>做安全的也能从测试中寻找到灵感跟思路。</p>
+<p>普通Web测试，我们可以看作是一种拒绝服务的攻击。而安全渗透等，就是相当于普通测试，更多了一层利用。因此渗透的很多思路都值得从测试里面寻找，安全问题产生原因在本质上与测试发现的问题并无二意。</p>
+<p>测试发现的问题，如果能使用特殊的工具或者技术从中获益，就变成了一个安全问题。</p>
+<p>那可以这么说，安全问题变成了特殊技术，特殊工具的问题。</p>
+<p>很多工作都是很有意思的，只是自己把握不到有意思的那个点，无法从其中获得成就感。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">graph LR</div><div class="line">普通测试--&gt;安全测试</div><div class="line">安全测试--&gt;渗透利用</div></pre></td></tr></table></figure></p>
+<p>功能测试篇 书里面分为了技术、覆盖、测试实践、业务需求四个方面。功能测试这一部分较少用到工具。总而言之，这本书是很适合新手读的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/13/Web-Test/" data-id="cjnjqvyec0004m9x71brof3on" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-getcoin" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/07/getcoin/" class="article-date">
+  <time datetime="2018-03-07T07:00:10.000Z" itemprop="datePublished">2018-03-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/07/getcoin/">python编程之编写获取金币脚本</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近看到个特别全面源码分享网站，刚好有个项目是一直想做但是没有头绪的，就想下载学习一下。注册账号后，发现还需要若干金币。后来发现可以通过每隔一定时间发心情状态来获得金币，就打算写一个自动发心情状态的python脚本来收割金币。</p>
+<h3 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h3><p>使用burp抓取一下提交的包，如下图所示：<br><img src="http://upload-images.jianshu.io/upload_images/2303859-1d56ed3fa41ffe3a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="心情状态包.png"></p>
+<p>因此我们的目的是写一个自动提交心情的python脚本，提交包中需要包含必要的cookie信息，隐藏的radom字符串，心情文本内容，和文件，经测试发现文件可为空。表单中只包含前两项就可以成功增加金币，这就更加省事了。<br>文末附有完整python代码，接下来我们看一下是怎么一步步写出来的。</p>
+<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h4><p>首先先写读取页面的功能！这个之前也写过很多，都是搜索出一段代码来直接使用。然而这次找了几段代码代码应为python及库的版本问题都不太好调试。<br>就直接看requests库官方文档，官方文档才是最好的资料。<br>版本1代码</p>
+<pre><code>#coding:utf-8  
+import requests
+url_home = &quot;http://www.home.com/&quot;
+r = requests.get(url_home)
+print(r.text)
+</code></pre><p>执行结果如下图所示，我们能够获得网站<br><img src="http://upload-images.jianshu.io/upload_images/2303859-4cc7b556b2104a15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></p>
+<p>此时获得的页面是未曾登陆的无法发表心情状态。</p>
+<h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><p>接下来我们先将cookie信息硬编码到代码中，来测试一下。<br>cookie信息可如下图所示从浏览器中获取.<br><img src="http://upload-images.jianshu.io/upload_images/2303859-3cc24818e9428260.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="cookie.png"></p>
+<p>版本2代码：</p>
+<pre><code>#coding:utf-8  
+import requests
+cookies = dict(zdmid=&quot;93EB84AE485E7B7E365C4F87691F8A9D&quot;)
+url_home = &quot;http://www.home.com/&quot;
+r = requests.get(url_home，cookies=cookies)
+print(r.text)
+</code></pre><p>此时返回页面正常登陆<img src="http://upload-images.jianshu.io/upload_images/2303859-b9001301d8372fc1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="home.png"></p>
+<h3 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h3><p>接下来我们提取需要提交表单的隐藏input随机字符串，同时选择当前首页的其他人的心情状态作为我们的文本内容。<br>解析html，当然是神库beautifulSoup4了，别无他想。分析需要提取的值在html页面的具体位置，查看官方文档选择合适的api方法，然后编写代码实现。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-be8fb274e3590a41.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="random.png"><br>同样方法获得心情内容所在位置，进一步完善代码。<br>版本3代码</p>
+<pre><code>#coding:utf-8  
+import requests
+from bs4 import BeautifulSoup
+
+cookies = dict(zdmid=&quot;451178ECCF2145D24F94DE0A1DF7D658&quot;)
+url_home = &quot;http://www.home.com/&quot;
+r = requests.get(url_home, cookies=cookies)
+soup = BeautifulSoup(r.text, &apos;html.parser&apos;)
+random = soup.form.input.attrs[&quot;value&quot;] 
+content = soup.select_one(&quot;.content&quot;).contents[0]
+
+print(random)
+print(content)
+</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/2303859-e9edf16b638cae94.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="提取内容.png"></p>
+<h3 id="第四步骤"><a href="#第四步骤" class="headerlink" title="第四步骤"></a>第四步骤</h3><p>接下来我们来实现提交心情状态功能。<br>只需要将上一步骤提取的内容构造post提交就可以了。</p>
+<p>版本4代码</p>
+<pre><code>#coding:utf-8  
+import requests
+from bs4 import BeautifulSoup
+
+cookies = dict(zdmid=&quot;451178ECCF2145D24F94DE0A1DF7D658&quot;)
+url_home = &quot;http://www.home.com/&quot;
+r = requests.get(url_home, cookies=cookies)
+soup = BeautifulSoup(r.text, &apos;html.parser&apos;)
+random = soup.form.input.attrs[&quot;value&quot;] 
+content = soup.select_one(&quot;.content&quot;).contents[0]
+
+mood_create = &apos;http://www.mood/create.htm&apos;
+payload = {&apos;radom&apos;: radom, &apos;content&apos;: content}
+requests.post(mood_create, cookies=cookies, data=payload)
+</code></pre><h3 id="第五步"><a href="#第五步" class="headerlink" title="第五步"></a>第五步</h3><p>上面的代码因为cookie的值是硬编码在脚本中，这样一旦session过期，后面将会跳转到未登录装填。这就需要我们重新去更新cookie对应的值，那么有没有方法可以解决这个问题呢？<br>当然是有的。看一下requests提供的session解决方案，如下图<br><img src="http://upload-images.jianshu.io/upload_images/2303859-ce0febe5ac7cd30d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="session.png"></p>
+<p>因此可以使用session来改造代码，requests中的session将会自动保存相关的cookie信息，如此每次运行就可以自动使用账号及密码登陆。<br>版本5代码</p>
+<pre><code>#coding:utf-8  
+import requests
+from bs4 import BeautifulSoup
+
+s = requests.Session()
+url_home = &quot;http://www.home.com/&quot;
+s.get(url_home)
+
+url_login = &quot;http://www.login.htm&quot;
+data_login = {&apos;account&apos;:&apos;username&apos;,&apos;password&apos;:&apos;passwd&apos;,&apos;rememberme&apos;:&apos;on&apos;}
+text = s.post(url_login,data=data_login)
+
+r = s.get(url_home)
+soup = BeautifulSoup(r.text, &apos;html.parser&apos;)
+random = soup.form.input.attrs[&quot;value&quot;] 
+content = soup.select_one(&quot;.content&quot;).contents[0]
+
+mood_create = &apos;http://www.moodcreate.htm&apos;
+payload = {&apos;radom&apos;: radom, &apos;content&apos;: content}
+s.post(mood_create, cookies=cookies, data=payload)
+</code></pre><h3 id="第六步"><a href="#第六步" class="headerlink" title="第六步"></a>第六步</h3><p>上面的步骤完成后，我们可以执行一次自动提交心情状态的代码。我们想要做的每隔一定的时间间隔提交一条状态。因此还要添加上一个定时器，来自动执行这个过程。<br>最终完整代码如下，justForFun。</p>
+<pre><code>#coding:utf-8
+import threading
+import requests
+import random
+from bs4 import BeautifulSoup
+url_login = &quot;http://www.user/login.htm&quot;
+url_home = &quot;http://www.home.com/&quot;
+mood_create = &quot;http://www.mood/create.htm&quot;
+
+s = requests.Session()
+
+def create():
+    global timer
+    global s
+    s.get(url_home)
+    data_login = {&apos;account&apos;:&apos;username&apos;,&apos;password&apos;:‘passwd&apos;,&apos;rememberme&apos;:&apos;on&apos;}
+    text = s.post(url_login,data=data_login)
+    res = s.get(url_home)
+    soup = BeautifulSoup(r.text, &apos;html.parser&apos;)
+    random = soup.form.input.attrs[&quot;value&quot;] 
+    content = soup.select_one(&quot;.content&quot;).contents[0]
+    payload = {&apos;radom&apos;: random, &apos;content&apos;: content}
+    s.post(mood_create, cookies=cookies, data=payload)
+
+    timer = threading.Timer(5*60*60, create) 
+    timer.start()
+
+timer = threading.Timer(1, create)    
+timer.start()
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/07/getcoin/" data-id="cjnjqvyf6000em9x7j0pwmevq" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python-技术/">python 技术</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-IPC-EXP" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/07/IPC-EXP/" class="article-date">
+  <time datetime="2018-03-07T06:57:39.000Z" itemprop="datePublished">2018-03-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/07/IPC-EXP/">小白入门之IPC实验</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="0x00-漏洞说明"><a href="#0x00-漏洞说明" class="headerlink" title="0x00 漏洞说明"></a>0x00 漏洞说明</h1><p>IPC$ (Internet Process Connection) 是共享“命名管道”的资源，它是为了让进程间通信而开放的命名管道，通过提供可信任的用户名和口令，连接双方可以建立安全的通道并以此通道进行数据交换，从而实现对远程计算机的访问。IPC$是NT/2000及之后OS的一项新功能。一些别有用心者可以利用黑客工具软件对主机进行IPC$漏洞探测。如果用户设置的口令较弱而被破解，那么通过建立IPC＄连接的以下命令，攻击者就可以轻易地进入到系统中进行任意操作。</p>
+<h1 id="0x01-工具准备"><a href="#0x01-工具准备" class="headerlink" title="0x01 工具准备"></a>0x01 工具准备</h1><p>操作系统：</p>
+<p>攻击机器 任意windows系统 本次实验中我所使用的是win10 专业版</p>
+<p>目标靶机 windows xp 或者 windows server 2003 可以虚拟机，因为最近在玩webug，就直接使用windows server 2003了</p>
+<p>实验工具 链接：<a href="http://pan.baidu.com/s/1nuFbekh" target="_blank" rel="external">http://pan.baidu.com/s/1nuFbekh</a> 密码：lw0n</p>
+<h1 id="0x02-实验过程"><a href="#0x02-实验过程" class="headerlink" title="0x02 实验过程"></a>0x02 实验过程</h1><h2 id="步骤1"><a href="#步骤1" class="headerlink" title="步骤1"></a>步骤1</h2><p>使用net share命令观察目标靶机IPC$漏洞是否存在</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-2cb00ff3bba63bf2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></p>
+<h2 id="步骤2"><a href="#步骤2" class="headerlink" title="步骤2"></a>步骤2</h2><p>首先ping一下目标靶机，观察网络连通性。</p>
+<p>然后执行 net use <a href="\ip">\ip</a> “密码” /user:”登陆账户”命令建立IPC$连接</p>
+<p>使用 net use z: <a href="\ip\c$">\ip\c$</a> 命令，将目标靶机的C盘映射到本地z盘</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-559986c4c9b9c446.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></p>
+<p>完成上述命令后将会在计算机看到网络位置出现了一个新的盘符，实际上目前就可以通过可视化桌面像在本地操作一样拷贝文件。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-cd765e3151f30b13.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.png"></p>
+<h3 id="步骤2-5"><a href="#步骤2-5" class="headerlink" title="步骤2.5"></a>步骤2.5</h3><p>如果你想酷一点的话，我们来试试copy指令。将要使用的远程控制软件拷贝到目标靶机的C盘中。执行过程如下：<br><img src="http://upload-images.jianshu.io/upload_images/2303859-449260e298db82de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"></p>
+<h2 id="步骤3"><a href="#步骤3" class="headerlink" title="步骤3"></a>步骤3</h2><p>上述命令执行完毕后，我们使用psexec启动目标靶机上的一个shell。</p>
+<p>将路径切换到psexec程序所在路径下 ，执行如下命令：</p>
+<p>psexec.exe <a href="\ip">\ip</a> –u 用户名 –p 密码 cmd.exe</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-979a5aa04d492827.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5.png"></p>
+<h2 id="步骤4"><a href="#步骤4" class="headerlink" title="步骤4"></a>步骤4</h2><p>接下来我们来安装控制后门并启动运行。</p>
+<p>使用如下指令实现r_server的静默安装：r_server /install /silence</p>
+<p>执行两次net start  r_server来启动后门服务，出现如下所示，即启动成功。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-724e1622dc8a558d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6.png"></p>
+<h2 id="步骤5"><a href="#步骤5" class="headerlink" title="步骤5"></a>步骤5</h2><p>接下来，我们使用radmin来连接目标靶机上运行的r_server</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-2b828dab7f42f2df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="7.png"></p>
+<p>添加完成后，我们将可以像在本地一样操作目标靶机</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-df0d43dad232b610.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8.png"><br><img src="http://upload-images.jianshu.io/upload_images/2303859-eefd851f834b6cda.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="9.png"></p>
+<h1 id="0x03-防御"><a href="#0x03-防御" class="headerlink" title="0x03 防御"></a>0x03 防御</h1><h2 id="1-关闭IPC-默认共享"><a href="#1-关闭IPC-默认共享" class="headerlink" title="1 关闭IPC$默认共享"></a>1 关闭IPC$默认共享</h2><p><img src="http://upload-images.jianshu.io/upload_images/2303859-2e827045ba913855.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="10.png"></p>
+<h2 id="2-关闭IPC-默认共享的依赖服务server"><a href="#2-关闭IPC-默认共享的依赖服务server" class="headerlink" title="2 关闭IPC$默认共享的依赖服务server"></a>2 关闭IPC$默认共享的依赖服务server</h2><p>控制面板/管理工具/服务 找到server 关闭</p>
+<h2 id="3-屏蔽139，445端口"><a href="#3-屏蔽139，445端口" class="headerlink" title="3 屏蔽139，445端口"></a>3 屏蔽139，445端口</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/07/IPC-EXP/" data-id="cjnjqvye00001m9x799ag0lhh" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/安全/">安全</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/python-技术/">python 技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/安全/">安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/python-技术/" style="font-size: 10px;">python 技术</a> <a href="/tags/安全/" style="font-size: 10px;">安全</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/05/21/beginners‘python/">python之解放生产力</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/12/CodeAudit/">CodeAudit</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/12/Web-Scanner/">Web扫描器</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/16/python-in-practice/">关于python的一点实践</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/10/ml-cluster-algorithm/">机器学习之聚类入门</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Fire Xun<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
