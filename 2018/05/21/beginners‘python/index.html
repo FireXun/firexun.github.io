@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/05/21/beginners‘python/index.html">
 <meta property="og:site_name" content="青衫磊落">
 <meta property="og:description" content="开篇廖雪峰的教程，有一个很好的地方，顺着教程能够看清Python的全部面貌。 然而程序呢，并不是一个等所有知识点全学完了才可以动手写的事情。之前有过其他语言编程经验的人，往往在看过一遍语法的基础上就开始编程，只是简单的用法就能体现出”人生苦短，我用Python“的简洁高效，即使代码上依旧带有其他语言使用经验的编程风格。 虽如此，进一步的学习，还是有必要的。 人生苦短 我用Python 那么看看廖雪">
-<meta property="og:updated_time" content="2018-10-22T04:49:49.504Z">
+<meta property="og:updated_time" content="2018-10-23T06:00:44.311Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python之解放生产力">
 <meta name="twitter:description" content="开篇廖雪峰的教程，有一个很好的地方，顺着教程能够看清Python的全部面貌。 然而程序呢，并不是一个等所有知识点全学完了才可以动手写的事情。之前有过其他语言编程经验的人，往往在看过一遍语法的基础上就开始编程，只是简单的用法就能体现出”人生苦短，我用Python“的简洁高效，即使代码上依旧带有其他语言使用经验的编程风格。 虽如此，进一步的学习，还是有必要的。 人生苦短 我用Python 那么看看廖雪">
@@ -41,7 +41,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -132,20 +132,31 @@ isinstance([], Iterable)
 </code></pre><p>然而还有一个问题，可迭代与迭代器并不是一回事情。</p>
 <p>Python的Iterator对象表示的是一个数据流，Iterator对象可以被next()函数调用并不断返回下一个数据，直到没有数据时抛出StopIteration错误。可以把这个数据流看做是一个有序序列，但我们却不能提前知道序列的长度，只能不断通过next()函数实现按需计算下一个数据，所以Iterator的计算是惰性的，只有在需要返回下一个数据时它才会计算。</p>
 <h3 id="Pyhton的高级函数编程"><a href="#Pyhton的高级函数编程" class="headerlink" title="Pyhton的高级函数编程"></a>Pyhton的高级函数编程</h3><p>记得最早写Javascript的时候，接触到函数式编程，每种语言都有自己的一等公民，熟练使用一类公民才算得上是接触到语言的核心风格。</p>
-<p>高阶函数</p>
-<p>map/reduce<br>惰性处理<br>filter 结合迭代器的无限数据流惰性运算，求素数使用的filter简直不能更完美。<br>sorted<br>可以指定比较的键函数<br>上面的函数从更加抽象，更加深层次的程度上优化了习惯的编程思维。总体来说，在需要的场合，通过对上面这些函数的使用能够替换原来臃肿的处理流程，并且逻辑上更加清晰，</p>
-<p>返回函数</p>
+<h4 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h4><ul>
+<li>map/reduce<br>惰性处理</li>
+<li>filter 结合迭代器的无限数据流惰性运算，求素数使用的filter简直不能更完美。</li>
+<li><p>sorted<br>可以指定比较的键函数<br>上面的函数从更加抽象，更加深层次的程度上优化了习惯的编程思维。总体来说，在需要的场合，通过对上面这些函数的使用能够替换原来臃肿的处理流程，并且逻辑上更加清晰，</p>
+</li>
+<li><p>返回函数</p>
+</li>
+</ul>
 <p>既然是函数式编程，也就是说函数能够作为参数来使用，这边有一个很重要的概念式闭包。</p>
-<p>匿名函数 lambda</p>
-<p>装饰器</p>
+<ul>
+<li><p>匿名函数 lambda</p>
+</li>
+<li><p>装饰器</p>
+</li>
+</ul>
 <p>在函数之前或者之后执行某个操作，可以用来控制权限，写日志，绑定url和函数</p>
-<p>偏函数</p>
+<ul>
+<li>偏函数</li>
+</ul>
 <p>优化函数的参数</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/21/beginners‘python/" data-id="cjnl8r4qt000a8cx7gydjgo7e" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/21/beginners‘python/" data-id="cjnlbp97u0007jux7egc1mx6b" class="article-share-link">分享</a>
       
       
       
@@ -155,7 +166,7 @@ isinstance([], Iterable)
     
  <script src="/jquery/jquery.min.js"></script>
   <div id="random_posts">
-    <h2>Recommended Posts</h2>
+    <h2>推荐文章</h2>
     <div class="random_posts_ul">
       <script>
           var random_count =4
@@ -198,7 +209,7 @@ isinstance([], Iterable)
 <nav id="article-nav">
   
     <a href="/2018/10/22/dede-select-soft-post-md/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           dedecms5.5文件上传漏洞复现
@@ -208,7 +219,7 @@ isinstance([], Iterable)
   
   
     <a href="/2018/05/12/CodeAudit/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">CodeAudit</div>
     </a>
   
@@ -243,9 +254,9 @@ isinstance([], Iterable)
     
       <div class="widget" id="toc-widget-fixed">
       
-        <strong class="toc-title">Content</strong>
+        <strong class="toc-title">文章目录</strong>
         <div class="toc-widget-list">
-              <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#开篇"><span class="toc-number">1.</span> <span class="toc-text">开篇</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#切片"><span class="toc-number">2.</span> <span class="toc-text">切片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列表生成式"><span class="toc-number">3.</span> <span class="toc-text">列表生成式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生成器"><span class="toc-number">4.</span> <span class="toc-text">生成器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迭代"><span class="toc-number">5.</span> <span class="toc-text">迭代</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迭代器"><span class="toc-number">6.</span> <span class="toc-text">迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pyhton的高级函数编程"><span class="toc-number">7.</span> <span class="toc-text">Pyhton的高级函数编程</span></a></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#开篇"><span class="toc-number">1.</span> <span class="toc-text">开篇</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#切片"><span class="toc-number">2.</span> <span class="toc-text">切片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列表生成式"><span class="toc-number">3.</span> <span class="toc-text">列表生成式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生成器"><span class="toc-number">4.</span> <span class="toc-text">生成器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迭代"><span class="toc-number">5.</span> <span class="toc-text">迭代</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迭代器"><span class="toc-number">6.</span> <span class="toc-text">迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pyhton的高级函数编程"><span class="toc-number">7.</span> <span class="toc-text">Pyhton的高级函数编程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#高阶函数"><span class="toc-number">7.1.</span> <span class="toc-text">高阶函数</span></a></li></ol></li></ol>
           </div>
       </div>
     </div>
@@ -275,10 +286,10 @@ isinstance([], Iterable)
   <div class="outer">
     <div id="footer-left">
       &copy; 2014 - 2018 Fire Xun&nbsp;|&nbsp;
-      Theme by <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
     </div>
      <div id="footer-right">
-      Contact&nbsp;|&nbsp;xundidi@gmail.com
+      联系方式&nbsp;|&nbsp;xundidi@gmail.com
     </div>
   </div>
 </footer>
