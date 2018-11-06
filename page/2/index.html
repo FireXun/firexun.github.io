@@ -5,15 +5,15 @@
   
   <title>青衫磊落</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="古人学问无遗力，少壮工夫老始成。纸上得来终觉浅，绝知此事要躬行。">
+  <meta name="description" content="书到用时方恨少，事非经过不知难">
 <meta property="og:type" content="website">
 <meta property="og:title" content="青衫磊落">
 <meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="青衫磊落">
-<meta property="og:description" content="古人学问无遗力，少壮工夫老始成。纸上得来终觉浅，绝知此事要躬行。">
+<meta property="og:description" content="书到用时方恨少，事非经过不知难">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="青衫磊落">
-<meta name="twitter:description" content="古人学问无遗力，少壮工夫老始成。纸上得来终觉浅，绝知此事要躬行。">
+<meta name="twitter:description" content="书到用时方恨少，事非经过不知难">
   
     <link rel="alternate" href="/atom.xml" title="青衫磊落" type="application/atom+xml">
   
@@ -63,7 +63,7 @@
       </h1>
       
         <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">书到用时方恨少，事非经过不知难。</a>
+          <a href="/" id="subtitle">书古人学问无遗力，少壮工夫老始成。纸上得来终觉浅，绝知此事要躬行</a>
         </h2>
       
     </div>
@@ -71,6 +71,201 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-ml-cluster-algorithm" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/10/ml-cluster-algorithm/" class="article-date">
+  <time datetime="2018-04-10T15:40:19.000Z" itemprop="datePublished">2018-04-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/10/ml-cluster-algorithm/">机器学习之聚类入门</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p><img src="https://upload-images.jianshu.io/upload_images/2303859-a28a6aacf20ca477.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="机器学习之聚类入门.jpg"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/04/10/ml-cluster-algorithm/" data-id="cjnynvpem000jyax70qwxsbvr" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-hadoop-install-intro" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/25/hadoop-install-intro/" class="article-date">
+  <time datetime="2018-03-25T02:57:59.000Z" itemprop="datePublished">2018-03-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/25/hadoop-install-intro/">Hadoop集群环境安装的一点感悟</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <h2 id="个人理解之-linux没有黑魔法"><a href="#个人理解之-linux没有黑魔法" class="headerlink" title="个人理解之 linux没有黑魔法"></a>个人理解之 linux没有黑魔法</h2><h3 id="关于机器学习-amp-大数据"><a href="#关于机器学习-amp-大数据" class="headerlink" title="关于机器学习&amp;大数据"></a>关于机器学习&amp;大数据</h3><p>大数据及机器学习，都是当前最火热的领域。周围很多同学都投入极大的激情，但是这个热情来的快，似乎去的也快。去年就又有一点感觉，似乎很多同学的基础并不够扎实。但是老师们往往默认基础已经足够好了。所以这里面更需要投入更多的时间，还是工作量问题吧。同时再一个要自己学习。</p>
+<h3 id="接下来还是说本次的环境搭建吧"><a href="#接下来还是说本次的环境搭建吧" class="headerlink" title="接下来还是说本次的环境搭建吧"></a>接下来还是说本次的环境搭建吧</h3><h4 id="模块作用"><a href="#模块作用" class="headerlink" title="模块作用"></a>模块作用</h4><table>
+<thead>
+<tr>
+<th>模块</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kafka</td>
+<td>是一种高吞吐量的分布式发布订阅消息系统</td>
+</tr>
+<tr>
+<td>zookeeper</td>
+<td>一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</td>
+</tr>
+<tr>
+<td>HDFS</td>
+<td>一种分布式文件系统，能在低价通用硬件的大型集群上提供很高的可扩展性和可靠性，可提供对应用程序数据的高吞吐量访问。</td>
+</tr>
+<tr>
+<td>YARN</td>
+<td>作业调度和集群资源管理的框架，高效的管理集群中的资源</td>
+</tr>
+<tr>
+<td>Hbase</td>
+<td>是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统。基于列而非行</td>
+</tr>
+<tr>
+<td>hive</td>
+<td>数据仓库工具</td>
+</tr>
+<tr>
+<td>spark</td>
+<td>专为大规模数据处理而设计的快速通用的计算引擎</td>
+</tr>
+<tr>
+<td>Scala</td>
+<td>是一门多范式的编程语言，一种类似java的编程语言。</td>
+</tr>
+<tr>
+<td>Storm</td>
+<td>是一个分布式的、容错的实时计算系统。Storm可以方便地在一个计算机集群中编写与扩展复杂的实时计算，Storm用于实时处理，就好比 Hadoop 用于批处理。Storm保证每个消息都会得到处理，而且它很快，在一个小集群中，每秒可以处理数以百万计的消息，而且用户可以使用任意编程语言来做开发。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="步骤说明"><a href="#步骤说明" class="headerlink" title="步骤说明"></a>步骤说明</h4><ul>
+<li>CentOS-7-x86_64-Minimal-1511.iso</li>
+</ul>
+<p>安装所使用的系统镜像，注意到有mimimal，只包含必要的软件，很多软件被精简掉了，能够减轻占用资源，提高性能。</p>
+<ul>
+<li>关于防火墙和selinux</li>
+</ul>
+<p>如果开启了防火墙，外部其他机器ping本机，在某些情况下，将会得不到响应，为了避免这种情况，我们有必要关闭防火墙。</p>
+<p>selinux是一款为了提高系统安全性的软件：对系统服务，文件权限，网络端口访问有极其严格的限制。基本上安装完linux，惯例是关闭改功能。所以后面有一些端口或者即使在root权限下都不能将服务开启问题，可以考虑selinux是否正常关闭。可以在root账户下使用getenforce命令来确认。</p>
+<ul>
+<li>为什么我们需要两张网卡</li>
+</ul>
+<p>实际意义上搭建集群，每个主机我们需要一张网卡就够了，用主机的这一张网卡，配置上合适的网关、子网掩码、IP。如此就能实现集群了。<br>我们的enp0s3网卡就是起到这个作用。同时使用nat方式，nat就可以连接外网了。局域网内集群的相互通信都是使用的该Ip地址。</p>
+<p>另一张网卡我们是使用的host-only方式，该网卡的配置同时需要关闭dhcp功能，实际上该网卡唯一的作用<br>就是方便我们来使用真实的物理主机来连接虚拟机，或者说该网卡的作用就是方便我们来往虚拟机拷贝文件，然后使用终端工具来连接两个作用。</p>
+<ul>
+<li>host文件</li>
+</ul>
+<p>为每一个主机ip起了一个别名，大家可以注意到三个主机ip都是nat网卡地址，后面连接cluster1跟直接输入cluster1的ip效果是一样的。</p>
+<ul>
+<li>关于root用户、hadoop账户</li>
+</ul>
+<p>咱们所用的软件基本上都是运行在非root账户、而是hadoop账户下。<br>在创建完文件之后，总有一个步骤是chown 来改变新建立文件的属主。这样使用hadoop账户运行所需要程序时候，才能对使用文件有读取权限。<br>注意：账户切换有时候挺麻烦的，一不小心就会在root账户下执行了，这个时候可能会在hadoop_files下面产生为root账户的一些日志文件。所以切换到hadoop后可能没有权限读取在root账户下产生的那些文件，这个时候不妨运行一下chown命令。</p>
+<ul>
+<li>/etc/profile下的各种环境变量</li>
+</ul>
+<p>我们在终端敲入的指令并不是黑魔法，都是有一个对应的文件。环境变量的作用就是告诉我们去那一个路径下面找输入指令所对应的文件。一般来说我们执行一个指令，会先在当前路径、个人path路径，系统path路径寻找。因此我们所添加的各种环境变量没有什么稀奇的，就是要执行软件所在的绝对路径。如果类似%%，表示引用了这个环境变量，这种可以看作是相对路径。</p>
+<ul>
+<li>screen</li>
+</ul>
+<p>一般我们敲完指令，会在终端启动起来任务占用当前的终端窗口，一旦我们关闭窗口。这个任务也被终止了，screen就是起到这个作用。退出窗口时候，不会结束任务。<br>screen -ls 列出当前窗口 -d 释放  -r 回复 -S 起一个名字</p>
+<ul>
+<li>ntp时钟同步 </li>
+</ul>
+<ul>
+<li><p>各种配置文件</p>
+</li>
+<li><p>还有一个ssh-keygen 拷贝的事情 </p>
+</li>
+</ul>
+<p>这个就是允许cluster1，2，3直接访问cluster1.中间也要注意使用hadoop来执行。</p>
+<h3 id="其他还有必要要解释的"><a href="#其他还有必要要解释的" class="headerlink" title="其他还有必要要解释的"></a>其他还有必要要解释的</h3><ul>
+<li>vi编辑器的使用</li>
+<li>整体的架构结构 </li>
+<li>常用的指令<ul>
+<li>有同学分享了一份linux指令操作</li>
+<li>tar 打包 解压</li>
+<li>mkdir -p 创建文件夹</li>
+<li>chown 改变文件属主</li>
+<li>su 切换账户 </li>
+<li>chmod  改变文件权限</li>
+<li>scp 拷贝</li>
+<li>groupadd 加组 加用户 修改密码 不说了</li>
+<li>source 执行文件</li>
+</ul>
+</li>
+<li>关于mysql的启动</li>
+</ul>
+<h3 id="节省时间的方式"><a href="#节省时间的方式" class="headerlink" title="节省时间的方式"></a>节省时间的方式</h3><ul>
+<li>密码统一</li>
+<li>使用scp命令拷贝文件</li>
+<li>注意当前执行命令的账户</li>
+<li>使用其他人成功安装的组建包 不要自己找</li>
+</ul>
+<h3 id="还不熟悉的地方"><a href="#还不熟悉的地方" class="headerlink" title="还不熟悉的地方"></a>还不熟悉的地方</h3><ul>
+<li>各组件启动顺序</li>
+<li>看日志定位错误</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/25/hadoop-install-intro/" data-id="cjnynvpe4000byax7so8gdn22" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
   
     <article id="post-spider-intro" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -101,7 +296,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/22/spider-intro/" data-id="cjnveqaht000jj8x7kubizhf0" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/03/22/spider-intro/" data-id="cjnynvpet000pyax70dflmwh9" class="article-share-link">分享</a>
       
       
       
@@ -232,7 +427,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/13/Web-Test/" data-id="cjnveqafh0001j8x76v9g78d4" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/03/13/Web-Test/" data-id="cjnynvpdt0006yax71e5xcg82" class="article-share-link">分享</a>
       
       
       
@@ -376,7 +571,7 @@ timer.start()
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/07/getcoin/" data-id="cjnveqai4000nj8x7veizlei3" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/03/07/getcoin/" data-id="cjnynvpdz0008yax7wrew4hru" class="article-share-link">分享</a>
       
       
       
@@ -446,7 +641,7 @@ timer.start()
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/07/IPC-EXP/" data-id="cjnveqagq0005j8x7he3hcyfs" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/03/07/IPC-EXP/" data-id="cjnynvpcx0001yax79xn2nb7l" class="article-share-link">分享</a>
       
       
       
@@ -502,7 +697,7 @@ netsh interface ip set wins &quot;本地连接&quot; static 网关
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/27/ip-address-config/" data-id="cjnveqagw0006j8x757aa3bji" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/02/27/ip-address-config/" data-id="cjnynvpe7000cyax78ti456td" class="article-share-link">分享</a>
       
       
       
@@ -567,7 +762,7 @@ netsh interface ip set wins &quot;本地连接&quot; static 网关
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/27/laravel-startup/" data-id="cjnveqah6000aj8x73clk0ntf" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/02/27/laravel-startup/" data-id="cjnynvpea000dyax7d1n1tms5" class="article-share-link">分享</a>
       
       
       
@@ -630,7 +825,7 @@ netsh interface ip set wins &quot;本地连接&quot; static 网关
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/20/learn-program-datastructure/" data-id="cjnveqaha000bj8x7m89diy1s" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/01/20/learn-program-datastructure/" data-id="cjnynvped000gyax7xdvgt50n" class="article-share-link">分享</a>
       
       
       
@@ -701,7 +896,7 @@ netsh interface ip set wins &quot;本地连接&quot; static 网关
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/16/learning-program-c/" data-id="cjnveqahd000dj8x7plkgpgsg" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/01/16/learning-program-c/" data-id="cjnynvpep000lyax7wbazp5xr" class="article-share-link">分享</a>
       
       
       
@@ -739,6 +934,14 @@ netsh interface ip set wins &quot;本地连接&quot; static 网关
       <ul>
         
           <li>
+            <a href="/2018/10/31/book-list/">book_list</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/31/11-python-secuity-fun/">11招玩转网络安全</a>
+          </li>
+        
+          <li>
             <a href="/2018/10/30/upload-labs/">upload-labs实验</a>
           </li>
         
@@ -748,14 +951,6 @@ netsh interface ip set wins &quot;本地连接&quot; static 网关
         
           <li>
             <a href="/2018/10/28/windows-php-file-upload-1/">windows-php-file-uoload_1</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/22/dede-select-soft-post-md/">dedecms5.5文件上传漏洞复现</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/21/beginners‘python/">python之解放生产力</a>
           </li>
         
       </ul>

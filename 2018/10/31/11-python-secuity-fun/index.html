@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>11招玩转网络安全 | 青衫磊落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="0x00综述这本书还有一个副标题呢，用Python，更安全～然而也没看到书里面提到了多少的Python。整本书干活寥寥无几，章节行篇布局隔的挺远，看起来倒是舒服得很，半天时间就看完了。与其说Python，不如说跟DVWA结合的挺紧密的，挺多例子都是拿DVWA说事。 0x01 两个工具命令分类sqlmap参数说明 选项说明 目标说明 请求 注入 参数、–dbms说明数据库、–tamper、 枚举 列">
+<meta name="keywords" content="读书笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="11招玩转网络安全">
+<meta property="og:url" content="http://yoursite.com/2018/10/31/11-python-secuity-fun/index.html">
+<meta property="og:site_name" content="青衫磊落">
+<meta property="og:description" content="0x00综述这本书还有一个副标题呢，用Python，更安全～然而也没看到书里面提到了多少的Python。整本书干活寥寥无几，章节行篇布局隔的挺远，看起来倒是舒服得很，半天时间就看完了。与其说Python，不如说跟DVWA结合的挺紧密的，挺多例子都是拿DVWA说事。 0x01 两个工具命令分类sqlmap参数说明 选项说明 目标说明 请求 注入 参数、–dbms说明数据库、–tamper、 枚举 列">
+<meta property="og:updated_time" content="2018-11-06T12:13:31.494Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="11招玩转网络安全">
+<meta name="twitter:description" content="0x00综述这本书还有一个副标题呢，用Python，更安全～然而也没看到书里面提到了多少的Python。整本书干活寥寥无几，章节行篇布局隔的挺远，看起来倒是舒服得很，半天时间就看完了。与其说Python，不如说跟DVWA结合的挺紧密的，挺多例子都是拿DVWA说事。 0x01 两个工具命令分类sqlmap参数说明 选项说明 目标说明 请求 注入 参数、–dbms说明数据库、–tamper、 枚举 列">
+  
+    <link rel="alternate" href="/atom.xml" title="青衫磊落" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">青衫磊落</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">书古人学问无遗力，少壮工夫老始成。纸上得来终觉浅，绝知此事要躬行</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-11-python-secuity-fun" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/31/11-python-secuity-fun/" class="article-date">
+  <time datetime="2018-10-31T03:06:56.000Z" itemprop="datePublished">2018-10-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      11招玩转网络安全
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <h3 id="0x00综述"><a href="#0x00综述" class="headerlink" title="0x00综述"></a>0x00综述</h3><p>这本书还有一个副标题呢，用Python，更安全～然而也没看到书里面提到了多少的Python。整本书干活寥寥无几，章节行篇布局隔的挺远，看起来倒是舒服得很，半天时间就看完了。与其说Python，不如说跟DVWA结合的挺紧密的，挺多例子都是拿DVWA说事。</p>
+<h3 id="0x01-两个工具命令分类"><a href="#0x01-两个工具命令分类" class="headerlink" title="0x01 两个工具命令分类"></a>0x01 两个工具命令分类</h3><h5 id="sqlmap参数说明"><a href="#sqlmap参数说明" class="headerlink" title="sqlmap参数说明"></a>sqlmap参数说明</h5><ul>
+<li>选项说明</li>
+<li>目标说明</li>
+<li>请求</li>
+<li>注入 参数、–dbms说明数据库、–tamper、</li>
+<li>枚举 列举数据库信息、表结构和数据</li>
+<li>操作系统 </li>
+</ul>
+<h5 id="nmap命令分类"><a href="#nmap命令分类" class="headerlink" title="nmap命令分类"></a>nmap命令分类</h5><ul>
+<li>目标说明 包含哪些 排除哪些</li>
+<li>主机</li>
+<li>端口扫描技术</li>
+<li>端口说明与扫描顺序 默认1024</li>
+<li>服务和版本探测</li>
+<li>操作系统探测</li>
+<li>常见漏洞探测<h3 id="0x02-get到的点"><a href="#0x02-get到的点" class="headerlink" title="0x02 get到的点"></a>0x02 get到的点</h3></li>
+<li>nexpose这个扫描工具，还可以直接exploit-db，metasploit联动，这一点蛮让人惊艳的</li>
+<li>每次看到Burp里面Intruder模块payload的四种配置方式，总是一阵子头皮发麻，从这本学到这个点了</li>
+<li>Burp的又一个新技能，提取response中返回的token直接在intruder中使用</li>
+<li>zoomeye的链接总是记不住</li>
+<li>mysql可以限定远程IP登陆失败次数</li>
+<li>sqlmap设置代理、使用谷歌  python sqlmap.py -proxy <a href="http://127.0.0.1:1080" target="_blank" rel="external">http://127.0.0.1:1080</a> -g ‘inurl:’ –batch</li>
+</ul>
+<h3 id="0x04-小实验"><a href="#0x04-小实验" class="headerlink" title="0x04 小实验"></a>0x04 小实验</h3><ul>
+<li>Heart Bleed漏洞</li>
+<li>struts2漏洞</li>
+<li>tor匿名</li>
+<li>内网攻击 cain的使用</li>
+<li>无线网的密码-这个周末可以在实验室操作下😂</li>
+</ul>
+<h3 id="需要进一步加油的"><a href="#需要进一步加油的" class="headerlink" title="需要进一步加油的"></a>需要进一步加油的</h3><ul>
+<li>sqlmap的功能特性图及tamper</li>
+<li>nmap的功能特性图及script</li>
+<li>hydra的各种参数 还没有试过这个呢（已经用过了～然而没有爆出密码）</li>
+</ul>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>也不能说这本书不好，至少我看这本书没太多干货，学起来就没那么枯燥。然后又确实有挺多东西，是自己掌握的不够扎实。读这本书还是梳理清了挺多东西。所以嘛，这种事儿还是看匹配度，合适的就是好的了。感谢遇上～</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/31/11-python-secuity-fun/" data-id="cjnynw51g0000ylx7v1mzojjd" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/读书笔记/">读书笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
+
+    
+<nav id="article-nav">
+  
+    <a href="/2018/10/31/book-list/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          book_list
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/10/30/upload-labs/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">upload-labs实验</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+      
+  </div>
+ 
+  
+
+</section>
+           
+    <aside id="sidebar">
+  
+    
+
+  
+    
+    <div class="widget-wrap">
+    
+      <div class="widget" id="toc-widget-fixed">
+      
+        <strong class="toc-title">文章目录</strong>
+        <div class="toc-widget-list">
+              <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x00综述"><span class="toc-number">1.</span> <span class="toc-text">0x00综述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-两个工具命令分类"><span class="toc-number">2.</span> <span class="toc-text">0x01 两个工具命令分类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#sqlmap参数说明"><span class="toc-number">2.0.1.</span> <span class="toc-text">sqlmap参数说明</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nmap命令分类"><span class="toc-number">2.0.2.</span> <span class="toc-text">nmap命令分类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-get到的点"><span class="toc-number">3.</span> <span class="toc-text">0x02 get到的点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x04-小实验"><span class="toc-number">4.</span> <span class="toc-text">0x04 小实验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#需要进一步加油的"><span class="toc-number">5.</span> <span class="toc-text">需要进一步加油的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最后"><span class="toc-number">6.</span> <span class="toc-text">最后</span></a></li></ol>
+          </div>
+      </div>
+    </div>
+
+  
+    
+
+  
+    
+  
+    
+  
+    
+
+  
+    
+  
+    <!--微信公众号二维码-->
+
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2018 Fire Xun&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;xundidi@gmail.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png"/>
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+  
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "e2fb4051c49842688ce669e634bc983f",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+    
+
+  
+
+
+
+
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
+</body>
+</html>

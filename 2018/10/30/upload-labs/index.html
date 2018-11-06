@@ -5,16 +5,17 @@
   
   <title>upload-labs实验 | 青衫磊落</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="绝知此事要躬行">
+  <meta name="description" content="0x00好久之前就看到这个靶场了，这个周末才做了一下，其实看到靶场应该有单身狗看见苍老师的冲动才好。自己怼过来的经验才是经验，学到的东西才纯粹，现在的网络环境对于小白也是越来越不友好了，多找靶场练习，练一场有一场的受益。现在docker环境也大大改善了搭建环境的门槛，没有必要先变成运维工程师，然后再学安全了。 关于这个靶场，github上readme已经说的很完善了，然后先知上几个相关的write">
+<meta name="keywords" content="靶场学习 漏洞复现">
 <meta property="og:type" content="article">
 <meta property="og:title" content="upload-labs实验">
 <meta property="og:url" content="http://yoursite.com/2018/10/30/upload-labs/index.html">
 <meta property="og:site_name" content="青衫磊落">
-<meta property="og:description" content="绝知此事要躬行">
-<meta property="og:updated_time" content="2018-10-30T07:20:09.628Z">
+<meta property="og:description" content="0x00好久之前就看到这个靶场了，这个周末才做了一下，其实看到靶场应该有单身狗看见苍老师的冲动才好。自己怼过来的经验才是经验，学到的东西才纯粹，现在的网络环境对于小白也是越来越不友好了，多找靶场练习，练一场有一场的受益。现在docker环境也大大改善了搭建环境的门槛，没有必要先变成运维工程师，然后再学安全了。 关于这个靶场，github上readme已经说的很完善了，然后先知上几个相关的write">
+<meta property="og:updated_time" content="2018-10-30T10:01:38.611Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="upload-labs实验">
-<meta name="twitter:description" content="绝知此事要躬行">
+<meta name="twitter:description" content="0x00好久之前就看到这个靶场了，这个周末才做了一下，其实看到靶场应该有单身狗看见苍老师的冲动才好。自己怼过来的经验才是经验，学到的东西才纯粹，现在的网络环境对于小白也是越来越不友好了，多找靶场练习，练一场有一场的受益。现在docker环境也大大改善了搭建环境的门槛，没有必要先变成运维工程师，然后再学安全了。 关于这个靶场，github上readme已经说的很完善了，然后先知上几个相关的write">
   
     <link rel="alternate" href="/atom.xml" title="青衫磊落" type="application/atom+xml">
   
@@ -64,7 +65,7 @@
       </h1>
       
         <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">书到用时方恨少，事非经过不知难。</a>
+          <a href="/" id="subtitle">书古人学问无遗力，少壮工夫老始成。纸上得来终觉浅，绝知此事要躬行</a>
         </h2>
       
     </div>
@@ -95,15 +96,29 @@
       
         <!-- Table of Contents -->
         
-        <p>绝知此事要躬行</p>
-
+        <h2 id="0x00"><a href="#0x00" class="headerlink" title="0x00"></a>0x00</h2><p>好久之前就看到这个靶场了，这个周末才做了一下，其实看到靶场应该有单身狗看见苍老师的冲动才好。自己怼过来的经验才是经验，学到的东西才纯粹，现在的网络环境对于小白也是越来越不友好了，多找靶场练习，练一场有一场的受益。现在docker环境也大大改善了搭建环境的门槛，没有必要先变成运维工程师，然后再学安全了。</p>
+<p>关于这个靶场，github上readme已经说的很完善了，然后先知上几个相关的writeup也说的很清晰。<br>话说回来，简单说一下upload-labs这个靶场的环境，windows系统 + apache2 + php5.2.7，配置为module方式。</p>
+<h2 id="0x01-综述"><a href="#0x01-综述" class="headerlink" title="0x01 综述"></a>0x01 综述</h2><p>首先整理一下针对靶场的环境，有那些可以利用的点</p>
+<ul>
+<li>Windows系统文件的命名不区分大小写</li>
+<li>如果文件名中有特殊字符如点号，空格等将会忽略掉文件</li>
+<li>$:DATA 文件流的使用</li>
+<li></li>
+</ul>
+<h2 id="0x02-条分缕析"><a href="#0x02-条分缕析" class="headerlink" title="0x02 条分缕析"></a>0x02 条分缕析</h2><h3 id="webshell上传"><a href="#webshell上传" class="headerlink" title="webshell上传"></a>webshell上传</h3><h3 id="图片马上传"><a href="#图片马上传" class="headerlink" title="图片马上传"></a>图片马上传</h3><p>图片马上传的利用方式</p>
+<ul>
+<li>配合文件包含</li>
+</ul>
+<h2 id="0x03-安全的上传功能"><a href="#0x03-安全的上传功能" class="headerlink" title="0x03 安全的上传功能"></a>0x03 安全的上传功能</h2>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/30/upload-labs/" data-id="cjnveqahl000gj8x7qxc5pyj1" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/10/30/upload-labs/" data-id="cjnynvpeu000qyax7uhlnjxdi" class="article-share-link">分享</a>
       
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/靶场学习-漏洞复现/">靶场学习 漏洞复现</a></li></ul>
+
     </footer>
   </div>
   
@@ -152,6 +167,15 @@
     
 <nav id="article-nav">
   
+    <a href="/2018/10/31/11-python-secuity-fun/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          11招玩转网络安全
+        
+      </div>
+    </a>
+  
   
     <a href="/2018/10/28/picture-trojan-and-parsing-vuln/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
@@ -185,42 +209,24 @@
 
   
     
-  
+    <div class="widget-wrap">
     
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title recent-posts">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/10/30/upload-labs/">upload-labs实验</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/28/picture-trojan-and-parsing-vuln/">picture-trojan-and-parsing-vuln</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/28/windows-php-file-upload-1/">windows-php-file-uoload_1</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/22/dede-select-soft-post-md/">dedecms5.5文件上传漏洞复现</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/21/beginners‘python/">python之解放生产力</a>
-          </li>
-        
-      </ul>
+      <div class="widget" id="toc-widget-fixed">
+      
+        <strong class="toc-title">文章目录</strong>
+        <div class="toc-widget-list">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00"><span class="toc-number">1.</span> <span class="toc-text">0x00</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-综述"><span class="toc-number">2.</span> <span class="toc-text">0x01 综述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-条分缕析"><span class="toc-number">3.</span> <span class="toc-text">0x02 条分缕析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#webshell上传"><span class="toc-number">3.1.</span> <span class="toc-text">webshell上传</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图片马上传"><span class="toc-number">3.2.</span> <span class="toc-text">图片马上传</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-安全的上传功能"><span class="toc-number">4.</span> <span class="toc-text">0x03 安全的上传功能</span></a></li></ol>
+          </div>
+      </div>
     </div>
-  </div>
 
+  
+    
+
+  
+    
+  
+    
   
     
 
