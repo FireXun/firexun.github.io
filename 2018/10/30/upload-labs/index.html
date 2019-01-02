@@ -6,13 +6,13 @@
   <title>upload-labs实验 | 青衫磊落</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="0x00好久之前就看到这个靶场了，这个周末才做了一下，其实看到靶场应该有单身狗看见苍老师的冲动才好。自己怼过来的经验才是经验，学到的东西才纯粹，现在的网络环境对于小白也是越来越不友好了，多找靶场练习，练一场有一场的受益。现在docker环境也大大改善了搭建环境的门槛，没有必要先变成运维工程师，然后再学安全了。 关于这个靶场，github上readme已经说的很完善了，然后先知上几个相关的write">
-<meta name="keywords" content="靶场学习 漏洞复现">
+<meta name="keywords" content="靶场">
 <meta property="og:type" content="article">
 <meta property="og:title" content="upload-labs实验">
 <meta property="og:url" content="http://yoursite.com/2018/10/30/upload-labs/index.html">
 <meta property="og:site_name" content="青衫磊落">
 <meta property="og:description" content="0x00好久之前就看到这个靶场了，这个周末才做了一下，其实看到靶场应该有单身狗看见苍老师的冲动才好。自己怼过来的经验才是经验，学到的东西才纯粹，现在的网络环境对于小白也是越来越不友好了，多找靶场练习，练一场有一场的受益。现在docker环境也大大改善了搭建环境的门槛，没有必要先变成运维工程师，然后再学安全了。 关于这个靶场，github上readme已经说的很完善了，然后先知上几个相关的write">
-<meta property="og:updated_time" content="2018-10-30T10:01:38.611Z">
+<meta property="og:updated_time" content="2018-11-14T12:22:03.523Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="upload-labs实验">
 <meta name="twitter:description" content="0x00好久之前就看到这个靶场了，这个周末才做了一下，其实看到靶场应该有单身狗看见苍老师的冲动才好。自己怼过来的经验才是经验，学到的东西才纯粹，现在的网络环境对于小白也是越来越不友好了，多找靶场练习，练一场有一场的受益。现在docker环境也大大改善了搭建环境的门槛，没有必要先变成运维工程师，然后再学安全了。 关于这个靶场，github上readme已经说的很完善了，然后先知上几个相关的write">
@@ -42,7 +42,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -113,11 +113,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/30/upload-labs/" data-id="cjnynvpeu000qyax7uhlnjxdi" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/10/30/upload-labs/" data-id="cjqenkupg000u9wx7dxmu0t4l" class="article-share-link">Share</a>
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/靶场学习-漏洞复现/">靶场学习 漏洞复现</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/靶场/">靶场</a></li></ul>
 
     </footer>
   </div>
@@ -125,7 +125,7 @@
     
  <script src="/jquery/jquery.min.js"></script>
   <div id="random_posts">
-    <h2>推荐文章</h2>
+    <h2>Recommended Posts</h2>
     <div class="random_posts_ul">
       <script>
           var random_count =4
@@ -168,7 +168,7 @@
 <nav id="article-nav">
   
     <a href="/2018/10/31/11-python-secuity-fun/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">上一篇</strong>
+      <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
           11招玩转网络安全
@@ -178,7 +178,7 @@
   
   
     <a href="/2018/10/28/picture-trojan-and-parsing-vuln/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">下一篇</strong>
+      <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">picture-trojan-and-parsing-vuln</div>
     </a>
   
@@ -213,7 +213,7 @@
     
       <div class="widget" id="toc-widget-fixed">
       
-        <strong class="toc-title">文章目录</strong>
+        <strong class="toc-title">Content</strong>
         <div class="toc-widget-list">
               <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00"><span class="toc-number">1.</span> <span class="toc-text">0x00</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-综述"><span class="toc-number">2.</span> <span class="toc-text">0x01 综述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-条分缕析"><span class="toc-number">3.</span> <span class="toc-text">0x02 条分缕析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#webshell上传"><span class="toc-number">3.1.</span> <span class="toc-text">webshell上传</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图片马上传"><span class="toc-number">3.2.</span> <span class="toc-text">图片马上传</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-安全的上传功能"><span class="toc-number">4.</span> <span class="toc-text">0x03 安全的上传功能</span></a></li></ol>
           </div>
@@ -244,11 +244,11 @@
   
   <div class="outer">
     <div id="footer-left">
-      &copy; 2014 - 2018 Fire Xun&nbsp;|&nbsp;
-      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+      &copy; 2014 - 2019 Fire Xun&nbsp;|&nbsp;
+      Theme by <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
     </div>
      <div id="footer-right">
-      联系方式&nbsp;|&nbsp;xundidi@gmail.com
+      Contact&nbsp;|&nbsp;xundidi@gmail.com
     </div>
   </div>
 </footer>

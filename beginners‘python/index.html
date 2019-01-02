@@ -1,0 +1,1001 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+  
+
+  <title>python之解放生产力 | HipHop_&amp;_Coder</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="开篇廖雪峰的教程，有一个很好的地方，顺着教程能够看清Python的全部面貌。 然而程序呢，并不是一个等所有知识点全学完了才可以动手写的事情。之前有过其他语言编程经验的人，往往在看过一遍语法的基础上就开始编程，只是简单的用法就能体现出”人生苦短，我用Python“的简洁高效，即使代码上依旧带有其他语言使用经验的编程风格。 虽如此，进一步的学习，还是有必要的。 人生苦短 我用Python 那么看看廖雪">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python之解放生产力">
+<meta property="og:url" content="http://blog.rapcoder.com/beginners‘python/index.html">
+<meta property="og:site_name" content="HipHop_&amp;_Coder">
+<meta property="og:description" content="开篇廖雪峰的教程，有一个很好的地方，顺着教程能够看清Python的全部面貌。 然而程序呢，并不是一个等所有知识点全学完了才可以动手写的事情。之前有过其他语言编程经验的人，往往在看过一遍语法的基础上就开始编程，只是简单的用法就能体现出”人生苦短，我用Python“的简洁高效，即使代码上依旧带有其他语言使用经验的编程风格。 虽如此，进一步的学习，还是有必要的。 人生苦短 我用Python 那么看看廖雪">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-10-23T06:00:44.311Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python之解放生产力">
+<meta name="twitter:description" content="开篇廖雪峰的教程，有一个很好的地方，顺着教程能够看清Python的全部面貌。 然而程序呢，并不是一个等所有知识点全学完了才可以动手写的事情。之前有过其他语言编程经验的人，往往在看过一遍语法的基础上就开始编程，只是简单的用法就能体现出”人生苦短，我用Python“的简洁高效，即使代码上依旧带有其他语言使用经验的编程风格。 虽如此，进一步的学习，还是有必要的。 人生苦短 我用Python 那么看看廖雪">
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+  
+    <link rel="alternative" href="/atom.xml" title="HipHop_&amp;_Coder" type="application/atom+xml">
+  
+
+
+  
+    <link rel="icon" href="/img/favicon.ico">
+  
+
+
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- <link href="/css/show.ua.css" rel="stylesheet" type="text/css" > -->
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <!--[if lt IE 9]><script src="//cdn.bootcss.com/html5shiv/r29/html5.min.js"></script><![endif]-->
+  <!-- <link href="/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> -->
+
+  <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+  <script src="/js/ua-parser.min.js" type="text/javascript"></script>
+  <script src="/js/jquery.js" type="text/javascript"></script>
+  <script src="/js/jquery.min.js" type="text/javascript"></script>
+  <script src="/js/scrollReveal.js" type="text/javascript"></script>
+  <script src="http://cdn.bootcss.com/instantsearch.js/1.5.1/instantsearch.js"></script>
+  <script src="/js/algolia-search.js" type="text/javascript"></script>
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> -->
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+  
+  
+
+
+
+
+
+
+  
+  
+  <!-- 
+  
+  
+  
+  
+   -->
+
+  <script>
+   var CONFIG = {
+    root: '/',
+    algolia: {
+          applicationID: "",
+          apiKey: "",
+          adminApiKey: "",
+          indexName: "",
+          hits: {"per_page":10},
+          labels: {"input_placeholder":"搜索...","hits_empty":"未发现与 「${query}」相关的内容","hits_stats":"${hits} 条相关条目，使用了 ${time} 毫秒"}
+        }
+  };
+  </script>
+
+</head>
+
+
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div data-scroll-reveal="enter top"  id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">HipHop_&amp;_Coder</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">事在人为，功不唐捐！</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/"><i class="fa fa-home" aria-hidden="true"></i>首页</a>
+        
+          <a class="main-nav-link" href="/archives"><i class="fa fa-archive" aria-hidden="true"></i>归档</a>
+        
+          <a class="main-nav-link" href="/about.html"><i class="fa fa-user" aria-hidden="true"></i>关于我</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a  class="nav-icon" href="/atom.xml" title="RSS Feed"><i class="fa fa-rss" aria-hidden="true"></i></a>
+        
+        <a id="nav-search-btn" class="nav-icon popup-trigger" title="Search"><i class="fa fa-search" aria-hidden="true"></i></a>
+      </nav>
+        <div id="local-search-input"></div>
+      <!-- 百度搜索 -->
+     <!-- <div id="search-form-wrap">
+        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="blog.rapcoder.com">
+        </form>
+      </div>
+      -->
+   
+    </div>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article   id="post-beginners‘python" class="article article-type-post" itemscope itemprop="blogPost">
+  <div data-scroll-reveal="enter top and over 0.7s"  class="article-meta">
+    <a  href="/beginners‘python/" class="article-date">
+  <i class="fa fa-calendar"></i>
+  <time  datetime="2018-05-21T15:36:24.000Z" itemprop="datePublished">2018-05-21</time>
+</a>
+
+    
+
+  </div>
+  <div class="article-inner"  >
+    
+    
+
+      <header class="article-header">
+
+        
+  
+    <h1 class="article-title" itemprop="name">
+      <i class="fa fa-pencil-square-o  article-title-icon"></i>python之解放生产力
+    </h1>
+  
+
+
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+        </br>
+        <span id="busuanzi_container_page_pv">
+          阅读次数<span id="busuanzi_value_page_pv"></span>
+        </span>
+        <h3 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h3><p>廖雪峰的教程，有一个很好的地方，顺着教程能够看清Python的全部面貌。</p>
+<p>然而程序呢，并不是一个等所有知识点全学完了才可以动手写的事情。之前有过其他语言编程经验的人，往往在看过一遍语法的基础上就开始编程，只是简单的用法就能体现出”人生苦短，我用Python“的简洁高效，即使代码上依旧带有其他语言使用经验的编程风格。</p>
+<p>虽如此，进一步的学习，还是有必要的。</p>
+<pre><code>人生苦短 我用Python
+</code></pre><p>那么看看廖雪峰的教程提到了那些具有科技革命的高级特性。</p>
+<h3 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h3><p>什么是切片呢，就是我们可以通过正负值的下标已经跳跃长度来截取变量。</p>
+<p>逆置一个数组，曾经的写法可能是for循环中依此赋值，这个时候我们还要小心的处理下标，但是有了切片：<br>b = a[::-1]</p>
+<p>注意一个要点，就是切片并不在原来数据上操作，</p>
+<h3 id="列表生成式"><a href="#列表生成式" class="headerlink" title="列表生成式"></a>列表生成式</h3><p>主要用于for循环等批量生成列表的地方。<br>我们最熟悉的写法可能是</p>
+<pre><code>for i in range(100):
+    a.append(i)
+</code></pre><p>使用列表生成式</p>
+<pre><code>a = [i for i in range(100)]
+</code></pre><h3 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h3><p>什么是迭代器：就是边循环便计算的机制。<br>生成器解决了一个问题，可以大批量生成的对象，随用随取，省了空间。<br>注意与列表生成式子的区别，</p>
+<pre><code># 列表生成式
+a = [i for i in range(10)]
+# 生成器
+b = (i for i in range(10))
+</code></pre><p>上面的写法不需要初始化，可以直接使用next(g)来获取首位及下一位元素，更优雅的方式是使用for循环。</p>
+<p>另一种更优雅的用法 yield </p>
+<h3 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h3><p>迭代强调了一个抽象度更高的for-in循环模式。list，tuple等都可以使用，然后如果像同步使用下标数字来引用元素的话，我们可以使用enumerate函数</p>
+<pre><code>for i, value in enumerate([&apos;A&apos;, &apos;B&apos;, &apos;C&apos;]):
+    print(i, value)
+</code></pre><h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p>写程序的时候经常遇到的一个错误：<br>object is not iterable。可以使用for-in情况的对象必须是可迭代的。</p>
+<p>主要有两类：</p>
+<ul>
+<li><p>集合数据类型，如list、tuple、dict、set、str等；</p>
+</li>
+<li><p>generator，包括生成器和带yield的generator function。</p>
+</li>
+</ul>
+<p>那么，问题来了:如何判断是否对象可迭代？</p>
+<pre><code>from collections import Iterable
+isinstance([], Iterable)
+</code></pre><p>然而还有一个问题，可迭代与迭代器并不是一回事情。</p>
+<p>Python的Iterator对象表示的是一个数据流，Iterator对象可以被next()函数调用并不断返回下一个数据，直到没有数据时抛出StopIteration错误。可以把这个数据流看做是一个有序序列，但我们却不能提前知道序列的长度，只能不断通过next()函数实现按需计算下一个数据，所以Iterator的计算是惰性的，只有在需要返回下一个数据时它才会计算。</p>
+<h3 id="Pyhton的高级函数编程"><a href="#Pyhton的高级函数编程" class="headerlink" title="Pyhton的高级函数编程"></a>Pyhton的高级函数编程</h3><p>记得最早写Javascript的时候，接触到函数式编程，每种语言都有自己的一等公民，熟练使用一类公民才算得上是接触到语言的核心风格。</p>
+<h4 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h4><ul>
+<li>map/reduce<br>惰性处理</li>
+<li>filter 结合迭代器的无限数据流惰性运算，求素数使用的filter简直不能更完美。</li>
+<li><p>sorted<br>可以指定比较的键函数<br>上面的函数从更加抽象，更加深层次的程度上优化了习惯的编程思维。总体来说，在需要的场合，通过对上面这些函数的使用能够替换原来臃肿的处理流程，并且逻辑上更加清晰，</p>
+</li>
+<li><p>返回函数</p>
+</li>
+</ul>
+<p>既然是函数式编程，也就是说函数能够作为参数来使用，这边有一个很重要的概念式闭包。</p>
+<ul>
+<li><p>匿名函数 lambda</p>
+</li>
+<li><p>装饰器</p>
+</li>
+</ul>
+<p>在函数之前或者之后执行某个操作，可以用来控制权限，写日志，绑定url和函数</p>
+<ul>
+<li>偏函数</li>
+</ul>
+<p>优化函数的参数</p>
+
+      
+
+    </div>
+
+
+
+
+
+    <footer class="article-footer">
+      
+        <a data-url="http://blog.rapcoder.com/beginners‘python/" data-id="cjof4mkad0008gvx7ql3isssk" class="article-share-link" data-share="baidu" data-title="python之解放生产力">分享到</a>
+      
+
+      
+        <a href="http://blog.rapcoder.com/beginners‘python/#gitalk-container" class="article-comment-link">评论</a>
+      
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/CodeAudit/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">← 上一篇</strong>
+      <div class="article-nav-title">CodeAudit</div>
+    </a>
+  
+  
+    <a href="/dede-select-soft-post-md/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇 →</strong>
+      <div class="article-nav-title">
+        
+          dedecms5.5文件上传漏洞复现
+        
+      </div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+  <section class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section> 
+
+
+
+
+  <div id="gitalk-container"></div>
+
+
+</section>
+      
+      <aside   id="sidebar">
+  
+    
+  <div class="widget-wrap">
+
+    <h3 class="widget-title" data-scroll-reveal="enter top and over 0.7s"><i class="fa fa-file-text-o"></i>近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li onclick="javascript:document.getElementById('recentpost_item').click();">
+            <a id="recentpost_item" href="/zvuldrill靶场/">zvuldrill靶场</a>
+          </li>
+        
+          <li onclick="javascript:document.getElementById('recentpost_item').click();">
+            <a id="recentpost_item" href="/shadowsocks-ios-compile/">ios翻墙客户端</a>
+          </li>
+        
+          <li onclick="javascript:document.getElementById('recentpost_item').click();">
+            <a id="recentpost_item" href="/shiyanbar-ctf-web/">shiyanbar_ctf_web</a>
+          </li>
+        
+          <li onclick="javascript:document.getElementById('recentpost_item').click();">
+            <a id="recentpost_item" href="/google-hacking/">google_hacking</a>
+          </li>
+        
+          <li onclick="javascript:document.getElementById('recentpost_item').click();">
+            <a id="recentpost_item" href="/book-list/">book_list</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  <script>
+  $(document).on("click", "ul.category-list li.category-list-item", function () {
+    window.location.href = $(this).find('a').attr('href')
+  })
+  </script>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title" data-scroll-reveal="enter top and over 0.7s" ><i class="fa fa-cloud"></i>标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/python-技术/" style="font-size: 10px;">python 技术</a> <a href="/tags/安全/" style="font-size: 10px;">安全</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/漏洞复现/" style="font-size: 10px;">漏洞复现</a> <a href="/tags/编程/" style="font-size: 10px;">编程</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/靶场/" style="font-size: 20px;">靶场</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title" data-scroll-reveal="enter top and over 0.7s" ><i class="fa fa-archive"></i>归档</h3>
+    <div class="widget">
+      <!-- <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">2</span></li></ul> -->
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">2018年11月</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">2018年10月</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">2018年05月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">2018年04月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">2018年03月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">2018年02月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">2018年01月</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+<script>
+$(document).on("click", "ul.archive-list li.archive-list-item", function () {
+  window.location.href = $(this).find('a').attr('href')
+})
+</script>
+
+  
+    
+  <style>
+  *{ margin: 0; padding: 0;}
+  .tooltips{ border-width: 1px; border-style: solid; position: absolute; display: none; border-radius: 3px; opacity: 0; filter:alpha( opacity = 0) ; z-index: 999;}
+  .tooltips p.content{ padding: 5px; }
+  .tooltips .triangle-front,.tooltips .triangle-back{ width: 0; height: 0; overflow: hidden; border-width: 8px; border-style: solid; position: absolute; border-color: transparent ; top: 100%; left: 50%; margin-left: -8px;}
+  .tooltips .triangle-back{ margin-top: -1px;}
+
+  .toolTipInfo{ border-color: #000; background-color: #EEEEEE;}
+  .toolTipInfo .triangle-front{ border-top-color: #EEEEEE;}
+  .toolTipInfo .triangle-back{ border-top-color: #EEEEEE;}
+
+
+  .icoSize{font-size: 2em}
+  </style>
+
+
+
+  <div class="widget-wrap">
+    <h3 class="widget-title" data-scroll-reveal="enter top and over 0.7s" ><i class="fa fa-link"></i>链接</h3>
+    <div class="widget" style="z-index: 1;">
+
+
+
+
+
+      <!-- <ul> -->
+        
+          <!-- <li> -->
+          
+
+          
+
+                  <a id="github-alt-icon-color" class="weight-icon-link" target="_blank"  href="https://github.com/hiphopcoders">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github-alt fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+
+          
+
+          
+
+
+          <!-- </li> -->
+        
+          <!-- <li> -->
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+
+          
+
+          
+
+
+          <!-- </li> -->
+        
+          <!-- <li> -->
+          
+
+          
+
+          
+
+          
+                  <a id="zhihu-icon-color" class="weight-icon-link" target="_blank" href="https://www.zhihu.com/people/HipHopCoder">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa  fa-stack-1x fa-inverse">知</i>
+                      </span>
+                  </a>
+          
+
+          
+
+          
+
+          
+
+          
+
+
+          
+
+          
+
+
+          <!-- </li> -->
+        
+          <!-- <li> -->
+          
+            <a id="weixin-icon-color" class="weight-icon-link"  href="javascript:;"   id="weixin-icon" target="_blank" tooltips="<img src='weixin.png'>">
+                <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-weixin  fa-stack-1x fa-inverse"></i>
+                  </span>
+              </a>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+
+          
+
+          
+
+
+          <!-- </li> -->
+        
+          <!-- <li> -->
+          
+            <a id="qq-icon-color" class="weight-icon-link"  href="javascript:;"   id="qq-icon" target="_blank" tooltips="<img src='qq.png'>">
+                <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-qq  fa-stack-1x fa-inverse"></i>
+                  </span>
+              </a>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+
+          
+
+          
+
+
+          <!-- </li> -->
+        
+          <!-- <li> -->
+          
+
+          
+
+          
+
+          
+
+          
+                  <a id="weibo-icon-color" class="weight-icon-link" target="_blank" href="http://weibo.com/http://weibo.com/p/1005051632283810/home">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+          
+
+          
+
+          
+
+          
+
+
+          
+
+          
+
+
+          <!-- </li> -->
+        
+          <!-- <li> -->
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+
+          
+
+          
+
+
+          <!-- </li> -->
+        
+          <!-- <li> -->
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+
+          
+
+          
+
+
+          <!-- </li> -->
+        
+          <!-- <li> -->
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+
+          
+
+          
+
+
+          <!-- </li> -->
+        
+          <!-- <li> -->
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+
+          
+                  <a id="envelope-o-icon-color" class="weight-icon-link" target="_blank"  href="mailto:hiphopcoder@163.com" data-toggle="tooltip" data-placement="top" title="请多多交流！">
+                  <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope-o  fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+          
+
+          
+
+
+          <!-- </li> -->
+        
+          <!-- <li> -->
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+                  <a id="music-icon-color" class="weight-icon-link" target="_blank"  href="http://5sing.kugou.com/fc/8637366.html" data-toggle="tooltip" data-placement="top" title="5Sing歌曲">
+                  <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-music  fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+          
+
+
+          
+
+          
+
+
+          <!-- </li> -->
+        
+          <!-- <li> -->
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+
+          
+
+          
+              <a id="csdn-icon-color" class="weight-icon-link" target="_blank" href="http://blog.csdn.net/a542551042" data-toggle="tooltip" data-placement="top" title="CSDN博客">
+                          <span class="fa-stack fa-lg">
+                              <i class="fa fa-circle fa-stack-2x"></i>
+                              <i class="fa fa fa-stack-1x fa-inverse">C</i>
+                          </span>
+              </a>
+          
+
+
+          <!-- </li> -->
+        
+      <!-- </ul> -->
+    </div>
+  </div>
+
+
+  <script>
+  $.fn.extend({
+    hoverTips : function (){
+      var self = $(this);
+      var sw = self.get(0).switch;
+      if( !sw ) {
+        sw = true;
+        var content = self.attr("tooltips");
+        var htmlDom = $("<div class='tooltips'>")
+            .addClass("toolTipInfo")
+            .html("<p class='content'></p>"
+                + "<p class='triangle-front'></p>"
+                + "<p class='triangle-back'></p>");
+        htmlDom.find("p.content").html( content );
+      }
+      self.on("mouseover",function(){
+        $("body").append( htmlDom );
+        var left = self.offset().left - htmlDom.outerWidth()/2 + self.outerWidth()/2;
+        var top = self.offset().top - htmlDom.outerHeight() - parseInt(htmlDom.find(".triangle-front").css("border-width"));
+        htmlDom.css({"left":left,"top":top - 10,"display":"block"});
+        htmlDom.stop().animate({ "top" : top ,"opacity" : 1},300);
+      });
+      self.on("mouseout",function(){
+        var top = parseInt(htmlDom.css("top"));
+        htmlDom.stop().animate({ "top" : top - 10 ,"opacity" : 0},300,function(){
+          htmlDom.remove();
+          sw = false;
+        });
+      });
+    },
+
+  });
+
+  $("#weixin-icon-color").hoverTips();
+  $("#qq-icon-color").hoverTips();
+  </script>
+
+
+
+  
+    
+    <div class="widget-wrap">
+  
+      <h3 class="widget-title" data-scroll-reveal="enter top and over 0.7s"><i class="fa fa-group"></i>友链</h3>
+      <div class="widget">
+        <ul>
+        
+            <li onclick="javascript:document.getElementById('friend_links_item').click();">
+              <a id="friend_links_item" href="http://www.baidu.com"><i class="fa  fa-arrow-circle-right" style="margin-right:7px"></i>百度</a>
+            </li>
+
+        
+        </ul>
+      </div>
+    </div>
+  
+  
+  
+</aside>
+
+      
+    </div>
+    <footer  id="footer">
+  
+  <div  data-scroll-reveal="enter bottom"  class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 卡尔西<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/HipHopCoderS/Landscape-x" target="_blank">Landscape-x</a>
+    </div>
+
+    <div id="footer-info" class="inner">
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span id="busuanzi_container_site_pv"> 访问量
+      <font color="#FF3030"><i class="fa fa-heartbeat"></i></i></font>
+      <span id="busuanzi_value_site_pv"></span>次</span>
+
+      <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257415698'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1257415698%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+
+    </div>
+  </div>
+
+</footer>
+
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link"><i class="fa fa-home" aria-hidden="true"></i>首页</a>
+  
+    <a href="/archives" class="mobile-nav-link"><i class="fa fa-archive" aria-hidden="true"></i>归档</a>
+  
+    <a href="/about.html" class="mobile-nav-link"><i class="fa fa-user" aria-hidden="true"></i>关于我</a>
+  
+</nav>
+
+  <!-- totop start -->
+<div id="totop">
+<a title="返回顶部"><img src="/img/betop.png"/></a>
+</div>
+
+<!-- totop end -->
+
+
+
+  <script>
+    var disqus_shortname = 'rapcoder';
+    if (page.permalink){ 
+      var disqus_url = 'http://blog.rapcoder.com/beginners‘python/';
+     } 
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>
+  function SetShareData(cmd, config) {
+    if (shareDataTitle && shareDataUrl) {
+      config.bdText = shareDataTitle;
+      config.bdUrl = shareDataUrl;
+    }
+    return config;
+  }
+  window._bd_share_config={
+    "common":{onBeforeClick: SetShareData},
+    "share":{"bdCustomStyle":"/css/bdshare.css"}
+  };
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+<!-- 百度分享 end -->
+
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+<script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true
+                    
+}
+  
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                  
+}
+    
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                            all[i].SourceElement().parentNode.className += ' has-jax';
+                                    
+            }
+                
+        });
+</script>
+
+<script type="text/javascript" src="http://cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
+
+
+
+<div class="site-search">
+  <div class="algolia-popup popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+</div>
+
+
+<script>
+$(document).ready(function(){
+window.scrollReveal = new scrollReveal({ reset: true});
+//
+})
+</script>

