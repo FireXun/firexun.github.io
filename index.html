@@ -40,7 +40,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -71,6 +71,114 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-mysql注释" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/05/mysql注释/" class="article-date">
+  <time datetime="2019-01-05T14:39:19.000Z" itemprop="datePublished">2019-01-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/05/mysql注释/">mysql注释</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>注释可用于记录SQL语句的目的或存储过程中代码块的逻辑。在解析SQL代码时，MySQL会忽略注释部分。除了可执行注释之外，它只执行SQL部分。</p>
+<p>MySQL支持三种注释样式：</p>
+<h5 id="单行注释"><a href="#单行注释" class="headerlink" title="单行注释"></a>单行注释</h5><p>–单行注释。双破折号注释样式在第二个破折号后至少需要空格或控制字符（空格，制表符，换行符等）。</p>
+<p>​    SELECT * FROM users; – This is a comment</p>
+<p>请注意，标准SQL在第二个破折号后不需要空格。MySQL使用空格来避免某些SQL构造的问题，例如：</p>
+<p>​    SELECT 10–1;</p>
+<p>该语句返回11.如果MySQL没有使用空格，它将返回10。</p>
+<p>‘#’单行注释。<br><code>SEL</code>ECT<code>​</code>lastName, firstName<code>`FROM</code><br>​    <code>employees</code><br><code>WHERE</code><br>​    reportsTo = 1002; # get subordinates of Diane`</p>
+<h5 id="多行注释"><a href="#多行注释" class="headerlink" title="多行注释"></a>多行注释</h5><p>C风格的评论/**/可以跨越多行。您可以使用此注释样式来记录SQL代码块。</p>
+<p>/<em><br>​    Get sales rep employees<br>​    that reports to Anthony
+</em>/</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">SELECT </div><div class="line">​    lastName, firstName</div><div class="line">FROM</div><div class="line">​    employees</div><div class="line">WHERE</div><div class="line">​    reportsTo = 1143</div><div class="line">​        AND jobTitle = &apos;Sales Rep&apos;;</div><div class="line"></div></pre></td></tr></table></figure>
+<p>请注意，MySQL不支持嵌套注释。</p>
+<h5 id="可执行注释"><a href="#可执行注释" class="headerlink" title="可执行注释"></a>可执行注释</h5><p>MySQL提供可执行注释以支持不同数据库之间的可移植性。这些注释允许您嵌入仅在MySQL中执行但不在其他数据库中执行的SQL代码。</p>
+<p>以下说明了可执行注释语法：</p>
+<p>​    /<em>! MySQL-specific code </em>/<br>例如，以下语句使用可执行注释：<br>​    SELECT 1 /<em>! +1 </em>/<br>该语句返回2而不是1.但是，如果在其他数据库系统中执行它，它将返回1。</p>
+<p>如果要从特定版本的MySQL执行注释，请使用以下语法：</p>
+<p>/<em>!##### MySQL-specific code </em>/<br>字符串’#####’表示可以执行注释的MySQL的最低版本。第一个＃是主要版本，例如5或8.第二个2号（##）是次要版本。最后2个是补丁级别。</p>
+<p>例如，以下注释仅在MySQL 5.1.10或更高版本中可执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE t1 (</div><div class="line">​    k INT AUTO_INCREMENT,</div><div class="line">​    KEY (k)</div><div class="line">)  /*!50110 KEY_BLOCK_SIZE=1024; */</div><div class="line"></div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/01/05/mysql注释/" data-id="cjqjl3g5n000pszh8mlnatk96" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/技能drops/">技能drops</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-java反编译" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/02/java反编译/" class="article-date">
+  <time datetime="2019-01-02T05:51:11.000Z" itemprop="datePublished">2019-01-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/02/java反编译/">java反编译</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>一直使用jd-gui来的，不知怎么碰上了一个inner error，无法把源代码反编译出来。</p>
+<p>然后在eclipse里面安装了插件，配置之后能够反编译了，但是还是不能一次获取所有源代码，无法在项目中查询需要的代码。</p>
+<p>从<a href="https://varaneckas.com/jad/官网下载，然后使用命令" target="_blank" rel="external">https://varaneckas.com/jad/官网下载，然后使用命令</a><br>jad.exe -r -ff -d src -s java classes/<em>*/</em>.class</p>
+<p>获取全部class反编译的java，然后进一步查看。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/01/02/java反编译/" data-id="cjqjl4niy0000t8h8k9x0b97m" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/技能drops/">技能drops</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
   
     <article id="post-mybatis常见sql注入" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -108,7 +216,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/02/mybatis常见sql注入/" data-id="cjqenkuo1000k9wx73fcpppa3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/02/mybatis常见sql注入/" data-id="cjqjl3g5k000oszh8ai1edcid" class="article-share-link">分享</a>
       
       
       
@@ -155,7 +263,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/30/windows系统配置nginx-php/" data-id="cjqenkups00129wx735lpcow1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/30/windows系统配置nginx-php/" data-id="cjqjl3g6e0012szh8w2frh194" class="article-share-link">分享</a>
       
       
       
@@ -204,7 +312,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/14/zvuldrill靶场/" data-id="cjqenkupp000z9wx7kd98ldo0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/14/zvuldrill靶场/" data-id="cjqjl3g760017szh8kiaepm0g" class="article-share-link">分享</a>
       
       
       
@@ -263,7 +371,7 @@ pod &apos;libsodium&apos;, &apos;~&gt; 1.0.3&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/13/shadowsocks-ios-compile/" data-id="cjqenkuph000v9wx7777hppmy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/13/shadowsocks-ios-compile/" data-id="cjqjl3g5y000xszh85iszcez0" class="article-share-link">分享</a>
       
       
       
@@ -305,7 +413,7 @@ pod &apos;libsodium&apos;, &apos;~&gt; 1.0.3&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/12/shiyanbar-ctf-web/" data-id="cjqenkup1000r9wx7ghh1vaja" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/12/shiyanbar-ctf-web/" data-id="cjqjl3g5w000vszh8wifzb1ua" class="article-share-link">分享</a>
       
       
       
@@ -345,7 +453,7 @@ pod &apos;libsodium&apos;, &apos;~&gt; 1.0.3&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/11/google-hacking/" data-id="cjqenkunq000e9wx7vz3s1ge4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/11/google-hacking/" data-id="cjqjl3g56000iszh8trj54cic" class="article-share-link">分享</a>
       
       
       
@@ -385,7 +493,7 @@ pod &apos;libsodium&apos;, &apos;~&gt; 1.0.3&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/31/book-list/" data-id="cjqenkumw00059wx7by2u2r4o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/10/31/book-list/" data-id="cjqjl3g4o0009szh8btp946lj" class="article-share-link">分享</a>
       
       
       
@@ -462,7 +570,7 @@ pod &apos;libsodium&apos;, &apos;~&gt; 1.0.3&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/31/11-python-secuity-fun/" data-id="cjqenkumf00019wx7ogya3k91" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/10/31/11-python-secuity-fun/" data-id="cjqjl3g4a0004szh8c6ua7hit" class="article-share-link">分享</a>
       
       
       
@@ -476,105 +584,10 @@ pod &apos;libsodium&apos;, &apos;~&gt; 1.0.3&apos;
 
 
   
-    <article id="post-upload-labs" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/10/30/upload-labs/" class="article-date">
-  <time datetime="2018-10-30T06:59:22.000Z" itemprop="datePublished">2018-10-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/30/upload-labs/">upload-labs实验</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        <h2 id="0x00"><a href="#0x00" class="headerlink" title="0x00"></a>0x00</h2><p>好久之前就看到这个靶场了，这个周末才做了一下，其实看到靶场应该有单身狗看见苍老师的冲动才好。自己怼过来的经验才是经验，学到的东西才纯粹，现在的网络环境对于小白也是越来越不友好了，多找靶场练习，练一场有一场的受益。现在docker环境也大大改善了搭建环境的门槛，没有必要先变成运维工程师，然后再学安全了。</p>
-<p>关于这个靶场，github上readme已经说的很完善了，然后先知上几个相关的writeup也说的很清晰。<br>话说回来，简单说一下upload-labs这个靶场的环境，windows系统 + apache2 + php5.2.7，配置为module方式。</p>
-<h2 id="0x01-综述"><a href="#0x01-综述" class="headerlink" title="0x01 综述"></a>0x01 综述</h2><p>首先整理一下针对靶场的环境，有那些可以利用的点</p>
-<ul>
-<li>Windows系统文件的命名不区分大小写</li>
-<li>如果文件名中有特殊字符如点号，空格等将会忽略掉文件</li>
-<li>$:DATA 文件流的使用</li>
-<li></li>
-</ul>
-<h2 id="0x02-条分缕析"><a href="#0x02-条分缕析" class="headerlink" title="0x02 条分缕析"></a>0x02 条分缕析</h2><h3 id="webshell上传"><a href="#webshell上传" class="headerlink" title="webshell上传"></a>webshell上传</h3><h3 id="图片马上传"><a href="#图片马上传" class="headerlink" title="图片马上传"></a>图片马上传</h3><p>图片马上传的利用方式</p>
-<ul>
-<li>配合文件包含</li>
-</ul>
-<h2 id="0x03-安全的上传功能"><a href="#0x03-安全的上传功能" class="headerlink" title="0x03 安全的上传功能"></a>0x03 安全的上传功能</h2>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/30/upload-labs/" data-id="cjqenkupg000u9wx7dxmu0t4l" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/靶场/">靶场</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-picture-trojan-and-parsing-vuln" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/10/28/picture-trojan-and-parsing-vuln/" class="article-date">
-  <time datetime="2018-10-28T14:16:05.000Z" itemprop="datePublished">2018-10-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/28/picture-trojan-and-parsing-vuln/">picture-trojan-and-parsing-vuln</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- Table of Contents -->
-        
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/28/picture-trojan-and-parsing-vuln/" data-id="cjqenkuov000p9wx7l4b7jzbg" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next&raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页&raquo;</a>
   </nav>
 </section>
            
@@ -610,18 +623,26 @@ pod &apos;libsodium&apos;, &apos;~&gt; 1.0.3&apos;
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title tagcloud">Tag Cloud</h3>
+    <h3 class="widget-title tagcloud">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/python-技术/" style="font-size: 14px;">python 技术</a> <a href="/tags/安全/" style="font-size: 14px;">安全</a> <a href="/tags/工具/" style="font-size: 14px;">工具</a> <a href="/tags/漏洞复现/" style="font-size: 25px;">漏洞复现</a> <a href="/tags/编程/" style="font-size: 14px;">编程</a> <a href="/tags/读书笔记/" style="font-size: 14px;">读书笔记</a> <a href="/tags/靶场/" style="font-size: 25px;">靶场</a>
+      <a href="/tags/python-技术/" style="font-size: 14px;">python 技术</a> <a href="/tags/安全/" style="font-size: 14px;">安全</a> <a href="/tags/工具/" style="font-size: 14px;">工具</a> <a href="/tags/技能drops/" style="font-size: 25px;">技能drops</a> <a href="/tags/漏洞复现/" style="font-size: 25px;">漏洞复现</a> <a href="/tags/编程/" style="font-size: 14px;">编程</a> <a href="/tags/读书笔记/" style="font-size: 14px;">读书笔记</a> <a href="/tags/靶场/" style="font-size: 25px;">靶场</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title recent-posts">Recent Posts</h3>
+    <h3 class="widget-title recent-posts">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/01/05/mysql注释/">mysql注释</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/02/java反编译/">java反编译</a>
+          </li>
         
           <li>
             <a href="/2019/01/02/mybatis常见sql注入/">mybatis常见sql注入</a>
@@ -635,14 +656,6 @@ pod &apos;libsodium&apos;, &apos;~&gt; 1.0.3&apos;
             <a href="/2018/11/14/zvuldrill靶场/">zvuldrill靶场</a>
           </li>
         
-          <li>
-            <a href="/2018/11/13/shadowsocks-ios-compile/">ios翻墙客户端</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/12/shiyanbar-ctf-web/">shiyanbar_ctf_web</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -650,9 +663,9 @@ pod &apos;libsodium&apos;, &apos;~&gt; 1.0.3&apos;
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title archive">Archives</h3>
+    <h3 class="widget-title archive">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -692,10 +705,10 @@ pod &apos;libsodium&apos;, &apos;~&gt; 1.0.3&apos;
   <div class="outer">
     <div id="footer-left">
       &copy; 2014 - 2019 Fire Xun&nbsp;|&nbsp;
-      Theme by <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
     </div>
      <div id="footer-right">
-      Contact&nbsp;|&nbsp;xundidi@gmail.com
+      联系方式&nbsp;|&nbsp;xundidi@gmail.com
     </div>
   </div>
 </footer>

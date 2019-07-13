@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>读Web测试囧事 | 青衫磊落</title>
+  <title>java反编译 | 青衫磊落</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="看故事得来的经验是启发式的，远比灌输强得多，所以这本书一点都不囧。 先用一个表格整理一下书中用到的工具    章节 工具 作用 其他     安全性测试 Zap   性能测试 JMeter 缺点不会执行js 渲染html   chrome inspector 查看下载时间     WebPageTest 前端网页性能测试工具     pageSpeedInsights    自动化测试 capyb">
+  <meta name="description" content="一直使用jd-gui来的，不知怎么碰上了一个inner error，无法把源代码反编译出来。 然后在eclipse里面安装了插件，配置之后能够反编译了，但是还是不能一次获取所有源代码，无法在项目中查询需要的代码。 从https://varaneckas.com/jad/官网下载，然后使用命令jad.exe -r -ff -d src -s java classes/*/.class 获取全部cla">
+<meta name="keywords" content="技能drops">
 <meta property="og:type" content="article">
-<meta property="og:title" content="读Web测试囧事">
-<meta property="og:url" content="http://yoursite.com/2018/03/13/Web-Test/index.html">
+<meta property="og:title" content="java反编译">
+<meta property="og:url" content="http://yoursite.com/2019/01/02/java反编译/index.html">
 <meta property="og:site_name" content="青衫磊落">
-<meta property="og:description" content="看故事得来的经验是启发式的，远比灌输强得多，所以这本书一点都不囧。 先用一个表格整理一下书中用到的工具    章节 工具 作用 其他     安全性测试 Zap   性能测试 JMeter 缺点不会执行js 渲染html   chrome inspector 查看下载时间     WebPageTest 前端网页性能测试工具     pageSpeedInsights    自动化测试 capyb">
-<meta property="og:updated_time" content="2018-03-13T12:31:27.428Z">
+<meta property="og:description" content="一直使用jd-gui来的，不知怎么碰上了一个inner error，无法把源代码反编译出来。 然后在eclipse里面安装了插件，配置之后能够反编译了，但是还是不能一次获取所有源代码，无法在项目中查询需要的代码。 从https://varaneckas.com/jad/官网下载，然后使用命令jad.exe -r -ff -d src -s java classes/*/.class 获取全部cla">
+<meta property="og:updated_time" content="2019-01-05T14:50:59.586Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="读Web测试囧事">
-<meta name="twitter:description" content="看故事得来的经验是启发式的，远比灌输强得多，所以这本书一点都不囧。 先用一个表格整理一下书中用到的工具    章节 工具 作用 其他     安全性测试 Zap   性能测试 JMeter 缺点不会执行js 渲染html   chrome inspector 查看下载时间     WebPageTest 前端网页性能测试工具     pageSpeedInsights    自动化测试 capyb">
+<meta name="twitter:title" content="java反编译">
+<meta name="twitter:description" content="一直使用jd-gui来的，不知怎么碰上了一个inner error，无法把源代码反编译出来。 然后在eclipse里面安装了插件，配置之后能够反编译了，但是还是不能一次获取所有源代码，无法在项目中查询需要的代码。 从https://varaneckas.com/jad/官网下载，然后使用命令jad.exe -r -ff -d src -s java classes/*/.class 获取全部cla">
   
     <link rel="alternate" href="/atom.xml" title="青衫磊落" type="application/atom+xml">
   
@@ -71,10 +72,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Web-Test" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-java反编译" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/03/13/Web-Test/" class="article-date">
-  <time datetime="2018-03-13T12:27:50.000Z" itemprop="datePublished">2018-03-13</time>
+    <a href="/2019/01/02/java反编译/" class="article-date">
+  <time datetime="2019-01-02T05:51:11.000Z" itemprop="datePublished">2019-01-02</time>
 </a>
     
   </div>
@@ -85,7 +86,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      读Web测试囧事
+      java反编译
     </h1>
   
 
@@ -95,105 +96,20 @@
       
         <!-- Table of Contents -->
         
-        <p>看故事得来的经验是启发式的，远比灌输强得多，<br>所以这本书一点都不囧。</p>
-<p>先用一个表格整理一下书中用到的工具</p>
-<table>
-<thead>
-<tr>
-<th>章节</th>
-<th>工具</th>
-<th>作用</th>
-<th>其他</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>安全性测试</td>
-<td>Zap</td>
-</tr>
-<tr>
-<td>性能测试</td>
-<td>JMeter</td>
-<td>缺点不会执行js 渲染html</td>
-</tr>
-<tr>
-<td>chrome</td>
-<td>inspector</td>
-<td>查看下载时间</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>WebPageTest</td>
-<td>前端网页性能测试工具</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>pageSpeedInsights</td>
-<td></td>
-</tr>
-<tr>
-<td>自动化测试</td>
-<td>capybara</td>
-<td>自动化测试</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>cucumber</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>concordion</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>gauge</td>
-</tr>
-<tr>
-<td>移动测试</td>
-<td>omniture</td>
-<td>获取访问量 行为习惯 获取使用设备信息</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>google analytics</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>selenium</td>
-<td>Web应用程序验收测试工具</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>optimizely</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h3 id="个人感悟"><a href="#个人感悟" class="headerlink" title="个人感悟"></a>个人感悟</h3><p>我的主业是安全，但也从这本书中得到了很多有用的东西。</p>
-<p>在Web领域，安全测试就是测试大方向下一条小碎路。<br>做安全的也能从测试中寻找到灵感跟思路。</p>
-<p>普通Web测试，我们可以看作是一种拒绝服务的攻击。而安全渗透等，就是相当于普通测试，更多了一层利用。因此渗透的很多思路都值得从测试里面寻找，安全问题产生原因在本质上与测试发现的问题并无二意。</p>
-<p>测试发现的问题，如果能使用特殊的工具或者技术从中获益，就变成了一个安全问题。</p>
-<p>那可以这么说，安全问题变成了特殊技术，特殊工具的问题。</p>
-<p>很多工作都是很有意思的，只是自己把握不到有意思的那个点，无法从其中获得成就感。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">graph LR</div><div class="line">普通测试--&gt;安全测试</div><div class="line">安全测试--&gt;渗透利用</div></pre></td></tr></table></figure></p>
-<p>功能测试篇 书里面分为了技术、覆盖、测试实践、业务需求四个方面。功能测试这一部分较少用到工具。总而言之，这本书是很适合新手读的。</p>
+        <p>一直使用jd-gui来的，不知怎么碰上了一个inner error，无法把源代码反编译出来。</p>
+<p>然后在eclipse里面安装了插件，配置之后能够反编译了，但是还是不能一次获取所有源代码，无法在项目中查询需要的代码。</p>
+<p>从<a href="https://varaneckas.com/jad/官网下载，然后使用命令" target="_blank" rel="external">https://varaneckas.com/jad/官网下载，然后使用命令</a><br>jad.exe -r -ff -d src -s java classes/<em>*/</em>.class</p>
+<p>获取全部class反编译的java，然后进一步查看。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/13/Web-Test/" data-id="cjqjl3g4i0005szh8xuqkgncy" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2019/01/02/java反编译/" data-id="cjqjl4niy0000t8h8k9x0b97m" class="article-share-link">分享</a>
       
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/技能drops/">技能drops</a></li></ul>
+
     </footer>
   </div>
   
@@ -242,19 +158,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/03/22/spider-intro/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/01/05/mysql注释/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          Python小爬虫介绍
+          mysql注释
         
       </div>
     </a>
   
   
-    <a href="/2018/03/07/getcoin/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/01/02/mybatis常见sql注入/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">python编程之编写获取金币脚本</div>
+      <div class="article-nav-title">mybatis常见sql注入</div>
     </a>
   
 </nav>
@@ -284,24 +200,42 @@
 
   
     
-    <div class="widget-wrap">
+  
     
-      <div class="widget" id="toc-widget-fixed">
-      
-        <strong class="toc-title">文章目录</strong>
-        <div class="toc-widget-list">
-              <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#个人感悟"><span class="toc-number">1.</span> <span class="toc-text">个人感悟</span></a></li></ol>
-          </div>
-      </div>
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title recent-posts">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/01/05/mysql注释/">mysql注释</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/02/java反编译/">java反编译</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/02/mybatis常见sql注入/">mybatis常见sql注入</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/30/windows系统配置nginx-php/">windows系统配置nginx+php</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/14/zvuldrill靶场/">zvuldrill靶场</a>
+          </li>
+        
+      </ul>
     </div>
+  </div>
 
-  
-    
-
-  
-    
-  
-    
   
     
 
