@@ -63,7 +63,7 @@
       </h1>
       
         <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">书古人学问无遗力，少壮工夫老始成。纸上得来终觉浅，绝知此事要躬行</a>
+          <a href="/" id="subtitle">古人学问无遗力，少壮工夫老始成。纸上得来终觉浅，绝知此事要躬行</a>
         </h2>
       
     </div>
@@ -103,24 +103,32 @@
 <p>请注意，标准SQL在第二个破折号后不需要空格。MySQL使用空格来避免某些SQL构造的问题，例如：</p>
 <p>​    SELECT 10–1;</p>
 <p>该语句返回11.如果MySQL没有使用空格，它将返回10。</p>
-<p>‘#’单行注释。<br><code>SEL</code>ECT<code>​</code>lastName, firstName<code>`FROM</code><br>​    <code>employees</code><br><code>WHERE</code><br>​    reportsTo = 1002; # get subordinates of Diane`</p>
+<p>‘#’单行注释。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">select ``lastName, firstName``</div><div class="line"></div><div class="line">FROM employees</div><div class="line"></div><div class="line">WHERE</div><div class="line">​    reportsTo = 1002; # get subordinates of Diane</div><div class="line"></div></pre></td></tr></table></figure></p>
 <h5 id="多行注释"><a href="#多行注释" class="headerlink" title="多行注释"></a>多行注释</h5><p>C风格的评论/**/可以跨越多行。您可以使用此注释样式来记录SQL代码块。</p>
-<p>/<em><br>​    Get sales rep employees<br>​    that reports to Anthony
-</em>/</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">SELECT </div><div class="line">​    lastName, firstName</div><div class="line">FROM</div><div class="line">​    employees</div><div class="line">WHERE</div><div class="line">​    reportsTo = 1143</div><div class="line">​        AND jobTitle = &apos;Sales Rep&apos;;</div><div class="line"></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/*</div><div class="line">​    Get sales rep employees</div><div class="line">​    that reports to Anthony</div><div class="line">*/</div><div class="line"></div><div class="line">SELECT </div><div class="line">​    lastName, firstName</div><div class="line">FROM</div><div class="line">​    employees</div><div class="line">WHERE</div><div class="line">​    reportsTo = 1143</div><div class="line">​        AND jobTitle = &apos;Sales Rep&apos;;</div><div class="line"></div></pre></td></tr></table></figure>
 <p>请注意，MySQL不支持嵌套注释。</p>
 <h5 id="可执行注释"><a href="#可执行注释" class="headerlink" title="可执行注释"></a>可执行注释</h5><p>MySQL提供可执行注释以支持不同数据库之间的可移植性。这些注释允许您嵌入仅在MySQL中执行但不在其他数据库中执行的SQL代码。</p>
 <p>以下说明了可执行注释语法：</p>
-<p>​    /<em>! MySQL-specific code </em>/<br>例如，以下语句使用可执行注释：<br>​    SELECT 1 /<em>! +1 </em>/<br>该语句返回2而不是1.但是，如果在其他数据库系统中执行它，它将返回1。</p>
+<blockquote>
+<p>/<em>! MySQL-specific code </em>/</p>
+</blockquote>
+<p>例如，以下语句使用可执行注释：</p>
+<blockquote>
+<p>SELECT 1 /<em>! +1 </em>/</p>
+</blockquote>
+<p>该语句返回2而不是1.但是，如果在其他数据库系统中执行它，它将返回1。</p>
 <p>如果要从特定版本的MySQL执行注释，请使用以下语法：</p>
-<p>/<em>!##### MySQL-specific code </em>/<br>字符串’#####’表示可以执行注释的MySQL的最低版本。第一个＃是主要版本，例如5或8.第二个2号（##）是次要版本。最后2个是补丁级别。</p>
+<blockquote>
+<p>/<em>!##### MySQL-specific code </em>/</p>
+</blockquote>
+<p>字符串’#####’表示可以执行注释的MySQL的最低版本。第一个＃是主要版本，例如5或8.第二个2号（##）是次要版本。最后2个是补丁级别。</p>
 <p>例如，以下注释仅在MySQL 5.1.10或更高版本中可执行：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE t1 (</div><div class="line">​    k INT AUTO_INCREMENT,</div><div class="line">​    KEY (k)</div><div class="line">)  /*!50110 KEY_BLOCK_SIZE=1024; */</div><div class="line"></div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/05/mysql注释/" data-id="cjqjl3g5n000pszh8mlnatk96" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2019/01/05/mysql注释/" data-id="cjy46blaf000wjmx71c7ylkw7" class="article-share-link">分享</a>
       
       
       
@@ -161,12 +169,12 @@
         <p>一直使用jd-gui来的，不知怎么碰上了一个inner error，无法把源代码反编译出来。</p>
 <p>然后在eclipse里面安装了插件，配置之后能够反编译了，但是还是不能一次获取所有源代码，无法在项目中查询需要的代码。</p>
 <p>从<a href="https://varaneckas.com/jad/官网下载，然后使用命令" target="_blank" rel="external">https://varaneckas.com/jad/官网下载，然后使用命令</a><br>jad.exe -r -ff -d src -s java classes/<em>*/</em>.class</p>
-<p>获取全部class反编译的java，然后进一步查看。</p>
+<p> 一直使用jd-gui来的，不知怎么碰上了一个inner error，无法把源代码反编译出来。<br>  7<br>  8 然后在eclipse里面安装了插件，配置之后能够反编译了，但是还是不能一次获取所有&gt;    源代码，无法在项目中查询需要的代码。<br>  9<br> 10 从<a href="https://varaneckas.com/jad/官网下载，然后使用命令" target="_blank" rel="external">https://varaneckas.com/jad/官网下载，然后使用命令</a><br> 11 jad.exe -r -ff -d src -s java classes/<em>*/</em>.class<br> 12<br> 13 获取全部class反编译的java，然后进一步查看。获取全部class反编译的java，然后进一步查看。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/02/java反编译/" data-id="cjqjl4niy0000t8h8k9x0b97m" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2019/01/02/java反编译/" data-id="cjy46bl8h000jjmx730nm67va" class="article-share-link">分享</a>
       
       
       
@@ -216,7 +224,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/02/mybatis常见sql注入/" data-id="cjqjl3g5k000oszh8ai1edcid" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2019/01/02/mybatis常见sql注入/" data-id="cjy46bla5000qjmx7ofxs9ga3" class="article-share-link">分享</a>
       
       
       
@@ -263,7 +271,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/30/windows系统配置nginx-php/" data-id="cjqjl3g6e0012szh8w2frh194" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/11/30/windows系统配置nginx-php/" data-id="cjy46blap0016jmx7jzqd7gem" class="article-share-link">分享</a>
       
       
       
@@ -312,7 +320,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/14/zvuldrill靶场/" data-id="cjqjl3g760017szh8kiaepm0g" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/11/14/zvuldrill靶场/" data-id="cjy46blas0017jmx7i6czkuu7" class="article-share-link">分享</a>
       
       
       
@@ -371,7 +379,7 @@ pod &apos;libsodium&apos;, &apos;~&gt; 1.0.3&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/13/shadowsocks-ios-compile/" data-id="cjqjl3g5y000xszh85iszcez0" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/11/13/shadowsocks-ios-compile/" data-id="cjy46blae000vjmx7vah1wu1u" class="article-share-link">分享</a>
       
       
       
@@ -413,7 +421,7 @@ pod &apos;libsodium&apos;, &apos;~&gt; 1.0.3&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/12/shiyanbar-ctf-web/" data-id="cjqjl3g5w000vszh8wifzb1ua" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/11/12/shiyanbar-ctf-web/" data-id="cjy46blak0011jmx77199pqr3" class="article-share-link">分享</a>
       
       
       
@@ -453,7 +461,7 @@ pod &apos;libsodium&apos;, &apos;~&gt; 1.0.3&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/11/google-hacking/" data-id="cjqjl3g56000iszh8trj54cic" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/11/11/google-hacking/" data-id="cjy46bl92000ljmx7duqikg1e" class="article-share-link">分享</a>
       
       
       
@@ -493,7 +501,7 @@ pod &apos;libsodium&apos;, &apos;~&gt; 1.0.3&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/31/book-list/" data-id="cjqjl3g4o0009szh8btp946lj" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/10/31/book-list/" data-id="cjy46bl8d000hjmx7zykqfzya" class="article-share-link">分享</a>
       
       
       
@@ -570,7 +578,7 @@ pod &apos;libsodium&apos;, &apos;~&gt; 1.0.3&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/31/11-python-secuity-fun/" data-id="cjqjl3g4a0004szh8c6ua7hit" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/10/31/11-python-secuity-fun/" data-id="cjy46bl630000jmx7pfzno8lc" class="article-share-link">分享</a>
       
       
       
@@ -678,7 +686,19 @@ pod &apos;libsodium&apos;, &apos;~&gt; 1.0.3&apos;
         <ul>
             
             <li>
-                <a href="https://www.pa55w0rd.club/">南山</a>
+                <a href="https://www.pa55w0rd.online/">南山</a>
+            </li>
+            
+            <li>
+                <a href="http://www.weiho.xyz/">Weiho</a>
+            </li>
+            
+            <li>
+                <a href="http://www.mianhuage.com/">Cotton&#39;s Blog</a>
+            </li>
+            
+            <li>
+                <a href="http://pirogue.org/">pirogue</a>
             </li>
             
         </ul>
